@@ -1,0 +1,9 @@
+{
+  "name": "P7_MatthieuBoistard_frontEnd",
+  "version": "1.0.0",
+  "description": "P7 frontEnd",
+  "main": "index.js",
+  "repository": "https://github.com/matthieu661/P7_MatthieuBoistard_frontEnd.git",
+  "author": "matthieu661 <matthieu.bois@outlook.fr>",
+  "license": "MIT"
+}
