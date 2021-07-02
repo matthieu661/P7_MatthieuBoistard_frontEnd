@@ -1,5 +1,5 @@
 <template>
-  <div class="userRegister">
+  <div class="Parent">
     <h1>{{ msg }}</h1>
     <form @submit="sendform">
       <label for="Email">Adresse e-mail</label>
@@ -59,7 +59,7 @@ export default {
     },
     // recuperer les données du forme
     sendform(event) {
-      event.preventDefault(); //On gère nous-mêmes l'appel backend
+      event.preventDefault();
       const Email = document.getElementById("Email").value;
       const Mdp = document.getElementById("Mdp").value;
       const Username = document.getElementById("Username").value;
@@ -107,7 +107,7 @@ export default {
         fetch("http://localhost:3000/api/users/register", options)
           .then((res) => {
             if (res.status == 201) {
-              this.$router.push({ name: "login" });
+              this.$router.push({ name: "Thetest" });
             } else {
               res.json().then((json) => {
                 this.message = json.error;
