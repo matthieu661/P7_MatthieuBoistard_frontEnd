@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="Parent">
     <h1>{{ msg }}</h1>
     <div>
        <form></form>
