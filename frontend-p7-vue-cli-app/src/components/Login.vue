@@ -85,7 +85,7 @@ export default {
               };
               //En cas de réussite, on stocke les identifiants de connexion jusqu'à ce que l'utilisateur se déconnecte
               localStorage.setItem("userData", JSON.stringify(userData));
-              this.$router.push({ name: "Home" }); //Renvoi vers la page des posts
+              this.$router.push({ name: "Thetest3" }); //Renvoi vers la page des posts
             });
           } else {
             res.json().then((json) => {
@@ -103,4 +103,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.Parent {
+  display: flex;
+  flex-direction: column;
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+}
 </style>

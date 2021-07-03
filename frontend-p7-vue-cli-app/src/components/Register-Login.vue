@@ -4,7 +4,7 @@
     <div class="Connexion-User">
       <h1>{{ msg }}</h1>
       <div id=nav-user>
-        <router-link to="/login"><p>Login</p></router-link>
+        
         <router-link to="/register"><p>Register</p></router-link>
     </div>
       <div class=Connexion-User-active>
