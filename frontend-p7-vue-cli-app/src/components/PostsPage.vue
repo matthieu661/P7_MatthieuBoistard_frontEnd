@@ -32,7 +32,14 @@ export default {
   },
   methods: {
     //grab data to APi
+    /* goPost(x) {
+      console.log(x);
+      this.$router.push("Home");
+    },*/
+
     getAllPosts() {
+      const router = this.$router;
+
       const options = {
         method: "GET",
         headers: {
@@ -41,7 +48,7 @@ export default {
         },
       };
       fetch("http://localhost:3000/api/posts/getAllPost", options).then(
-        (res) => {
+        async (res) => {
           if (res.status == 200) {
             return res
               .json()
@@ -49,10 +56,18 @@ export default {
                 console.log(json.length);
                 for (let i = 0; i < json.length; i++) {
                   let newLi = document.createElement("li");
+                  //lien vers post
+                  // newLi.addEventListener('click',() => { this.goPost(json.id)});
+
+                  newLi.addEventListener("click", () => {
+                    router.push("Post/" + json[i].id);
+                  });
+                  document.getElementById("getAll").appendChild(newLi);
                   //cartes
                   let newCarte = document.createElement("div");
                   newCarte.classList.add("cartesPost");
                   newLi.appendChild(newCarte);
+
                   // content Post
                   let newContentBox = document.createElement("div");
                   newContentBox.classList.add("contentBox");
@@ -89,11 +104,9 @@ export default {
                     .split(" ")
                     .reverse()
                     .join("-");
-                  newTime.textContent = "Posté le : " + convertTime + " le " + convertDate;
+                  newTime.textContent =
+                    "Posté le : " + convertTime + " le " + convertDate;
                   newInfoBox.appendChild(newTime);
-
-
-                  document.getElementById("getAll").appendChild(newLi);
                 }
               })
               .catch(function (err) {
@@ -117,7 +130,7 @@ export default {
   },
 };
 </script>
-<style scoped >
+<style scoped lang="scss" >
 .Parent {
   width: 100%;
   height: auto;
@@ -130,15 +143,9 @@ ul {
   height: auto;
   margin-top: 20px;
   padding: 30px;
-}
-li {
-  display: flex;
-  width: auto;
-  height: auto;
-  background-color: red;
-}
-p {
-  color: red;
+  li {
+    display: flex;
+  }
 }
 </style>
 

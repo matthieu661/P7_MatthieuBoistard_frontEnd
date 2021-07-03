@@ -80,7 +80,7 @@ export default {
             res.json().then((json) => {
               const userData = {
                 id: json.id,
-                username: json.pseudo,
+                username: json.username,
                 token: json.token,
               };
               //En cas de réussite, on stocke les identifiants de connexion jusqu'à ce que l'utilisateur se déconnecte

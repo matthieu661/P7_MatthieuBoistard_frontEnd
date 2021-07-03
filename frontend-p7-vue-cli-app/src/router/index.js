@@ -5,6 +5,7 @@ import Connexion from '../views/Connexion.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Wall from '../views/Wall.vue'
+import Post from '../views/Post.vue'
 
 
 Vue.use(VueRouter)
@@ -43,10 +44,15 @@ const routes = [
     name: 'Thetest3',
     component: Wall
   },
+  {
+    path: '/post/:id',
+    name :'OnePost',
+    component : Post
+  }
 ]
 
 const router = new VueRouter({
-  /*mode :'history'*/
+  mode :'history',
   routes
 })
 

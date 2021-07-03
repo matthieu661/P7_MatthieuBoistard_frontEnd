@@ -1,7 +1,8 @@
 <template>
   <div class="home">
+    <h2> Acces rapide</h2>
     <Thetest/> 
-    <RegisterLogin msg="Connecte toi ! esclave "/>
+    <RegisterLogin msg=" Créer un compte :"/>
      
   </div>
 </template>
