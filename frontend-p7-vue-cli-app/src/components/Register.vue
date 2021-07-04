@@ -54,8 +54,11 @@ export default {
         document.getElementById("Email").checkValidity() &&
         document.getElementById("Mdp").checkValidity() &&
         document.getElementById("Username").checkValidity()
-      )
+      ){
         document.getElementById("Register").disabled = false;
+      }else {
+        document.getElementById("Register").disabled = true;
+    }
     },
     // recuperer les données du forme
     sendform(event) {

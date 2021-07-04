@@ -7,7 +7,7 @@ import Register from '../views/Register.vue'
 import Wall from '../views/Wall.vue'
 import Post from '../views/Post.vue'
 import GetOneUser from '../views/AccountView.vue'
-
+import PostCreatePost from '../views/CreatePost.vue'
 
 
 Vue.use(VueRouter)
@@ -55,6 +55,11 @@ const routes = [
     path: '/account/:id',
     name :'OneUser',
     component : GetOneUser
+  },
+  {
+    path: '/newPost',
+    name :'CreatePost',
+    component : PostCreatePost
   }
 ]
 

@@ -1,6 +1,8 @@
 <template>
   <div class="Post">
     <h1>This is Post page</h1>
+    <router-link to="/newPost">Nouveau message</router-link>
+    
     <PostsPage/>
   </div>
 </template>
