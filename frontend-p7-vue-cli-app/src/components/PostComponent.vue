@@ -51,7 +51,57 @@ export default {
                 
                         // STOP POUR LA NUIT..
                         // mémo : créer les div et afficher les infos via js (comme p5 et PostPageqf)
-                
+                let Box = document.getElementById('onePostBox')        
+               let newCarte = document.createElement("div");
+                  newCarte.classList.add("cartesPost");
+                  Box.appendChild(newCarte);
+                  
+
+                  // content Post
+                  let newContentBox = document.createElement("div");
+                  newContentBox.classList.add("contentBox");
+                  newCarte.appendChild(newContentBox);
+                  // H3 titre post
+                  let NewTitle = document.createElement("h3");
+                  let titleContent = json.post.title;
+                  NewTitle.textContent = titleContent
+                  newContentBox.appendChild(NewTitle)
+                  // post
+                  let newMessage = document.createElement("p");
+                  let messageContent = json.post.content;
+                  newMessage.textContent = messageContent;
+                  newContentBox.appendChild(newMessage);
+                  // content Info
+                  let newInfoBox = document.createElement("div");
+                  newCarte.appendChild(newInfoBox);
+                  // Username
+                  let newUsername = document.createElement("p");
+                  let usernameContent = json.post.userName;
+                  newUsername.textContent = usernameContent;
+                  newInfoBox.appendChild(newUsername);
+                  // date
+                  let newTime = document.createElement("p");
+                  let timeContent = json.post.createdAt;
+                  let convert = timeContent
+                    .replace("T", " ")
+                    .replace(".000Z", "")
+                    .split("-")
+                    .join(" ")
+                    .split(" ")
+                    .reverse()
+                    .join(" ");
+                  let convertTime = convert.split(" ", 1);
+                  let convertDate = timeContent
+                    .substr(0, 10)
+                    .replace("-", " ")
+                    .replace("-", " ")
+                    .split(" ")
+                    .reverse()
+                    .join("-");
+                  newTime.textContent =
+                    "Posté le : " + convertTime + " le " + convertDate;
+                  newInfoBox.appendChild(newTime); 
+
               })
               .catch(function (err) {
                 err;

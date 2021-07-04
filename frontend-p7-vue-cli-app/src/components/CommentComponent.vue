@@ -5,11 +5,10 @@
 </template>
 <script>
 export default {
-  name: "PostsPage",
+  name: "GetAllComment",
   props: {},
   data() {
     return {
-      test: ["a", "b", "c"], // a supp
       id: "",
       token: "",
       username: "",
@@ -37,8 +36,8 @@ export default {
       this.$router.push("Home");
     },*/
 
-    getAllPosts() {
-      const router = this.$router;
+    async getAllPosts() {
+     // const router = this.$router;
 
       const options = {
         method: "GET",
@@ -47,21 +46,28 @@ export default {
           Authorization: `Bearer ${this.token}`,
         },
       };
-      fetch("http://localhost:3000/api/posts/getAllPost", options).then(
-        async (res) => {
-          if (res.status == 200) {
-            return res
-              .json()
-              .then(function (json) {
-                console.log(json.length);
-                for (let i = 0; i < json.length; i++) {
+      const paramsId = window.location.href.substr(
+        window.location.href.lastIndexOf("/") + 1
+      );
+       fetch(
+        `http://localhost:3000/api/posts/getOnePost/${paramsId}`,
+        options
+      ).then((res) => {
+        if (res.status == 200) {
+          return res
+            .json()
+            .then(function (json) {
+              //console.log(json.comment);
+              let data =  json.comment
+              console.log(data.length)
+                for (let i = 0; i < data.length; i++) {
                   let newLi = document.createElement("li");
-                  //lien vers post
+                  //lien vers post ( peut etre utils plus tard)
                   // newLi.addEventListener('click',() => { this.goPost(json.id)});
 
-                  newLi.addEventListener("click", () => {
+                  /*newLi.addEventListener("click", () => {
                     router.push("Post/" + json[i].id);
-                  });
+                  });*/
                   document.getElementById("getAll").appendChild(newLi);
                   //cartes
                   let newCarte = document.createElement("div");
@@ -73,14 +79,10 @@ export default {
                   let newContentBox = document.createElement("div");
                   newContentBox.classList.add("contentBox");
                   newCarte.appendChild(newContentBox);
-                  // H3 titre post
-                  let NewTitle = document.createElement("h3");
-                  let titleContent = json[i].title;
-                  NewTitle.textContent = titleContent
-                  newContentBox.appendChild(NewTitle)
-                  // post
+                  
+                  // comment
                   let newMessage = document.createElement("p");
-                  let messageContent = json[i].content;
+                  let messageContent = data[i].postReply;
                   newMessage.textContent = messageContent;
                   newContentBox.appendChild(newMessage);
                   // content Info
@@ -88,31 +90,10 @@ export default {
                   newCarte.appendChild(newInfoBox);
                   // Username
                   let newUsername = document.createElement("p");
-                  let usernameContent = json[i].userName;
+                  let usernameContent = data[i].username;
                   newUsername.textContent = usernameContent;
                   newInfoBox.appendChild(newUsername);
-                  // date
-                  let newTime = document.createElement("p");
-                  let timeContent = json[i].createdAt;
-                  let convert = timeContent
-                    .replace("T", " ")
-                    .replace(".000Z", "")
-                    .split("-")
-                    .join(" ")
-                    .split(" ")
-                    .reverse()
-                    .join(" ");
-                  let convertTime = convert.split(" ", 1);
-                  let convertDate = timeContent
-                    .substr(0, 10)
-                    .replace("-", " ")
-                    .replace("-", " ")
-                    .split(" ")
-                    .reverse()
-                    .join("-");
-                  newTime.textContent =
-                    "Posté le : " + convertTime + " le " + convertDate;
-                  newInfoBox.appendChild(newTime);
+                
                 }
               })
               .catch(function (err) {
@@ -155,4 +136,3 @@ ul {
   }
 }
 </style>
-

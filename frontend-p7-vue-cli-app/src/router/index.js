@@ -8,6 +8,7 @@ import Wall from '../views/Wall.vue'
 import Post from '../views/Post.vue'
 
 
+
 Vue.use(VueRouter)
 
 const routes = [
