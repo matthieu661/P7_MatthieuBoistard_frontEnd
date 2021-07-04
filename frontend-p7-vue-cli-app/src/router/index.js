@@ -8,6 +8,7 @@ import Wall from '../views/Wall.vue'
 import Post from '../views/Post.vue'
 import GetOneUser from '../views/AccountView.vue'
 import PostCreatePost from '../views/CreatePost.vue'
+import CommentCreateComment from '../views/CreateComment.vue'
 
 
 Vue.use(VueRouter)
@@ -60,6 +61,11 @@ const routes = [
     path: '/newPost',
     name :'CreatePost',
     component : PostCreatePost
+  },
+  {
+    path: '/post/newComment/:id',
+    name :'CreateComment',
+    component : CommentCreateComment
   }
 ]
 

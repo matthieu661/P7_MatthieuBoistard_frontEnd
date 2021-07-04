@@ -1,7 +1,10 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <h4>reply</h4>
     <div id="onePostBox"></div>
+    <h4 id="Reply">REPONDRE</h4>
+
   </div>
 </template>
 
@@ -15,6 +18,11 @@ export default {
     return {};
   },
   mounted() {
+    const router = this.$router
+    const paramsId = window.location.href.substr(
+        window.location.href.lastIndexOf("/") + 1
+      );
+
     const user = JSON.parse(localStorage.getItem("userData"));
     if (user) {
       // la recup les username+token dans le localstorage
@@ -22,12 +30,22 @@ export default {
       this.token = user.token;
       //invoque la recup des posts et la creation des li
       this.getOnePost();
+
+
+      let Active = document.getElementById("Reply");
+      Active.addEventListener("click", () => {
+      router.push(`newComment/${paramsId}`)})
+
+
+
     } else {
       // a changer juste pour test
       return console.log("Probleme localstorage no data");
     }
   },
   methods: {
+
+
     getOnePost() {
       const options = {
         method: "GET",
@@ -116,6 +134,7 @@ export default {
       });
     },
   },
+  
 };
 </script>
 

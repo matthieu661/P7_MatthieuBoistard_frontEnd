@@ -2,6 +2,7 @@
   <div class="Post">
     <h1>This is Post page</h1>
     <OnePost/>
+     
     <GetAllComment/>
     
   </div>

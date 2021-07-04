@@ -48,7 +48,7 @@ export default {
         },
       };
       fetch("http://localhost:3000/api/posts/getAllPost", options).then(
-        async (res) => {
+         (res) => {
           if (res.status == 200) {
             return res
               .json()
@@ -56,6 +56,7 @@ export default {
                 console.log(json.length);
                 for (let i = 0; i < json.length; i++) {
                   let newLi = document.createElement("li");
+                  newLi.classList.add('superLi')
                   //lien vers post
                   // newLi.addEventListener('click',() => { this.goPost(json.id)});
 
@@ -125,8 +126,8 @@ export default {
       );
     },
 
-    async returnAllPost() {
-      await this.getAllPosts();
+     returnAllPost() {
+      this.getAllPosts();
 
       //console.log(typeof(dataPost));
       // for (let i = 0; i < dataPost.length; i++) {
@@ -149,10 +150,14 @@ ul {
   height: auto;
   margin-top: 20px;
   padding: 30px;
-  &__li {
+  
+  
+}
+
+</style>
+<style>
+.superLi {
     display: flex;
     background-color: red;
-  }
-}
-</style>
+  }</style>
 
