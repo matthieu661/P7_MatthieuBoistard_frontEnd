@@ -1,13 +1,15 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <div id="onePostBox"></div>
+    <router-link to="/wall">retourner sur le " The Wall " </router-link> 
+    <h2>votre compte utilisateur</h2>
+    <div id="oneUserBox"></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "OnePost",
+  name: "OneUser",
   props: {
     msg: String,
   },
@@ -18,17 +20,19 @@ export default {
     const user = JSON.parse(localStorage.getItem("userData"));
     if (user) {
       // la recup les username+token dans le localstorage
+      this.id = user.id;
       this.username = user.username;
       this.token = user.token;
+      
       //invoque la recup des posts et la creation des li
-      this.getOnePost();
+      this.getOneUser();
     } else {
       // a changer juste pour test
       return console.log("Probleme localstorage no data");
     }
   },
   methods: {
-    getOnePost() {
+    getOneUser() {
       const options = {
         method: "GET",
         headers: {
@@ -36,27 +40,27 @@ export default {
           Authorization: `Bearer ${this.token}`,
         },
       };
-      const paramsId = window.location.href.substr(
-        window.location.href.lastIndexOf("/") + 1
-      );
+      const myId = this.id;
+      console.log(myId)
+      
 
       fetch(
-        `http://localhost:3000/api/posts/getOnePost/${paramsId}`,
+        `http://localhost:3000/api/users/getOneUser/${myId}`,
         options
       ).then((res) => {
         if (res.status == 200) {
           return res
             .json()
             .then(function (json) {
-              console.log(json.post.title);
-
+              
+              console.log(json)
               // la requete passe
 
               // STOP POUR LA NUIT..
               // mémo : créer les div et afficher les infos via js (comme p5 et PostPageqf)
-              let Box = document.getElementById("onePostBox");
+              let Box = document.getElementById("oneUserBox");
               let newCarte = document.createElement("div");
-              newCarte.classList.add("cartesPost");
+              newCarte.classList.add("cartesUser");
               Box.appendChild(newCarte);
 
               // content Post
@@ -65,12 +69,12 @@ export default {
               newCarte.appendChild(newContentBox);
               // H3 titre post
               let NewTitle = document.createElement("h3");
-              let titleContent = json.post.title;
+              let titleContent = json.username;
               NewTitle.textContent = titleContent;
               newContentBox.appendChild(NewTitle);
               // post
               let newMessage = document.createElement("p");
-              let messageContent = json.post.content;
+              let messageContent = json.email;
               newMessage.textContent = messageContent;
               newContentBox.appendChild(newMessage);
               // content Info
@@ -78,7 +82,7 @@ export default {
               newCarte.appendChild(newInfoBox);
               // Username
               let newUsername = document.createElement("p");
-              let usernameContent = json.post.userName;
+              let usernameContent = json.BIO;
               newUsername.textContent = usernameContent;
               newInfoBox.appendChild(newUsername);
               // date

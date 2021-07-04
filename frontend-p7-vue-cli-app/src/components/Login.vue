@@ -79,10 +79,11 @@ export default {
           if (res.status == 200) {
             res.json().then((json) => {
               const userData = {
-                id: json.id,
+                id: json.userId,
                 username: json.username,
                 token: json.token,
               };
+              console.log(userData.id)
               //En cas de réussite, on stocke les identifiants de connexion jusqu'à ce que l'utilisateur se déconnecte
               localStorage.setItem("userData", JSON.stringify(userData));
               this.$router.push({ name: "Thetest3" }); //Renvoi vers la page des posts

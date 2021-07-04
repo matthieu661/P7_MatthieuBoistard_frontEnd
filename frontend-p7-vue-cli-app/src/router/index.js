@@ -6,6 +6,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Wall from '../views/Wall.vue'
 import Post from '../views/Post.vue'
+import GetOneUser from '../views/AccountView.vue'
 
 
 
@@ -49,6 +50,11 @@ const routes = [
     path: '/post/:id',
     name :'OnePost',
     component : Post
+  },
+  {
+    path: '/account/:id',
+    name :'OneUser',
+    component : GetOneUser
   }
 ]
 
