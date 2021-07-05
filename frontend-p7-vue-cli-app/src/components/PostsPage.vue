@@ -38,7 +38,7 @@ export default {
     },*/
 
     getAllPosts() {
-      const router = this.$router;
+      
 
       const options = {
         method: "GET",
@@ -47,78 +47,11 @@ export default {
           Authorization: `Bearer ${this.token}`,
         },
       };
-      fetch("http://localhost:3000/api/posts/getAllPost", options).then(
-         (res) => {
+      return fetch("http://localhost:3000/api/posts/getAllPost", options).then(
+        (res) => {
           if (res.status == 200) {
-            return res
-              .json()
-              .then(function (json) {
-                console.log(json.length);
-                for (let i = 0; i < json.length; i++) {
-                  let newLi = document.createElement("li");
-                  newLi.classList.add('superLi')
-                  //lien vers post
-                  // newLi.addEventListener('click',() => { this.goPost(json.id)});
-
-                  newLi.addEventListener("click", () => {
-                    router.push("Post/" + json[i].id);
-                  });
-                  document.getElementById("getAll").appendChild(newLi);
-                  //cartes
-                  let newCarte = document.createElement("div");
-                  newCarte.classList.add("cartesPost");
-                  newLi.appendChild(newCarte);
-                  
-
-                  // content Post
-                  let newContentBox = document.createElement("div");
-                  newContentBox.classList.add("contentBox");
-                  newCarte.appendChild(newContentBox);
-                  // H3 titre post
-                  let NewTitle = document.createElement("h3");
-                  let titleContent = json[i].title;
-                  NewTitle.textContent = titleContent
-                  newContentBox.appendChild(NewTitle)
-                  // post
-                  let newMessage = document.createElement("p");
-                  let messageContent = json[i].content;
-                  newMessage.textContent = messageContent;
-                  newContentBox.appendChild(newMessage);
-                  // content Info
-                  let newInfoBox = document.createElement("div");
-                  newCarte.appendChild(newInfoBox);
-                  // Username
-                  let newUsername = document.createElement("p");
-                  let usernameContent = json[i].userName;
-                  newUsername.textContent = usernameContent;
-                  newInfoBox.appendChild(newUsername);
-                  // date
-                  let newTime = document.createElement("p");
-                  let timeContent = json[i].createdAt;
-                  let convert = timeContent
-                    .replace("T", " ")
-                    .replace(".000Z", "")
-                    .split("-")
-                    .join(" ")
-                    .split(" ")
-                    .reverse()
-                    .join(" ");
-                  let convertTime = convert.split(" ", 1);
-                  let convertDate = timeContent
-                    .substr(0, 10)
-                    .replace("-", " ")
-                    .replace("-", " ")
-                    .split(" ")
-                    .reverse()
-                    .join("-");
-                  newTime.textContent =
-                    "Posté le : " + convertTime + " le " + convertDate;
-                  newInfoBox.appendChild(newTime);
-                }
-              })
-              .catch(function (err) {
-                err;
-              });
+            return res.json()
+            
           } else {
             return res.status(8000);
           }
@@ -126,13 +59,72 @@ export default {
       );
     },
 
-     returnAllPost() {
-      this.getAllPosts();
+    returnAllPost() {
+      this.getAllPosts().then((json) => {
 
-      //console.log(typeof(dataPost));
-      // for (let i = 0; i < dataPost.length; i++) {
-      //  let data = data.push(dataPost);
-      // }
+        //const router = this.$router;
+
+        for (let i = 0; i < json.length; i++) {
+          let newLi = document.createElement("li");
+          newLi.classList.add("superLi");
+          //lien vers post
+          // newLi.addEventListener('click',() => { this.goPost(json.id)});
+
+          newLi.addEventListener("click", () => {
+            this.$router.push("Post/" + json[i].id);
+          });
+          document.getElementById("getAll").appendChild(newLi);
+          //cartes
+          let newCarte = document.createElement("div");
+          newCarte.classList.add("cartesPost");
+          newLi.appendChild(newCarte);
+
+          // content Post
+          let newContentBox = document.createElement("div");
+          newContentBox.classList.add("contentBox");
+          newCarte.appendChild(newContentBox);
+          // H3 titre post
+          let NewTitle = document.createElement("h3");
+          let titleContent = json[i].title;
+          NewTitle.textContent = titleContent;
+          newContentBox.appendChild(NewTitle);
+          // post
+          let newMessage = document.createElement("p");
+          let messageContent = json[i].content;
+          newMessage.textContent = messageContent;
+          newContentBox.appendChild(newMessage);
+          // content Info
+          let newInfoBox = document.createElement("div");
+          newCarte.appendChild(newInfoBox);
+          // Username
+          let newUsername = document.createElement("p");
+          let usernameContent = json[i].userName;
+          newUsername.textContent = usernameContent;
+          newInfoBox.appendChild(newUsername);
+          // date
+          let newTime = document.createElement("p");
+          let timeContent = json[i].createdAt;
+          let convert = timeContent
+            .replace("T", " ")
+            .replace(".000Z", "")
+            .split("-")
+            .join(" ")
+            .split(" ")
+            .reverse()
+            .join(" ");
+          let convertTime = convert.split(" ", 1);
+          let convertDate = timeContent
+            .substr(0, 10)
+            .replace("-", " ")
+            .replace("-", " ")
+            .split(" ")
+            .reverse()
+            .join("-");
+          newTime.textContent =
+            "Posté le : " + convertTime + " le " + convertDate;
+          newInfoBox.appendChild(newTime);
+        }
+      });
     },
   },
 };
@@ -150,14 +142,12 @@ ul {
   height: auto;
   margin-top: 20px;
   padding: 30px;
-  
-  
 }
-
 </style>
 <style>
 .superLi {
-    display: flex;
-    background-color: red;
-  }</style>
+  display: flex;
+  background-color: red;
+}
+</style>
 

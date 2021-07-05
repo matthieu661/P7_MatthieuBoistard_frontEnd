@@ -23,21 +23,16 @@ export default {
       this.username = user.username;
       this.token = user.token;
       //invoque la recup des posts et la creation des li
-      this.returnAllPost();
+      this.returnAllComment();
     } else {
       // a changer juste pour test
       return console.log("Probleme localstorage no data");
     }
   },
   methods: {
-    //grab data to APi
-    /* goPost(x) {
-      console.log(x);
-      this.$router.push("Home");
-    },*/
 
-    async getAllPosts() {
-     // const router = this.$router;
+    getAllComment() {
+      // const router = this.$router;
 
       const options = {
         method: "GET",
@@ -49,70 +44,50 @@ export default {
       const paramsId = window.location.href.substr(
         window.location.href.lastIndexOf("/") + 1
       );
-       fetch(
+      return fetch(
         `http://localhost:3000/api/posts/getOnePost/${paramsId}`,
         options
       ).then((res) => {
         if (res.status == 200) {
-          return res
-            .json()
-            .then(function (json) {
-              //console.log(json.comment);
-              let data =  json.comment
-              console.log(data.length)
-                for (let i = 0; i < data.length; i++) {
-                  let newLi = document.createElement("li");
-                  //lien vers post ( peut etre utils plus tard)
-                  // newLi.addEventListener('click',() => { this.goPost(json.id)});
-
-                  /*newLi.addEventListener("click", () => {
-                    router.push("Post/" + json[i].id);
-                  });*/
-                  document.getElementById("getAll").appendChild(newLi);
-                  //cartes
-                  let newCarte = document.createElement("div");
-                  newCarte.classList.add("cartesPost");
-                  newLi.appendChild(newCarte);
-                  
-
-                  // content Post
-                  let newContentBox = document.createElement("div");
-                  newContentBox.classList.add("contentBox");
-                  newCarte.appendChild(newContentBox);
-                  
-                  // comment
-                  let newMessage = document.createElement("p");
-                  let messageContent = data[i].postReply;
-                  newMessage.textContent = messageContent;
-                  newContentBox.appendChild(newMessage);
-                  // content Info
-                  let newInfoBox = document.createElement("div");
-                  newCarte.appendChild(newInfoBox);
-                  // Username
-                  let newUsername = document.createElement("p");
-                  let usernameContent = data[i].username;
-                  newUsername.textContent = usernameContent;
-                  newInfoBox.appendChild(newUsername);
-                
-                }
-              })
-              .catch(function (err) {
-                err;
-              });
-          } else {
-            return res.status(8000);
-          }
+          return res.json();
+        } else {
+          return res.status(8000);
         }
-      );
+      });
     },
 
-    async returnAllPost() {
-      await this.getAllPosts();
+    async returnAllComment() {
+      await this.getAllComment().then((json) => {
+        let data = json.comment;
+        console.log(data.length);
+        for (let i = 0; i < data.length; i++) {
 
-      //console.log(typeof(dataPost));
-      // for (let i = 0; i < dataPost.length; i++) {
-      //  let data = data.push(dataPost);
-      // }
+          // creation de la LI
+          let newLi = document.createElement("li");
+          document.getElementById("getAll").appendChild(newLi);
+          //cartes
+          let newCarte = document.createElement("div");
+          newCarte.classList.add("cartesPost");
+          newLi.appendChild(newCarte);
+          // content Post
+          let newContentBox = document.createElement("div");
+          newContentBox.classList.add("contentBox");
+          newCarte.appendChild(newContentBox);
+          // comment
+          let newMessage = document.createElement("p");
+          let messageContent = data[i].postReply;
+          newMessage.textContent = messageContent;
+          newContentBox.appendChild(newMessage);
+          // content Info
+          let newInfoBox = document.createElement("div");
+          newCarte.appendChild(newInfoBox);
+          // Username
+          let newUsername = document.createElement("p");
+          let usernameContent = data[i].username;
+          newUsername.textContent = usernameContent;
+          newInfoBox.appendChild(newUsername);
+        }
+      });
     },
   },
 };

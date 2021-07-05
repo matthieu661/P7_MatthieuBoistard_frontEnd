@@ -81,7 +81,7 @@ export default {
           .then (res => {
             if (res.status == 201) {res.json ()
               .then (() => {
-                this.$router.push({ name: 'Thetest3' }); //En cas de succès, on est renvoyé sur la page des posts
+                this.$router.push({ name: 'OnePost' }); //En cas de succès, on est renvoyé sur la page des posts
               }
             )}
             else {res.json ()
