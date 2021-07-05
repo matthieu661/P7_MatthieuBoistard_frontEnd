@@ -50,7 +50,6 @@ export default {
     },
     sendForm(event) {
       event.preventDefault();
-
       let Email = document.getElementById("Email").value;
       let Mdp = document.getElementById("Mdp").value;
       const User = {
@@ -84,9 +83,8 @@ export default {
                 token: json.token,
               };
               console.log(userData.id)
-              //En cas de réussite, on stocke les identifiants de connexion jusqu'à ce que l'utilisateur se déconnecte
               localStorage.setItem("userData", JSON.stringify(userData));
-              this.$router.push({ name: "Thetest3" }); //Renvoi vers la page des posts
+              this.$router.push({ name: "Thetest3" }); 
             });
           } else {
             res.json().then((json) => {

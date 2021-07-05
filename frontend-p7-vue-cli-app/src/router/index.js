@@ -9,6 +9,7 @@ import Post from '../views/Post.vue'
 import GetOneUser from '../views/AccountView.vue'
 import PostCreatePost from '../views/CreatePost.vue'
 import CommentCreateComment from '../views/CreateComment.vue'
+import ModifyUserView from '../views/ModifyUserView.vue'
 
 
 Vue.use(VueRouter)
@@ -66,7 +67,13 @@ const routes = [
     path: '/post/newComment/:id',
     name :'CreateComment',
     component : CommentCreateComment
-  }
+  },
+  {
+    path: '/account/:id/modifyUser',
+    name :'modifyUserComponent',
+    component : ModifyUserView
+  },
+
 ]
 
 const router = new VueRouter({

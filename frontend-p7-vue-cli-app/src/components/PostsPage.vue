@@ -31,15 +31,8 @@ export default {
     }
   },
   methods: {
-    //grab data to APi
-    /* goPost(x) {
-      console.log(x);
-      this.$router.push("Home");
-    },*/
 
     getAllPosts() {
-      
-
       const options = {
         method: "GET",
         headers: {
@@ -51,7 +44,6 @@ export default {
         (res) => {
           if (res.status == 200) {
             return res.json()
-            
           } else {
             return res.status(8000);
           }
@@ -61,15 +53,10 @@ export default {
 
     returnAllPost() {
       this.getAllPosts().then((json) => {
-
         //const router = this.$router;
-
         for (let i = 0; i < json.length; i++) {
           let newLi = document.createElement("li");
           newLi.classList.add("superLi");
-          //lien vers post
-          // newLi.addEventListener('click',() => { this.goPost(json.id)});
-
           newLi.addEventListener("click", () => {
             this.$router.push("Post/" + json[i].id);
           });
@@ -78,7 +65,6 @@ export default {
           let newCarte = document.createElement("div");
           newCarte.classList.add("cartesPost");
           newLi.appendChild(newCarte);
-
           // content Post
           let newContentBox = document.createElement("div");
           newContentBox.classList.add("contentBox");

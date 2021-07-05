@@ -4,6 +4,11 @@
     <router-link to="/wall">retourner sur le " The Wall " </router-link>
     <h2>votre compte utilisateur</h2>
     <div id="oneUserBox"></div>
+    <div id="action">
+      <button id="modifyUser" type="button">modifer votre Profile</button> |
+      <button id="deleteUser" type="button">supprimer votre Profile</button>
+
+    </div>
   </div>
 </template>
 
@@ -24,6 +29,11 @@ export default {
       this.username = user.username;
       this.token = user.token;
 
+      // init le btn1
+      let btnModify = document.getElementById("modifyUser");
+      btnModify.addEventListener("click", () => {
+            this.$router.push("/account/:id/modifyUser");
+          });
       //invoque la recup des posts et la creation des li
       this.returnInfoUser();
     } else {
@@ -43,8 +53,10 @@ export default {
       const myId = this.id;
       console.log(myId);
 
-      return fetch(`http://localhost:3000/api/users/getOneUser/${myId}`,options).then(
-         (res) => {
+      return fetch(
+        `http://localhost:3000/api/users/getOneUser/${myId}`,
+        options
+      ).then((res) => {
         if (res.status == 200) {
           return res.json();
         } else {
@@ -53,43 +65,38 @@ export default {
       });
     },
     returnInfoUser() {
-    this.getOneUser().then((json) => {
-      console.log(json);
-      // la requete passe
-      let Box = document.getElementById("oneUserBox");
-      let newCarte = document.createElement("div");
-      newCarte.classList.add("cartesUser");
-      Box.appendChild(newCarte);
-      // content Post
-      let newContentBox = document.createElement("div");
-      newContentBox.classList.add("contentBox");
-      newCarte.appendChild(newContentBox);
-      // H3 titre post
-      let NewTitle = document.createElement("h3");
-      let titleContent = json.username;
-      NewTitle.textContent = titleContent;
-      newContentBox.appendChild(NewTitle);
-      // post
-      let newMessage = document.createElement("p");
-      let messageContent = json.email;
-      newMessage.textContent = messageContent;
-      newContentBox.appendChild(newMessage);
-      // content Info
-      let newInfoBox = document.createElement("div");
-      newCarte.appendChild(newInfoBox);
-      // Username
-      let newUsername = document.createElement("p");
-      let usernameContent = json.BIO;
-      newUsername.textContent = usernameContent;
-      newInfoBox.appendChild(newUsername);
-    });
+      this.getOneUser().then((json) => {
+        console.log(json);
+        // la requete passe
+        let Box = document.getElementById("oneUserBox");
+        let newCarte = document.createElement("div");
+        newCarte.classList.add("cartesUser");
+        Box.appendChild(newCarte);
+        // content Post
+        let newContentBox = document.createElement("div");
+        newContentBox.classList.add("contentBox");
+        newCarte.appendChild(newContentBox);
+        // H3 titre post
+        let NewTitle = document.createElement("h3");
+        let titleContent = json.username;
+        NewTitle.textContent = titleContent;
+        newContentBox.appendChild(NewTitle);
+        // post
+        let newMessage = document.createElement("p");
+        let messageContent = json.email;
+        newMessage.textContent = messageContent;
+        newContentBox.appendChild(newMessage);
+        // content Info
+        let newInfoBox = document.createElement("div");
+        newCarte.appendChild(newInfoBox);
+        // Username
+        let newBio = document.createElement("p");
+        let userBioContent = json.BIO;
+        newBio.textContent = userBioContent;
+        newInfoBox.appendChild(newBio);
+      });
+    },
   },
-
-
-  },
-
-  
-
 };
 </script>
 
