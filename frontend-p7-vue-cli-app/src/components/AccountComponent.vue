@@ -34,6 +34,11 @@ export default {
       btnModify.addEventListener("click", () => {
             this.$router.push("/account/:id/modifyUser");
           });
+      // init bnt2
+      let btnDelete = document.getElementById("deleteUser");
+      btnDelete.addEventListener("click", () => {
+            this.deleteOneUser();
+          });
       //invoque la recup des posts et la creation des li
       this.returnInfoUser();
     } else {
@@ -42,6 +47,28 @@ export default {
     }
   },
   methods: {
+    deleteOneUser(){
+      const options = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          Authorization: `Bearer ${this.token}`,
+        },
+      };
+      return fetch(
+        "http://localhost:3000/api/users/deleteUser/",
+        options
+      ).then((res) => {
+        if ((res.status == 200)) {
+          alert("Adios amigos");
+          this.$router.push({ name: 'Home' });
+          //localStorage.clear();
+        } else {
+          return res.status(8000);
+        }
+      });
+
+    },
     getOneUser() {
       const options = {
         method: "GET",
