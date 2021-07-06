@@ -5,5 +5,8 @@
   "main": "index.js",
   "repository": "https://github.com/matthieu661/P7_MatthieuBoistard_frontEnd.git",
   "author": "matthieu661 <matthieu.bois@outlook.fr>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "vue-simple-alert": "^1.1.1"
+  }
 }

@@ -10,7 +10,8 @@ import GetOneUser from '../views/AccountView.vue'
 import PostCreatePost from '../views/CreatePost.vue'
 import CommentCreateComment from '../views/CreateComment.vue'
 import ModifyUserView from '../views/ModifyUserView.vue'
-
+import ModifyPostView from '../views/ModifyPostView.vue'
+import ModifyCommentView from '../views/ModifyCommentView'
 
 Vue.use(VueRouter)
 
@@ -72,6 +73,16 @@ const routes = [
     path: '/account/:id/modifyUser',
     name :'modifyUserComponent',
     component : ModifyUserView
+  },
+  {
+    path: '/post/modifyPost/:id',
+    name :'modifyPostComponent',
+    component : ModifyPostView
+  },
+  {
+    path: '/post/&:id&/modifyComment/:id',
+    name :'modifyCommentComponent',
+    component : ModifyCommentView
   },
 
 ]

@@ -4,12 +4,16 @@
     <h4>reply</h4>
     <div id="onePostBox"></div>
     <h4 id="Reply">Reply this post</h4>
+    <div id="action">
+      <button id="modifyPost" type="button">modifer votre Post</button> |
+      <button id="deletePost" type="button" >supprimer votre Post</button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "OnePost",
+  name: "ModifyPost",
   props: {
     msg: String,
   },
@@ -25,6 +29,7 @@ export default {
     const user = JSON.parse(localStorage.getItem("userData"));
     if (user) {
       // la recup les username+token dans le localstorage
+      this.id = user.id;
       this.username = user.username;
       this.token = user.token;
       //invoque la recup des posts et la creation des li
@@ -37,8 +42,52 @@ export default {
       // a changer juste pour test
       return console.log("Probleme localstorage no data");
     }
+     // init le btn1
+      let btnModify = document.getElementById("modifyPost");
+      btnModify.addEventListener("click", () => {
+            this.$router.push(`/post/modifyPost/${paramsId}`);
+          });
+      // init bnt2
+      let btnDelete = document.getElementById("deletePost");
+      btnDelete.addEventListener("click", () => {
+            this.ConfirmDelete(); 
+          });
   },
   methods: {
+     ConfirmDelete() {
+       this.$confirm("Voulez-vous supprimer votre Poste?").then(() => {
+           this.deleteOnePost();
+       })
+
+   },
+
+
+    deleteOnePost(){
+      const options = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          Authorization: `Bearer ${this.token}`,
+        },
+      };
+      const paramsId = window.location.href.substr(
+        window.location.href.lastIndexOf("/") + 1
+      );
+
+      return fetch(
+        `http://localhost:3000/api/posts/deletePost/${paramsId}`,
+        options
+      ).then((res) => {
+        if ((res.status == 200)) {
+          
+          this.$router.push({ name: 'Thetest3' });
+          //localStorage.clear();
+        } else {
+           res.status(8000);
+        }
+      });
+
+    },
     getOnePost() {
       const options = {
         method: "GET",
@@ -50,17 +99,19 @@ export default {
       const paramsId = window.location.href.substr(
         window.location.href.lastIndexOf("/") + 1
       );
-      return fetch(`http://localhost:3000/api/posts/getOnePost/${paramsId}`, options).then(
-          (res) => {
+      return fetch(
+        `http://localhost:3000/api/posts/getOnePost/${paramsId}`,
+        options
+      ).then((res) => {
         if (res.status == 200) {
-          return res.json()
+          return res.json();
         } else {
           return res.status(8000);
         }
       });
     },
-    returnOnePost() {
-      this.getOnePost().then((json) => {
+    async returnOnePost() {
+      await this.getOnePost().then((json) => {
         console.log(json.post.title);
         // mémo : créer les div et afficher les infos via js (comme p5 et PostPageqf)
         let Box = document.getElementById("onePostBox");
@@ -92,8 +143,7 @@ export default {
         // date
         let newTime = document.createElement("p");
         let timeContent = json.post.createdAt;
-        let convert = timeContent
-          .replace("T", " ")
+        let convert = timeContent.replace("T", " ")
           .replace(".000Z", "")
           .split("-")
           .join(" ")

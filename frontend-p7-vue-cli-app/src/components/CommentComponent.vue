@@ -30,7 +30,6 @@ export default {
     }
   },
   methods: {
-
     getAllComment() {
       // const router = this.$router;
 
@@ -44,6 +43,7 @@ export default {
       const paramsId = window.location.href.substr(
         window.location.href.lastIndexOf("/") + 1
       );
+
       return fetch(
         `http://localhost:3000/api/posts/getOnePost/${paramsId}`,
         options
@@ -60,11 +60,12 @@ export default {
       await this.getAllComment().then((json) => {
         let data = json.comment;
         console.log(data.length);
-        for (let i = 0; i < data.length; i++) {
 
+        for (let i = 0; i < data.length; i++) {
           // creation de la LI
           let newLi = document.createElement("li");
           document.getElementById("getAll").appendChild(newLi);
+
           //cartes
           let newCarte = document.createElement("div");
           newCarte.classList.add("cartesPost");
@@ -86,9 +87,64 @@ export default {
           let usernameContent = data[i].username;
           newUsername.textContent = usernameContent;
           newInfoBox.appendChild(newUsername);
+          let newBtnM = document.createElement("button");
+          newBtnM.classList.add("btn");
+          let NewtextBtnModify = document.createTextNode(
+            "modfier votre commentaire"
+          );
+          newBtnM.appendChild(NewtextBtnModify);
+          newLi.appendChild(newBtnM);
+          //event sur btn
+          newBtnM.addEventListener("click", () => {
+            const paramsIdPost = window.location.href.substr(
+              window.location.href.lastIndexOf("/") + 1
+            );
+            const paramsId = data[i].id;
+            this.$router.push(
+              `/post/&${paramsIdPost}&/modifyComment/${paramsId}`
+            );
+          });
+          let newBtnD = document.createElement("button");
+          newBtnD.classList.add("btn");
+          let NewtextBtnDelete = document.createTextNode(
+            "supprimer votre commentaire"
+          );
+          newBtnD.addEventListener("click", () => {
+            this.$confirm("Voulez-vous supprimer votre Poste?").then(() => {
+              this.deleteOneComment(data[i].id); // une const ne passe pas ?? mais le json oui!
+            });
+          });
+
+          newBtnD.appendChild(NewtextBtnDelete);
+          newLi.appendChild(newBtnD);
+          console.log(data);
         }
       });
     },
+    deleteOneComment(x){
+       const options = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          Authorization: `Bearer ${this.token}`,
+        },
+      };
+      const paramsId = x;
+
+      return fetch(
+        `http://localhost:3000/api/comment/deleteComment/${paramsId}`,
+        options
+      ).then((res) => {
+        if ((res.status == 200)) {
+          
+          this.$alert("Commentaire supprimé");
+          this.$router.go()
+        } else {
+           res.status(8000);
+        }
+      });
+    }
+
   },
 };
 </script>
