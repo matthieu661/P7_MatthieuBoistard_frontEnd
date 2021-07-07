@@ -2,6 +2,7 @@
   <div class="home">
     <h2> Acces rapide</h2>
     <Thetest/> 
+    <p>Si vous n'etes pas enregistré</p>
     <RegisterLogin msg=" Créer un compte :"/>
      
   </div>
@@ -9,8 +10,8 @@
 
 <script>
 // @ is an alias to /src
-import RegisterLogin from '@/components/Register-Login.vue'
-import Thetest from '@/components/Login.vue'
+import RegisterLogin from '@/components/User-Register_Component.vue'
+import Thetest from '@/components/User-Login_Component.vue'
 
 
 export default {

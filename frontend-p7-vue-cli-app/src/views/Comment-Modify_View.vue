@@ -1,17 +1,17 @@
 <template>
   <div class="about">
     <h1>vous pouvez modifier votre Post</h1>
-    <modifyPostComponent/>
+    <modifyCommentComponent/>
   </div>
 </template>
 <script>
 // @ is an alias to /src
-import modifyPostComponent from '@/components/modifyPostComponent.vue'
+import modifyCommentComponent from '@/components/Comment-modify_Component.vue'
 
 export default {
-  name: 'ModifyPostView',
+  name: 'ModifyCommentView',
   components: {
-    modifyPostComponent
+    modifyCommentComponent
   }
 }
 </script>

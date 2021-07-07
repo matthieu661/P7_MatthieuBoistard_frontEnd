@@ -8,7 +8,7 @@
 
 
 <script>
-import CreatePost from '@/components/createPostComponent.vue'
+import CreatePost from '@/components/Post-Create_Component.vue'
 export default ({
     name: 'PostCreatePost',
     components: {

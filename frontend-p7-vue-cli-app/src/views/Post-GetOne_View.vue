@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import OnePost from '@/components/PostComponent.vue'
-import GetAllComment from '@/components/CommentComponent.vue'
+import OnePost from '@/components/Post-OnePerPage_Component.vue'
+import GetAllComment from '@/components/Comment-GetAll_Component.vue'
 
 export default {
     name :'Post',

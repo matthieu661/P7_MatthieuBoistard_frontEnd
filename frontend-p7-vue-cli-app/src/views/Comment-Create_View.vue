@@ -8,7 +8,7 @@
 
 
 <script>
-import CreateComment from '@/components/CreateCommentComponent.vue'
+import CreateComment from '@/components/Comment-Create_Component.vue'
 export default ({
     name: 'CommentCreateComment',
     components: {

@@ -3,13 +3,45 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
-      <router-link to="/connexion">Connexion</router-link> |
-      <router-link to="/wall">The Wall</router-link> |
-      <router-link to="/account/id">Account</router-link> 
+      <router-link to="/connexion" v-show="this.SwitchConnexion">Connexion</router-link> |
+       <button id="deconexion" v-show="this.Switch" type="button"> deconnexion </button> |
+      <router-link to="/wall" v-show="this.Switch">The Wall</router-link> |
+      <router-link to="/account/id" v-show="this.Switch">Account</router-link> 
+     
     </div>
     <router-view/>
   </div>
 </template>
+<script>
+export default {
+  
+  data() {
+    return {
+    Switch : false,
+    SwitchConnexion : true,
+    };
+  },
+mounted() {
+  
+  const user = JSON.parse(localStorage.getItem("userData"));
+  console.log(user)
+  if(user === null){
+    this.Switch = false
+  }else{
+    this.Switch = true
+    let deconnexion = document.getElementById("deconexion");
+    deconnexion.addEventListener("click", () => {
+      localStorage.clear();
+      this.$router.push({ name : "Home" });
+    })
+    this.SwitchConnexion = false
+  }
+
+}
+}
+
+</script>
+
 
 <style lang="scss">
 #app {

@@ -1,17 +1,17 @@
 <template>
   <div class="about">
     <h1>vous pouvez modifier votre profile</h1>
-    <modifyUserComponent/>
+    <ModifyUser/>
   </div>
 </template>
 <script>
 // @ is an alias to /src
-import modifyUserComponent from '@/components/modifyUserComponent.vue'
+import ModifyUser from '@/components/User-Modify_Component.vue'
 
 export default {
-  name: 'ModifyUserView',
+  name: 'ModifyUserAccount',
   components: {
-    modifyUserComponent
+    ModifyUser
   }
 }
 </script>

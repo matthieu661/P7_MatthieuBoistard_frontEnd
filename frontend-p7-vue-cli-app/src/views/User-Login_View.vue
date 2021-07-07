@@ -1,18 +1,18 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/icon-left-font-monochrome-black.png">
-    <Thetest msg="Login "/>
+    <Login msg="Login "/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Thetest from '@/components/Login.vue'
+import Login from '@/components/User-Login_Component.vue'
 
 export default {
   name: 'Login',
   components: {
-    Thetest
+    Login
   }
 }
 </script>

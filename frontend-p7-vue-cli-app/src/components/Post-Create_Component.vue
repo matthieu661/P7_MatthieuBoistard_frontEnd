@@ -91,7 +91,7 @@ export default {
               .then (() => {
                 this.success=true;
                 this.waiting=false;
-                this.$router.push({ name: 'Thetest3' }); //En cas de succès, on est renvoyé sur la page des posts
+                this.$router.push({ name: 'GetWallPage' }); //En cas de succès, on est renvoyé sur la page des posts
               }
             )}
             else {res.json ()

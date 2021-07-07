@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: "modifyUserComponent",
+  name: "ModifyUser",
   props: {
     msg: String,
   },
@@ -95,7 +95,7 @@ export default {
         (res) => {
           if (res.status == 201) {
             res.json().then(() => {
-              this.$router.push({ name: "OneUser" }); //En cas de succès, on est renvoyé sur la page des posts
+              this.$router.push({ name: "GetUserAcccount" }); //En cas de succès, on est renvoyé sur la page des posts
             });
           } else {
             res.json().then((json) => {

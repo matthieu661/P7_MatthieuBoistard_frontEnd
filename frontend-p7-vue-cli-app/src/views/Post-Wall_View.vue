@@ -3,17 +3,17 @@
     <h1>This is Post page</h1>
     <router-link to="/newPost">Nouveau message</router-link>
     
-    <PostsPage/>
+    <WallPage/>
   </div>
 </template>
 
 <script>
-import PostsPage from '@/components/PostsPage.vue'
+import WallPage from '@/components/Posts-Wall_Component.vue'
 
 export default {
-    name :'Thetest3',
+    name :'GetWallPage',
     components : {
-      PostsPage
+      WallPage
     }
 }
 </script>

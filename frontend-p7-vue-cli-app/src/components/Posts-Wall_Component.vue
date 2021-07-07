@@ -7,7 +7,7 @@
 import logo from "../assets/reply-solid.svg"
 
 export default {
-  name: "PostsPage",
+  name: "WallPage",
   props: {},
   data() {
     return {

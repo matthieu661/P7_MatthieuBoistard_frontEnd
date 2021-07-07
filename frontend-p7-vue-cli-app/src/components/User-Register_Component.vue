@@ -1,14 +1,14 @@
 <template>
   <div class="Parent">
     <h1>{{ msg }}</h1>
-    <form @submit="sendform">
-      <label for="Email">Adresse e-mail</label>
-      <input @input="checkForm" type="email" id="Email" name="email" required />
-      <label for="Mdp">Password </label>
+    <form @submit="sendform2">
+      <label for="Email2">Adresse e-mail</label>
+      <input @input="checkForm2" type="email2" id="Email2" name="email2" required />
+      <label for="Mdp2">Password </label>
       <input
-        @input="checkForm"
+        @input="checkForm2"
         type="password"
-        id="Mdp"
+        id="Mdp2"
         name="password"
         minlength="8"
         required
@@ -19,24 +19,24 @@
         
       </p>
       <h2>{{message}}</h2>
-      <label for="Username">Username</label>
+      <label for="Username2">Username</label>
       <input
-        @input="checkForm"
+        @input="checkForm2"
         type="text"
-        id="Username"
+        id="Username2"
         name="username"
         minlength="3"
         maxlength="15"
         required
       />
-      <input type="submit" id="Register" value="logAccount" disabled />
+      <input type="submit" id="Register" value="S'enregistrer" disabled />
     </form>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Thetest2",
+  name: "Register",
   props: {
     //
     msg: String,
@@ -49,11 +49,11 @@ export default {
 
   methods: {
     // functiona  faire passer
-    checkForm() {
+    checkForm2() {
       if (
-        document.getElementById("Email").checkValidity() &&
-        document.getElementById("Mdp").checkValidity() &&
-        document.getElementById("Username").checkValidity()
+        document.getElementById("Email2").checkValidity() &&
+        document.getElementById("Mdp2").checkValidity() &&
+        document.getElementById("Username2").checkValidity()
       ){
         document.getElementById("Register").disabled = false;
       }else {
@@ -61,11 +61,13 @@ export default {
     }
     },
     // recuperer les données du forme
-    sendform(event) {
+    sendform2(event) {
       event.preventDefault();
-      const Email = document.getElementById("Email").value;
-      const Mdp = document.getElementById("Mdp").value;
-      const Username = document.getElementById("Username").value;
+      localStorage.clear();
+      const Email = document.getElementById("Email2").value;
+      console.log(Email)
+      const Mdp = document.getElementById("Mdp2").value;
+      const Username = document.getElementById("Username2").value;
       const isAdmin = false;
       const Bio = "";
       const User = {
@@ -89,7 +91,7 @@ export default {
 
      
       else {
-        console.log(User);
+        
         let formData =[];
         for (var X in User){
           let encodedKey = encodeURIComponent(X);
@@ -110,7 +112,7 @@ export default {
         fetch("http://localhost:3000/api/users/register", options)
           .then((res) => {
             if (res.status == 201) {
-              this.$router.push({ name: "Thetest" });
+              this.$router.go()
             } else {
               res.json().then((json) => {
                 this.message = json.error;

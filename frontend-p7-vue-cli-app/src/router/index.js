@@ -1,17 +1,22 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Connexion from '../views/Connexion.vue'
-import Login from '../views/Login.vue'
-import Register from '../views/Register.vue'
-import Wall from '../views/Wall.vue'
-import Post from '../views/Post.vue'
-import GetOneUser from '../views/AccountView.vue'
-import PostCreatePost from '../views/CreatePost.vue'
-import CommentCreateComment from '../views/CreateComment.vue'
-import ModifyUserView from '../views/ModifyUserView.vue'
-import ModifyPostView from '../views/ModifyPostView.vue'
-import ModifyCommentView from '../views/ModifyCommentView'
+// route Users
+import Connexion from '../views/User-Connexion_View.vue'
+import Login from '../views/User-Login_View.vue'
+import Register from '../views/User-Register_View.vue'
+import GetUserAccount from '../views/User-Account_View.vue'
+import ModifyUserAccount from '../views/User-Modify_View.vue'
+
+// routes Posts
+import WallPage from '../views/Post-Wall_View.vue'
+import Post from '../views/Post-GetOne_View.vue'
+import ModifyPostView from '../views/Post-Modify_View.vue'
+import PostCreatePost from '../views/Post-Create_View.vue'
+
+// route comments
+import CommentCreateComment from '../views/Comment-Create_View.vue'
+import ModifyCommentView from '../views/Comment-Modify_View'
 
 Vue.use(VueRouter)
 
@@ -29,6 +34,7 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
+  // User account 
   {
     path: '/connexion',
     name: 'RegisterLogin',
@@ -36,29 +42,38 @@ const routes = [
   },
   {
     path: '/login',
-    name: 'Thetest',
+    name: 'Login',
     component: Login
   },
   {
     path: '/register',
-    name: 'Thetest2',
+    name: 'Register',
     component: Register
   },
   {
+    path: '/account/:id',
+    name :'GetUserAcccount',
+    component : GetUserAccount
+  },
+  {
+    path: '/account/:id/modifyUser',
+    name :'ModifyUserAccount',
+    component : ModifyUserAccount
+  },
+
+
+  // Post
+  {
     path: '/wall',
-    name: 'Thetest3',
-    component: Wall
+    name: 'GetWallPage',
+    component: WallPage
   },
   {
     path: '/post/:id',
     name :'OnePost',
     component : Post
   },
-  {
-    path: '/account/:id',
-    name :'OneUser',
-    component : GetOneUser
-  },
+  
   {
     path: '/newPost',
     name :'CreatePost',
@@ -69,11 +84,7 @@ const routes = [
     name :'CreateComment',
     component : CommentCreateComment
   },
-  {
-    path: '/account/:id/modifyUser',
-    name :'modifyUserComponent',
-    component : ModifyUserView
-  },
+  
   {
     path: '/post/modifyPost/:id',
     name :'modifyPostComponent',

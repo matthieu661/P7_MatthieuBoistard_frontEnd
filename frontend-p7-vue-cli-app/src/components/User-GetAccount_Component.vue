@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: "OneUser",
+  name: "GetUserAcccount",
   props: {
     msg: String,
   },

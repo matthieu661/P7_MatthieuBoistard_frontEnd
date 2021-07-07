@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  name: "Thetest",
+  name: "Login",
   props: {
     msg: String,
   },
@@ -86,7 +86,8 @@ export default {
               };
               console.log(userData.isAdmin)
               localStorage.setItem("userData", JSON.stringify(userData));
-              this.$router.push({ name: "Thetest3" }); 
+              this.$router.push({ name: "GetWallPage" }); 
+              window.location.reload();
             });
           } else {
             res.json().then((json) => {
