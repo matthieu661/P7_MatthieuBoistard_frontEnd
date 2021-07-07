@@ -13,6 +13,10 @@ export default {
       token: "",
       username: "",
       post: [],
+      PowerAdmin: false,
+      PowerUser: false,
+      POWER : false,
+      
     };
   },
   // mounted pour auto load
@@ -20,7 +24,9 @@ export default {
     const user = JSON.parse(localStorage.getItem("userData"));
     if (user) {
       // la recup les username+token dans le localstorage
+      this.PowerAdmin = user.isAdmin;
       this.username = user.username;
+      console.log(this.username)
       this.token = user.token;
       //invoque la recup des posts et la creation des li
       this.returnAllComment();
@@ -59,9 +65,16 @@ export default {
     async returnAllComment() {
       await this.getAllComment().then((json) => {
         let data = json.comment;
-        console.log(data.length);
+        
+        
 
         for (let i = 0; i < data.length; i++) {
+
+
+          if (data[i].username === this.username) {
+          console.log(data.username);
+          this.PowerUser = true;
+        }
           // creation de la LI
           let newLi = document.createElement("li");
           document.getElementById("getAll").appendChild(newLi);
@@ -87,6 +100,9 @@ export default {
           let usernameContent = data[i].username;
           newUsername.textContent = usernameContent;
           newInfoBox.appendChild(newUsername);
+
+          // btn 
+          if((this.PowerAdmin === true || this.PowerUser === true)){
           let newBtnM = document.createElement("button");
           newBtnM.classList.add("btn");
           let NewtextBtnModify = document.createTextNode(
@@ -116,7 +132,7 @@ export default {
           });
 
           newBtnD.appendChild(NewtextBtnDelete);
-          newLi.appendChild(newBtnD);
+          newLi.appendChild(newBtnD);}
           console.log(data);
         }
       });

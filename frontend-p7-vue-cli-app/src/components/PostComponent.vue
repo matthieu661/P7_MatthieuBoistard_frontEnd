@@ -6,12 +6,13 @@
     <h4 id="Reply">Reply this post</h4>
     <div id="like">
       <h5 id="liker">{{ this.dataLike }}<i class="far fa-thumbs-up"></i></h5>
-      <h5 id="disliker">{{ this.dataDisLike }}<i class="far fa-thumbs-down"></i>
+      <h5 id="disliker">
+        {{ this.dataDisLike }}<i class="far fa-thumbs-down"></i>
       </h5>
     </div>
     <div id="action">
-      <button id="modifyPost" type="button">modifer votre Post</button> |
-      <button id="deletePost" type="button">supprimer votre Post</button>
+      <button id="modifyPost" v-show="this.POWER" type="button">modifer votre Post</button> |
+      <button id="deletePost" v-show="this.POWER" type="button">supprimer votre Post</button>
     </div>
   </div>
 </template>
@@ -28,6 +29,10 @@ export default {
     return {
       dataLike: 0,
       dataDisLike: 0,
+      PowerAdmin: false,
+      PowerUser: false,
+      POWER : false,
+      username: "",
     };
   },
   mounted() {
@@ -35,14 +40,16 @@ export default {
     const paramsId = window.location.href.substr(
       window.location.href.lastIndexOf("/") + 1
     );
-    
 
     const user = JSON.parse(localStorage.getItem("userData"));
     if (user) {
       // la recup les username+token dans le localstorage
+      this.PowerAdmin = user.isAdmin; // Power admin pour l'affichage seulement
       this.id = user.id;
       this.username = user.username;
+      console.log(this.username + "la");
       this.token = user.token;
+
       //invoque la recup des posts et la creation des li
       this.returnOnePost();
       let Active = document.getElementById("Reply");
@@ -57,9 +64,10 @@ export default {
     // réutilise la function pour le compteur des likes/dislikes
     this.getOnePost().then((json) => {
       this.dataLike = json.post.likes;
-      this.dataDisLike = json.post.dislikes;})
+      this.dataDisLike = json.post.dislikes;
+    });
 
-      console.log(this.dataLike)
+    console.log(this.dataLike);
     // btn like
     let userLike = document.getElementById("liker");
     userLike.addEventListener("click", () => {
@@ -72,15 +80,6 @@ export default {
     });
 
     // init le btn1
-    let btnModify = document.getElementById("modifyPost");
-    btnModify.addEventListener("click", () => {
-      this.$router.push(`/post/modifyPost/${paramsId}`);
-    });
-    // init bnt2
-    let btnDelete = document.getElementById("deletePost");
-    btnDelete.addEventListener("click", () => {
-      this.ConfirmDelete();
-    });
   },
   methods: {
     GetLike() {
@@ -97,26 +96,26 @@ export default {
       return fetch(
         `http://localhost:3000/api/rate/${paramsId}/like`,
         options
-      ).then(
-        (res) => {
-          if (res.status == 200) {
-            return res.json()
-          } else {
-            return res.status(8000);
-          }
+      ).then((res) => {
+        if (res.status == 200) {
+          return res.json();
+        } else {
+          return res.status(8000);
         }
-      );
+      });
     },
 
     async PushLike() {
-      await this.GetLike().then((json) => { 
-          console.log(json.post.likes)
-          let value = json.post.likes
-          console.log(value)
-          if(value === 0){ this.dataLike += 1}
-          else{ this.dataLike -= 1}
-
-      })
+      await this.GetLike().then((json) => {
+        console.log(json.post.likes);
+        let value = json.post.likes;
+        console.log(value);
+        if (value === 0) {
+          this.dataLike += 1;
+        } else {
+          this.dataLike -= 1;
+        }
+      });
     },
     // dislike
     GetDisLike() {
@@ -134,30 +133,28 @@ export default {
       return fetch(
         `http://localhost:3000/api/rate/${paramsId}/Dislike`,
         options
-      ).then(
-        (res) => {
-          if (res.status == 200) {
-           
-            return res.json()
-          } else {
-            return res.status(8000);
-          }
+      ).then((res) => {
+        if (res.status == 200) {
+          return res.json();
+        } else {
+          return res.status(8000);
         }
-      );
+      });
     },
-
 
     async PushDisLike() {
-      await this.GetDisLike().then((json) => { 
-          console.log(json.post.dislikes)
-          let value = json.post.dislikes
-          console.log(value)
-          if(value === 0){ this.dataDisLike -= 1}
-          else{ this.dataDisLike += 1}
-
-      })
+      await this.GetDisLike().then((json) => {
+        console.log(json.post.dislikes);
+        let value = json.post.dislikes;
+        console.log(value);
+        if (value === 0) {
+          this.dataDisLike -= 1;
+        } else {
+          this.dataDisLike += 1;
+        }
+      });
     },
-// /////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////
     ConfirmDelete() {
       this.$confirm("Voulez-vous supprimer votre Poste?").then(() => {
         this.deleteOnePost();
@@ -212,7 +209,28 @@ export default {
     },
     async returnOnePost() {
       await this.getOnePost().then((json) => {
-        console.log(json.post.title);
+        console.log(this.username);
+
+        if (json.post.userName === this.username) {
+          console.log(json.post.userName);
+          this.PowerUser = true;
+        }
+        
+        console.log(this.PowerUser)
+        console.log(this.PowerAdmin);
+        if (this.PowerAdmin === true || this.PowerUser === true) {
+          let btnModify = document.getElementById("modifyPost");
+          btnModify.addEventListener("click", () => {
+            this.$router.push(`/post/modifyPost/${this.paramsId}`);
+          });
+          // init bnt2
+          let btnDelete = document.getElementById("deletePost");
+          btnDelete.addEventListener("click", () => {
+            this.ConfirmDelete();
+          });
+          this.POWER = true
+        }
+
         // mémo : créer les div et afficher les infos via js (comme p5 et PostPageqf)
         let Box = document.getElementById("onePostBox");
         let newCarte = document.createElement("div");

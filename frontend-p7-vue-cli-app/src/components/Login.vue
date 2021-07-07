@@ -77,12 +77,14 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             res.json().then((json) => {
+              console.log(json)
               const userData = {
+                isAdmin : json.isAdmin,
                 id: json.userId,
-                username: json.username,
+                username: json.userName,
                 token: json.token,
               };
-              console.log(userData.id)
+              console.log(userData.isAdmin)
               localStorage.setItem("userData", JSON.stringify(userData));
               this.$router.push({ name: "Thetest3" }); 
             });
