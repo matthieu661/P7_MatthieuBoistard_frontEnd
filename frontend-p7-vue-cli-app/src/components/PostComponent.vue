@@ -4,9 +4,14 @@
     <h4>reply</h4>
     <div id="onePostBox"></div>
     <h4 id="Reply">Reply this post</h4>
+    <div id="like">
+      <h5 id="liker">{{ this.dataLike }}<i class="far fa-thumbs-up"></i></h5>
+      <h5 id="disliker">{{ this.dataDisLike }}<i class="far fa-thumbs-down"></i>
+      </h5>
+    </div>
     <div id="action">
       <button id="modifyPost" type="button">modifer votre Post</button> |
-      <button id="deletePost" type="button" >supprimer votre Post</button>
+      <button id="deletePost" type="button">supprimer votre Post</button>
     </div>
   </div>
 </template>
@@ -16,15 +21,21 @@ export default {
   name: "ModifyPost",
   props: {
     msg: String,
+    like: Number,
+    dislike: Number,
   },
   data() {
-    return {};
+    return {
+      dataLike: 0,
+      dataDisLike: 0,
+    };
   },
   mounted() {
     const router = this.$router;
     const paramsId = window.location.href.substr(
       window.location.href.lastIndexOf("/") + 1
     );
+    
 
     const user = JSON.parse(localStorage.getItem("userData"));
     if (user) {
@@ -42,27 +53,118 @@ export default {
       // a changer juste pour test
       return console.log("Probleme localstorage no data");
     }
-     // init le btn1
-      let btnModify = document.getElementById("modifyPost");
-      btnModify.addEventListener("click", () => {
-            this.$router.push(`/post/modifyPost/${paramsId}`);
-          });
-      // init bnt2
-      let btnDelete = document.getElementById("deletePost");
-      btnDelete.addEventListener("click", () => {
-            this.ConfirmDelete(); 
-          });
+
+    // réutilise la function pour le compteur des likes/dislikes
+    this.getOnePost().then((json) => {
+      this.dataLike = json.post.likes;
+      this.dataDisLike = json.post.dislikes;})
+
+      console.log(this.dataLike)
+    // btn like
+    let userLike = document.getElementById("liker");
+    userLike.addEventListener("click", () => {
+      this.PushLike();
+    });
+    // btn dislike
+    let userDisLike = document.getElementById("disliker");
+    userDisLike.addEventListener("click", () => {
+      this.PushDisLike();
+    });
+
+    // init le btn1
+    let btnModify = document.getElementById("modifyPost");
+    btnModify.addEventListener("click", () => {
+      this.$router.push(`/post/modifyPost/${paramsId}`);
+    });
+    // init bnt2
+    let btnDelete = document.getElementById("deletePost");
+    btnDelete.addEventListener("click", () => {
+      this.ConfirmDelete();
+    });
   },
   methods: {
-     ConfirmDelete() {
-       this.$confirm("Voulez-vous supprimer votre Poste?").then(() => {
-           this.deleteOnePost();
-       })
+    GetLike() {
+      const paramsId = window.location.href.substr(
+        window.location.href.lastIndexOf("/") + 1
+      );
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          Authorization: `Bearer ${this.token}`,
+        },
+      };
+      return fetch(
+        `http://localhost:3000/api/rate/${paramsId}/like`,
+        options
+      ).then(
+        (res) => {
+          if (res.status == 200) {
+            return res.json()
+          } else {
+            return res.status(8000);
+          }
+        }
+      );
+    },
 
-   },
+    async PushLike() {
+      await this.GetLike().then((json) => { 
+          console.log(json.post.likes)
+          let value = json.post.likes
+          console.log(value)
+          if(value === 0){ this.dataLike += 1}
+          else{ this.dataLike -= 1}
+
+      })
+    },
+    // dislike
+    GetDisLike() {
+      const paramsId = window.location.href.substr(
+        window.location.href.lastIndexOf("/") + 1
+      );
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          Authorization: `Bearer ${this.token}`,
+        },
+      };
+
+      return fetch(
+        `http://localhost:3000/api/rate/${paramsId}/Dislike`,
+        options
+      ).then(
+        (res) => {
+          if (res.status == 200) {
+           
+            return res.json()
+          } else {
+            return res.status(8000);
+          }
+        }
+      );
+    },
 
 
-    deleteOnePost(){
+    async PushDisLike() {
+      await this.GetDisLike().then((json) => { 
+          console.log(json.post.dislikes)
+          let value = json.post.dislikes
+          console.log(value)
+          if(value === 0){ this.dataDisLike -= 1}
+          else{ this.dataDisLike += 1}
+
+      })
+    },
+// /////////////////////////////////////////////////////
+    ConfirmDelete() {
+      this.$confirm("Voulez-vous supprimer votre Poste?").then(() => {
+        this.deleteOnePost();
+      });
+    },
+
+    deleteOnePost() {
       const options = {
         method: "DELETE",
         headers: {
@@ -78,15 +180,13 @@ export default {
         `http://localhost:3000/api/posts/deletePost/${paramsId}`,
         options
       ).then((res) => {
-        if ((res.status == 200)) {
-          
-          this.$router.push({ name: 'Thetest3' });
+        if (res.status == 200) {
+          this.$router.push({ name: "Thetest3" });
           //localStorage.clear();
         } else {
-           res.status(8000);
+          res.status(8000);
         }
       });
-
     },
     getOnePost() {
       const options = {
@@ -143,7 +243,8 @@ export default {
         // date
         let newTime = document.createElement("p");
         let timeContent = json.post.createdAt;
-        let convert = timeContent.replace("T", " ")
+        let convert = timeContent
+          .replace("T", " ")
           .replace(".000Z", "")
           .split("-")
           .join(" ")

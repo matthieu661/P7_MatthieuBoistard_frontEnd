@@ -62,7 +62,7 @@ export default {
         if ((res.status == 200)) {
           alert("Adios amigos");
           this.$router.push({ name: 'Home' });
-          //localStorage.clear();
+          localStorage.clear();
         } else {
           return res.status(8000);
         }
