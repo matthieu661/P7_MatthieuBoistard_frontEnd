@@ -35,6 +35,8 @@
 </template>
 
 <script>
+
+
 export default {
   name: "Register",
   props: {
@@ -44,6 +46,8 @@ export default {
   data: function () {
     return {
       message: "",
+      EmailL:"",
+      MdpL:"",
     };
   },
 
@@ -60,13 +64,66 @@ export default {
         document.getElementById("Register").disabled = true;
     }
     },
+    Login() {
+
+      const User = {
+        email : this.EmailL,
+        mdp : this.MdpL,
+      }
+      let formData = [];
+      for (var X in User) {
+        let encodedKey = encodeURIComponent(X);
+        let encodedValue = encodeURIComponent(User[X]);
+        formData.push(encodedKey + "=" + encodedValue);
+      }
+      formData = formData.join("&");
+
+
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+        body: formData,
+      };
+
+      fetch("http://localhost:3000/api/users/login", options)
+        .then((res) => {
+          if (res.status == 200) {
+            res.json().then((json) => {
+              console.log(json)
+
+
+              const userData = {
+                isAdmin : json.isAdmin,
+                id: json.userId,
+                username: json.userName,
+                token: json.token,
+              };
+              console.log(userData.isAdmin)
+              localStorage.setItem("userData", JSON.stringify(userData));
+              this.$router.push({ name: "GetWallPage" }); 
+              window.location.reload();
+            });
+          } else {
+            res.json().then((json) => {
+              this.message = json.error;
+            });
+          }
+        })
+        .catch(() => {
+          this.message = "probleme server";
+        });
+    },
     // recuperer les données du forme
     sendform2(event) {
       event.preventDefault();
       localStorage.clear();
       const Email = document.getElementById("Email2").value;
       console.log(Email)
+      this.EmailL = Email;
       const Mdp = document.getElementById("Mdp2").value;
+      this.MdpL = Mdp;
       const Username = document.getElementById("Username2").value;
       const isAdmin = false;
       const Bio = "";
@@ -112,7 +169,7 @@ export default {
         fetch("http://localhost:3000/api/users/register", options)
           .then((res) => {
             if (res.status == 201) {
-              this.$router.go()
+              this.Login();
             } else {
               res.json().then((json) => {
                 this.message = json.error;

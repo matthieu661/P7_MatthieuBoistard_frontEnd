@@ -1,13 +1,17 @@
 <template>
   <div id="app">
     <div id="nav">
+      <div class="navigation">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/connexion" v-show="this.SwitchConnexion">Connexion</router-link> |
-       <button id="deconexion" v-show="this.Switch" type="button"> deconnexion </button> |
+      
       <router-link to="/wall" v-show="this.Switch">The Wall</router-link> |
       <router-link to="/account/id" v-show="this.Switch">Account</router-link> 
-     
+      </div>
+      <div classe="user">
+       <button id="deconexion" v-show="this.Switch" type="button"> deconnexion </button> |
+      </div>
     </div>
     <router-view/>
   </div>
@@ -33,6 +37,7 @@ mounted() {
     deconnexion.addEventListener("click", () => {
       localStorage.clear();
       this.$router.push({ name : "Home" });
+      window.location.reload();
     })
     this.SwitchConnexion = false
   }
