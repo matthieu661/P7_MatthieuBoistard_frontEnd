@@ -1,6 +1,7 @@
 <template>
-  <div class="Parent">
-    <ul id="getAll"></ul>
+  <div class="Commentbox">
+    <h4>Commentaire</h4>
+    <ul id="getAll" class="listeComment"></ul>
   </div>
 </template>
 <script>
@@ -77,6 +78,7 @@ export default {
         }
           // creation de la LI
           let newLi = document.createElement("li");
+          newLi.classList.add("licomment")
           document.getElementById("getAll").appendChild(newLi);
 
           //cartes
@@ -90,6 +92,7 @@ export default {
           // comment
           let newMessage = document.createElement("p");
           let messageContent = data[i].postReply;
+          newMessage.classList.add("commentmess2")
           newMessage.textContent = messageContent;
           newContentBox.appendChild(newMessage);
           // content Info
@@ -99,12 +102,14 @@ export default {
           let newUsername = document.createElement("p");
           let usernameContent = data[i].username;
           newUsername.textContent = usernameContent;
+          newUsername.classList.add("Owner");
           newInfoBox.appendChild(newUsername);
 
           // btn 
           if((this.PowerAdmin === true || this.PowerUser === true)){
           let newBtnM = document.createElement("button");
           newBtnM.classList.add("btn");
+          newBtnM.classList.add("btn")
           let NewtextBtnModify = document.createTextNode(
             "modfier votre commentaire"
           );
@@ -122,6 +127,7 @@ export default {
           });
           let newBtnD = document.createElement("button");
           newBtnD.classList.add("btn");
+          newBtnD.classList.add("btn")
           let NewtextBtnDelete = document.createTextNode(
             "supprimer votre commentaire"
           );

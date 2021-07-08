@@ -1,10 +1,15 @@
 <template>
   <div class="Parent">
-    <h1>{{ msg }}</h1>
-    <form @submit="sendform2">
-      <label for="Email2">Adresse e-mail</label>
+    
+    <form @submit="sendform2" id="FlexForm">
+      <label for="Email2"><p class="visuel">Adresse e-mail :</p> </label>
       <input @input="checkForm2" type="email2" id="Email2" name="email2" required />
-      <label for="Mdp2">Password </label>
+       <p class="avertissement margetop">
+      Votre password doit contenir au minimum  : 
+      </p>
+      <p class="avertissement" > 8 caractéres, 1 miniscule, 1 majuscule, </p>
+      <p class="avertissement margebot"> 1 chiffre, et  1 caractére spécial </p>
+      <label for="Mdp2"><p class="visuel">Password :</p></label>
       <input
         @input="checkForm2"
         type="password"
@@ -13,13 +18,8 @@
         minlength="8"
         required
       />
-      <p>
-        // mdp complexité : [min 8 caractéres / min : 1 miniscule / min : 1
-        majuscule / min : 1 number / min : 1 caractére spé (!@#$%^&*)]
-        
-      </p>
-      <h2>{{message}}</h2>
-      <label for="Username2">Username</label>
+     
+      <label for="Username2"><p class="visuel">Username</p></label>
       <input
         @input="checkForm2"
         type="text"
@@ -33,6 +33,13 @@
     </form>
   </div>
 </template>
+
+
+
+
+
+
+
 
 <script>
 
@@ -64,6 +71,7 @@ export default {
         document.getElementById("Register").disabled = true;
     }
     },
+    
     Login() {
 
       const User = {
@@ -187,5 +195,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
+
+
 </style>

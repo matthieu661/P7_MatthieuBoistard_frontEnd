@@ -4,7 +4,8 @@
   </div>
 </template>
 <script>
-import logo from "../assets/reply-solid.svg"
+import logo from "../assets/reply-solid.svg";
+import logo2 from "../assets/user-solid.svg"
 
 export default {
   name: "WallPage",
@@ -33,7 +34,6 @@ export default {
     }
   },
   methods: {
-
     getAllPosts() {
       const options = {
         method: "GET",
@@ -45,7 +45,7 @@ export default {
       return fetch("http://localhost:3000/api/posts/getAllPost", options).then(
         (res) => {
           if (res.status == 200) {
-            return res.json()
+            return res.json();
           } else {
             return res.status(8000);
           }
@@ -53,8 +53,8 @@ export default {
       );
     },
 
-    counterComment(x){
-       const options = {
+    counterComment(x) {
+      const options = {
         method: "GET",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
@@ -68,34 +68,20 @@ export default {
         options
       ).then((res) => {
         if (res.status == 200) {
-          
-           return res.json();
-          
+          return res.json();
         } else {
           return res.status(8000);
         }
       });
     },
-    
 
-     returnAllPost() {
-       
+    returnAllPost() {
       this.getAllPosts().then((json) => {
         //const router = this.$router;
         for (let i = 0; i < json.length; i++) {
           let newLi = document.createElement("li");
           newLi.classList.add("superLi");
-          let newbtn = document.createElement("button")
-          newbtn.classList.add('seePost');
-          newbtn.textContent = "Reply"
-          newLi.appendChild(newbtn)
-          let newiconReply = document.createElement("img")
-          newiconReply.src = logo
-          newbtn.appendChild(newiconReply)
 
-          newbtn.addEventListener("click", () => {
-            this.$router.push("Post/" + json[i].id);
-          });
           document.getElementById("getAll").appendChild(newLi);
           //cartes
           let newCarte = document.createElement("div");
@@ -108,23 +94,65 @@ export default {
           // H3 titre post
           let NewTitle = document.createElement("h3");
           let titleContent = json[i].title;
+
           NewTitle.textContent = titleContent;
           newContentBox.appendChild(NewTitle);
           // post
           let newMessage = document.createElement("p");
+          newMessage.classList.add("messagePost");
           let messageContent = json[i].content;
+
           newMessage.textContent = messageContent;
           newContentBox.appendChild(newMessage);
           // content Info
           let newInfoBox = document.createElement("div");
+          newInfoBox.classList.add("BoxData");
           newCarte.appendChild(newInfoBox);
+
+
+
+          // commentaire counter :
+          let divComment = document.createElement("div");
+          newCarte.appendChild(divComment)
+          divComment.classList.add("Comment")
+
+          let counterInfo =  document.createElement("p");
+          counterInfo.classList.add("counter");
+
+
+          this.counterComment(json[i].id).then((json) => {
+            this.dataComment = json.comment.length;
+            let NbrComment = this.dataComment;
+            if(NbrComment <= 1){
+             counterInfo.textContent = NbrComment + " commentaire";
+            }else{counterInfo.textContent = NbrComment + " commentaires";}
+            divComment.appendChild(counterInfo);
+            
+            console.log(this.dataComment);
+          });
+          
+          let newiconReply = document.createElement("img");
+          newiconReply.src = logo2;
+          newInfoBox.appendChild(newiconReply);
+
+
+          let newiconReply2 = document.createElement("img");
+          newiconReply2.src = logo;
+          divComment.appendChild(newiconReply2);
+
+          divComment.addEventListener("click", () => {
+            this.$router.push("Post/" + json[i].id);
+          });
           // Username
           let newUsername = document.createElement("p");
-          let usernameContent = json[i].userName;
+          newUsername.classList.add("username");
+          let usernameContent = json[i].userName ;
           newUsername.textContent = usernameContent;
           newInfoBox.appendChild(newUsername);
+          
           // date
           let newTime = document.createElement("p");
+          newTime.classList.add("time")
           let timeContent = json[i].createdAt;
           let convert = timeContent
             .replace("T", " ")
@@ -143,20 +171,8 @@ export default {
             .reverse()
             .join("-");
           newTime.textContent =
-            "Posté le : " + convertTime + " le " + convertDate;
+            " à " + convertTime + " le " + convertDate;
           newInfoBox.appendChild(newTime);
-          let counterInfo = document.createElement("p");
-          // commentaire counter :
-          this.counterComment(json[i].id).then((json) => {
-            this.dataComment = json.comment.length;
-            let NbrComment = this.dataComment
-          counterInfo.textContent = NbrComment + " reply"
-          newInfoBox.appendChild(counterInfo)
-            console.log(this.dataComment)
-          })
-
-          
-          
         }
       });
     },
@@ -164,24 +180,5 @@ export default {
 };
 </script>
 <style scoped lang="scss" >
-.Parent {
-  width: 100%;
-  height: auto;
-  border: solid black 2px;
-}
-ul {
-  display: flex;
-  flex-direction: column;
-  width: auto;
-  height: auto;
-  margin-top: 20px;
-  padding: 30px;
-}
-</style>
-<style>
-.superLi {
-  display: flex;
-  border : black solid 2px;
-}
 </style>
 

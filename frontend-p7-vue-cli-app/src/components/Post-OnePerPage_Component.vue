@@ -1,18 +1,21 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h4>reply</h4>
+  <div class="OnePost">
     <div id="onePostBox"></div>
-    <h4 id="Reply">Reply this post</h4>
+    <h4 id="Reply" >Reply this post <i class="far fa-comment-dots"></i></h4>
     <div id="like">
-      <h5 id="liker">{{ this.dataLike }}<i class="far fa-thumbs-up"></i></h5>
-      <h5 id="disliker">
+      
+      <h5 id="liker" class="btn btn2">{{ this.dataLike }}<i class="far fa-thumbs-up"></i></h5>
+      <h5 id="disliker" class="btn btn2" >
         {{ this.dataDisLike }}<i class="far fa-thumbs-down"></i>
       </h5>
     </div>
     <div id="action">
-      <button id="modifyPost" v-show="this.POWER" type="button">modifer votre Post</button> |
-      <button id="deletePost" v-show="this.POWER" type="button">supprimer votre Post</button>
+      <button id="modifyPost" class="btn" v-show="this.POWER" type="button">
+        modifer votre Post
+      </button>
+      <button id="deletePost" class="btn" v-show="this.POWER" type="button">
+        supprimer votre Post
+      </button>
     </div>
   </div>
 </template>
@@ -31,7 +34,7 @@ export default {
       dataDisLike: 0,
       PowerAdmin: false,
       PowerUser: false,
-      POWER : false,
+      POWER: false,
       username: "",
     };
   },
@@ -215,8 +218,8 @@ export default {
           console.log(json.post.userName);
           this.PowerUser = true;
         }
-        
-        console.log(this.PowerUser)
+
+        console.log(this.PowerUser);
         console.log(this.PowerAdmin);
         if (this.PowerAdmin === true || this.PowerUser === true) {
           let btnModify = document.getElementById("modifyPost");
@@ -228,7 +231,7 @@ export default {
           btnDelete.addEventListener("click", () => {
             this.ConfirmDelete();
           });
-          this.POWER = true
+          this.POWER = true;
         }
 
         // mémo : créer les div et afficher les infos via js (comme p5 et PostPageqf)
@@ -244,6 +247,7 @@ export default {
         let NewTitle = document.createElement("h3");
         let titleContent = json.post.title;
         NewTitle.textContent = titleContent;
+        NewTitle.classList.add("TitrePost");
         newContentBox.appendChild(NewTitle);
         // post
         let newMessage = document.createElement("p");
@@ -289,18 +293,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 30 10px;
-}
-a {
-  color: #42b983;
-}
 </style>
