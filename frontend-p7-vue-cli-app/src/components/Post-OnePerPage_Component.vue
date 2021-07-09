@@ -237,17 +237,18 @@ export default {
         // mémo : créer les div et afficher les infos via js (comme p5 et PostPageqf)
         let Box = document.getElementById("onePostBox");
         let newCarte = document.createElement("div");
-        newCarte.classList.add("cartesPost");
+        newCarte.classList.add("cartesPost2");
+        
         Box.appendChild(newCarte);
         // content Post
         let newContentBox = document.createElement("div");
-        newContentBox.classList.add("contentBox");
+        newContentBox.classList.add("contentBoxPost");
         newCarte.appendChild(newContentBox);
         // H3 titre post
         let NewTitle = document.createElement("h3");
         let titleContent = json.post.title;
         NewTitle.textContent = titleContent;
-        NewTitle.classList.add("TitrePost");
+        NewTitle.classList.add("TitrePost2");
         newContentBox.appendChild(NewTitle);
         // post
         let newMessage = document.createElement("p");

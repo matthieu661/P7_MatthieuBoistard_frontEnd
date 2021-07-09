@@ -1,14 +1,14 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <router-link to="/wall">retourner sur le " The Wall " </router-link>
-    <h2>votre compte utilisateur</h2>
-    <div id="oneUserBox"></div>
+  <div class="UserPage">
+    <h1> Bienvenue </h1>
+    <p class="UserTitre" >{{ msg }}</p>
+    <h2>Votre Espace Personel</h2>
+    <div id="oneUserBox" class="Green"></div>
     <div id="action">
-      <button id="modifyUser" type="button">modifer votre Profile</button> |
-      <button id="deleteUser" type="button">supprimer votre Profile</button>
-
+      <button id="modifyUser" type="button" class="btn"><i class="fas fa-user-edit"></i> Mettre a jour votre Profile</button> |
+      <button id="deleteUser" type="button" class="btn"><i class="fas fa-trash"></i> supprimer votre Profile</button>
     </div>
+    <router-link to="/wall" id="return" class="btn"><i class="fas fa-chevron-circle-left"></i> <p class="back back2">The Wall</p></router-link>
   </div>
 </template>
 
@@ -19,7 +19,10 @@ export default {
     msg: String,
   },
   data() {
-    return {};
+    return {
+      id : "",
+      username : "",
+    };
   },
   mounted() {
     const user = JSON.parse(localStorage.getItem("userData"));
@@ -28,7 +31,7 @@ export default {
       this.id = user.id;
       this.username = user.username;
       this.token = user.token;
-
+      
       // init le btn1
       let btnModify = document.getElementById("modifyUser");
       btnModify.addEventListener("click", () => {
@@ -63,6 +66,7 @@ export default {
           alert("Adios amigos");
           this.$router.push({ name: 'Home' });
           localStorage.clear();
+          window.location.reload();
         } else {
           return res.status(8000);
         }
@@ -95,6 +99,9 @@ export default {
       this.getOneUser().then((json) => {
         console.log(json);
         // la requete passe
+        this.msg =  json.username 
+
+
         let Box = document.getElementById("oneUserBox");
         let newCarte = document.createElement("div");
         newCarte.classList.add("cartesUser");
@@ -104,22 +111,39 @@ export default {
         newContentBox.classList.add("contentBox");
         newCarte.appendChild(newContentBox);
         // H3 titre post
-        let NewTitle = document.createElement("h3");
+        let NewTitleDesc = document.createElement("p");
+        NewTitleDesc.textContent = "Votre nom d'utilisateur";
+        NewTitleDesc.classList.add("MiniTitle")
+        newContentBox.appendChild(NewTitleDesc);
+
+        let NewTitle = document.createElement("p");
         let titleContent = json.username;
         NewTitle.textContent = titleContent;
         newContentBox.appendChild(NewTitle);
         // post
+        let newMessageDesc = document.createElement("p");
+        newMessageDesc.textContent = "Votre Adresse E-mail";
+        newMessageDesc.classList.add("MiniTitle")
+        newContentBox.appendChild(newMessageDesc);
+
         let newMessage = document.createElement("p");
         let messageContent = json.email;
         newMessage.textContent = messageContent;
         newContentBox.appendChild(newMessage);
         // content Info
         let newInfoBox = document.createElement("div");
+        newInfoBox.classList.add("boxBio")
         newCarte.appendChild(newInfoBox);
         // Username
+        let newBioDesc = document.createElement("p");
+        newBioDesc.textContent = "Votre Bio";
+        newBioDesc.classList.add("MiniTitle")
+        newInfoBox.appendChild(newBioDesc);
+
         let newBio = document.createElement("p");
         let userBioContent = json.BIO;
         newBio.textContent = userBioContent;
+        newBio.classList.add("pSmart")
         newInfoBox.appendChild(newBio);
       });
     },
@@ -129,18 +153,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 30 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>

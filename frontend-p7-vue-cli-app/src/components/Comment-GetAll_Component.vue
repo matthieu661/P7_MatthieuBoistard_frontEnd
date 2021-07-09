@@ -1,10 +1,11 @@
 <template>
   <div class="Commentbox">
-    <h4>Commentaire</h4>
+    <h4>{{this.H4}}</h4>
     <ul id="getAll" class="listeComment"></ul>
   </div>
 </template>
 <script>
+import logo3 from "../assets/user-regular.svg"
 export default {
   name: "GetAllComment",
   props: {},
@@ -17,6 +18,7 @@ export default {
       PowerAdmin: false,
       PowerUser: false,
       POWER : false,
+      H4 : "",
       
     };
   },
@@ -67,6 +69,12 @@ export default {
       await this.getAllComment().then((json) => {
         let data = json.comment;
         
+        // commentaire avec ou sans "S"
+        if(data.length <= 1){
+          this.H4 = "Commentaire"
+        }else {
+          this.H4 = "Commentaires"
+        }
         
 
         for (let i = 0; i < data.length; i++) {
@@ -97,6 +105,7 @@ export default {
           newContentBox.appendChild(newMessage);
           // content Info
           let newInfoBox = document.createElement("div");
+          newInfoBox.classList.add("ownerDiv")
           newCarte.appendChild(newInfoBox);
           // Username
           let newUsername = document.createElement("p");
@@ -104,6 +113,9 @@ export default {
           newUsername.textContent = usernameContent;
           newUsername.classList.add("Owner");
           newInfoBox.appendChild(newUsername);
+          let logoUser =document.createElement("img")
+          logoUser.src = logo3
+          newInfoBox.appendChild(logoUser)
 
           // btn 
           if((this.PowerAdmin === true || this.PowerUser === true)){

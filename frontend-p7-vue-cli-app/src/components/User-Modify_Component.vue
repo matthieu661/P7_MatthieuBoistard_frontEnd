@@ -36,6 +36,7 @@ export default {
   data() {
     return {
       id: "",
+      usernaMe: "",
     };
   },
   mounted() {
@@ -95,7 +96,12 @@ export default {
         (res) => {
           if (res.status == 201) {
             res.json().then(() => {
-              this.$router.push({ name: "GetUserAcccount" }); //En cas de succès, on est renvoyé sur la page des posts
+              this.$router.push({ name: "GetUserAcccount" });
+              
+              
+              
+              
+              //En cas de succès, on est renvoyé sur la page des posts
             });
           } else {
             res.json().then((json) => {
@@ -104,6 +110,7 @@ export default {
           }
         }
       );
+
     },
   },
 };

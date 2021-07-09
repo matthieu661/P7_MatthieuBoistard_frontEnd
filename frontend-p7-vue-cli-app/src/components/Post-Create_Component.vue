@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <h2>Hello on create post</h2>
+  <div id="boxAPost">
     <form id="postBox" @submit="newPost">
       <label for="title">Titre</label>
       <input

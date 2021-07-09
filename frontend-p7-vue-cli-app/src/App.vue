@@ -2,15 +2,15 @@
   <div id="app">
     <div id="nav">
       <div class="navigation">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/connexion" v-show="this.SwitchConnexion">Connexion</router-link> |
+      <router-link to="/" class="Navi">Home</router-link> 
+      <router-link to="/about" class="Navi">About</router-link> 
+      <router-link to="/connexion" v-show="this.SwitchConnexion" class="Navi" id="ConnexionBtn">Connexion</router-link> 
       
-      <router-link to="/wall" v-show="this.Switch">The Wall</router-link> |
-      <router-link to="/account/id" v-show="this.Switch">Account</router-link> 
+      <router-link to="/wall" v-show="this.Switch" class="Navi" id="Wall">The Wall</router-link> 
+      <router-link to="/account/id" v-show="this.Switch" class="Navi" id="AccountBtn" title="Account"><i class="fas fa-user-alt"></i></router-link> 
       </div>
-      <div classe="user">
-       <button id="deconexion" v-show="this.Switch" type="button"> deconnexion </button> |
+      <div class="Deco">
+       <button id="deconexion" v-show="this.Switch" type="button"  title="Deconnexion"> <i class="fas fa-sign-out-alt"></i> </button> 
       </div>
     </div>
     <router-view/>
@@ -58,14 +58,21 @@ mounted() {
 }
 
 #nav {
-
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: column; 
   text-align: left;
-  margin-left: 15px;
-  padding: 30px;
+  font-size: 1.3em;
+  .fa-user-alt{
+    margin-right: 3px;
+  }
+  
 
   a {
     font-weight: bold;
     color: #2c3e50;
+    text-decoration: none;
 
     &.router-link-exact-active {
       color: #42b983;
@@ -73,7 +80,67 @@ mounted() {
   }
   
 }
-button {
-  background-color: greenyellow;
+#Wall{
+  display: flex;
+  flex-grow: 1;
+  margin-left: 20px;
+  text-align: center;
+
+}
+
+.Navi {
+  width: 60px;
+  margin-left: 10px;
+  &:hover {
+    transition: 1.2s;
+    background-color: rgba(18, 87, 18, 0.219);
+    border-radius: 15px;
+  }
+}
+.navigation {
+  display: flex;
+  width: 100%;
+  
+}
+
+#ConnexionBtn {
+  display: flex;
+ flex-grow: 1;
+ justify-content: flex-end;
+}
+#AccountBtn{
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+.Deco{
+  display: flex;
+  justify-content: flex-end;
+}
+#deconexion{
+  display: flex;
+  flex-flow: 1;
+  background-color: white;
+  
+  border : none;
+  margin-top: 10px;
+  margin-right: -5px;
+  border-radius : 15px;
+  .fa-sign-out-alt{
+    font-size: 1.8em;
+    color : green;
+    font-weight: 600;
+  }
+  &:hover {
+    background-color: rgba(255, 0, 0, 0.274);
+    cursor: pointer;
+  }
+}
+
+textarea {
+  border-radius :7px;
+  min-width: 300px;
+  min-height: 150px;
+  background-color: #42b98357;
 }
 </style>

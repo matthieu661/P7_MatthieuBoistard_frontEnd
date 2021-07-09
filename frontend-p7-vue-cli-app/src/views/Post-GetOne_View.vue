@@ -38,21 +38,31 @@ export default {
   .fa-thumbs-up {
     margin-left: 10px;
     & {
-      color : green;
-      
+      color: blue;
     }
   }
-  
 }
 #liker {
   display: flex;
   justify-content: center;
   background-color: white;
+  &:hover {
+    transition: 1s;
+    box-shadow: 0 5px 35px 0px rgba(0, 0, 0, 0.671);
+    background-color: #beefd9;
+    border: white 3px solid;
+  }
 }
 #disliker {
   display: flex;
   justify-content: center;
   background-color: white;
+  &:hover {
+    transition: 1s;
+    box-shadow: 0 5px 35px 0px rgba(0, 0, 0, 0.671);
+    background-color: #beefd9;
+    border: white 3px solid;
+  }
 }
 .OnePost {
   display: flex;
@@ -62,12 +72,24 @@ export default {
   background-color: #beefd94b;
   border-radius: 25px;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
-.commentmess {
+#onePostBox{
+  margin-top: 20px;
+  background-color: white;
+  width: 95%;
+  border-radius: 15px;
+}
+.cartesPost2{
+  
+  width: 100%;
+}
+.commentmess2 {
   height: auto;
   white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-left: 10px;
 }
 .btn {
   align-items: center;
@@ -80,11 +102,12 @@ export default {
   transition: 2s box-shadow;
   cursor: pointer;
   margin: 10px;
+  text-decoration: none; // tick sur tout les a
   &:hover {
     transition: 2s;
-  box-shadow: 0 5px 35px 0px rgba(0, 0, 0, 0.1);
-  background: #beefd9;
-}
+    box-shadow: 0 5px 35px 0px rgba(0, 0, 0, 0.1);
+    background-color: #beefd9;
+  }
 }
 
 .btn2 {
@@ -100,7 +123,7 @@ export default {
   width: 200px;
   height: 25px;
   background: rgb(255, 255, 255);
-  border : green 2px solid;
+  border: green 2px solid;
   border-radius: 75px;
   transition: 1s box-shadow;
   cursor: pointer;
@@ -116,8 +139,8 @@ export default {
     position: absolute;
     width: 200px;
     height: 25px;
-    background:  #beefd9;
-    
+    background: #beefd9;
+
     border-radius: 75px;
     z-index: -1;
     animation: 3s clockwise infinite;
@@ -135,13 +158,21 @@ export default {
   flex-direction: column;
   width: 100%;
 }
-.contentBox {
-    max-height: 400px;
+.contentBoxPost{
+  display: flex;
+  flex-direction: column;
+  max-height: 400px;
+  width: 100%;
+  .TitrePost2{
+    background-color: green;
     width: 100%;
+    color: white;
+    border-radius: 15px;
   }
+}
 .licomment {
   width: 100%;
-  border : #42b983 2px solid;
+  border: #42b983 2px solid;
   border-radius: 15px;
   margin-bottom: 15px;
   .commentmess2 {
@@ -151,16 +182,21 @@ export default {
     padding: 7px;
     max-height: 300px;
     white-space: normal;
-    overflow: visible ;
+    overflow: visible;
     text-overflow: none;
     font-style: oblique;
   }
+  .ownerDiv{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+  }
   .Owner {
+    font-size: 1.1em;
     font-weight: 700;
+    margin-left: 10px;
   }
 }
-
-
 
 @keyframes clockwise {
   0% {

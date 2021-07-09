@@ -1,7 +1,7 @@
 <template>
   <div class="Parent">
     
-    <div>
+    
       <form @submit="sendForm" id="FlexForm">
         <label for="Email"><p class="visuel">Adresse e-mail : </p></label>
         <input
@@ -22,7 +22,7 @@
         />
         <input type="submit" id="Login" value="Se connecter" disabled />
       </form>
-    </div>
+    
   </div>
 </template>
 

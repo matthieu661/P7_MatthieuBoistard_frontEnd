@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h2>Hello on create Comment</h2>
-    <form id="postBox" @submit="newPost"> 
+  <div id="Commentbox">
+    <p id="replyTo">le message posté par :<span id="usern">{{username}}</span></p>
+    <form id="postBoxContent2" @submit="newPost"> 
       <label for="message">Message</label>
       <textarea
         @input="checkForm"
@@ -25,7 +25,8 @@ export default {
   data() {
     return {
         id:"",
-    token:"" 
+    token:"" ,
+    username:"",
     };
   },
   mounted() {
@@ -33,6 +34,7 @@ export default {
     if (user) {
       this.id = user.id;
       this.token = user.token;
+      this.username = user.username;
     }else {
     // a changer juste pour test
     return console.log("Probleme localstorage no data");}

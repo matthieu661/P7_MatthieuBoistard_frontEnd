@@ -74,7 +74,7 @@ export default {
 }
 #getAll {
   width: 97%;
-  border: 2px solid black;
+  //border: 2px solid black;
   margin-left: 0px;
   padding-left: 8px;
   padding-right: 11px;
@@ -83,10 +83,14 @@ export default {
   justify-content: center;
 }
 .superLi {
+  
   width: 100%;
-  border: black 2px solid;
+  border: #42b983 2px solid;
+  border-radius: 15px;
   margin-top: 15px;
   background-color: #beefd9;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.425);
+
 }
 
 .cartesPost {
@@ -95,15 +99,18 @@ export default {
   h3 {
     margin-top: 0px;
     margin-bottom: 5px;
-    background-color: #42b983ce;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    background-color: #42b983;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
     font-size: 1.2em;
     font-weight: 700;
   }
   .contentBox {
     max-height: 400px;
     width: 100%;
+    background-color: white;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
   }
   .messagePost {
     background-color: white;
@@ -114,10 +121,13 @@ export default {
     white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
+    
   }
   .BoxData {
     height: 20px;
     display: flex;
+    background-color: white;
+    
     
     
 

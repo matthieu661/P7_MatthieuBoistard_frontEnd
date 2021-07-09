@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>Nouveau message</h1>
+    <h1>Créer un nouveau message</h1>
     <CreatePost/>
   </div>
 </template>
@@ -19,6 +19,26 @@ export default ({
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
+#boxAPost{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#postBox {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+#title {
+  min-width: 300px;
+  min-height: 30px;
+  border-radius :7px;
+  background-color: #42b98357;
+}
+label {
+  font-weight: 600;
+  margin-top: 15px;
+}
 
 </style>

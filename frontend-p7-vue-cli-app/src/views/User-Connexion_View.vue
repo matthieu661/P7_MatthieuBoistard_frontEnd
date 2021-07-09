@@ -29,19 +29,51 @@ export default {
 }
 
 </script>
+<style lang="scss" scoped>
+
+</style>
 <style lang="scss">
 .homeConnexion {
   display: flex;
   flex-direction: column;
-  background-color: #beefd9 ;
-  
+  background-color: #beefd97a ;
+  border-radius: 15px;
+  align-items: center;
 }
 .FlexConnexion {
   display: flex;
-  background-color: #42b983;
-  border: 2px solid black;
+  width: 90%;
+  background-color: #42b98377;
+  //border: 2px solid black;
+  border-radius: 15px;
   margin: 10px;
 }
+
+#Email {
+  border-radius: 7px;
+  &:Focus {
+    box-shadow: 0 0 7px #133626fb;
+  }
+}
+#Email2 {
+  border-radius: 7px;
+  &:Focus {
+    box-shadow: 0 0 7px #133626fb;
+  }
+}
+#Mdp {
+  border-radius: 7px;
+  &:Focus {
+    box-shadow: 0 0 7px #133626fb;
+  }
+}
+#Mdp2 {
+  border-radius: 7px;
+  &:Focus {
+    box-shadow: 0 0 7px #133626fb;
+  }
+}
+
 #FlexForm {
   display: flex;
   flex-direction: column;
@@ -62,6 +94,7 @@ export default {
   margin-bottom: 10px;
 }
 .visuel {
+
   font-weight: 700;
   margin-bottom: 3px;
   font-size: 1.1em;
