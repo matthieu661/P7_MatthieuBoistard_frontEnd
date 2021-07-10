@@ -181,7 +181,7 @@ export default {
         options
       ).then((res) => {
         if (res.status == 200) {
-          this.$router.push({ name: "Thetest3" });
+          this.$router.push({ name: "GetWallPage" });
           //localStorage.clear();
         } else {
           res.status(8000);
@@ -213,6 +213,9 @@ export default {
     async returnOnePost() {
       await this.getOnePost().then((json) => {
         console.log(this.username);
+        const paramsId = window.location.href.substr(
+        window.location.href.lastIndexOf("/") + 1
+      );
 
         if (json.post.userName === this.username) {
           console.log(json.post.userName);
@@ -224,7 +227,7 @@ export default {
         if (this.PowerAdmin === true || this.PowerUser === true) {
           let btnModify = document.getElementById("modifyPost");
           btnModify.addEventListener("click", () => {
-            this.$router.push(`/post/modifyPost/${this.paramsId}`);
+            this.$router.push(`/post/modifyPost/${paramsId}`);
           });
           // init bnt2
           let btnDelete = document.getElementById("deletePost");
@@ -255,6 +258,12 @@ export default {
         let messageContent = json.post.content;
         newMessage.textContent = messageContent;
         newContentBox.appendChild(newMessage);
+
+        let Attachement = document.createElement("img");
+              Attachement.src = json.post.attachement;
+              Attachement.alt = json.post.attachement;
+              Attachement.classList.add("ImageOnePost")
+              newContentBox.appendChild(Attachement);
         // content Info
         let newInfoBox = document.createElement("div");
         newCarte.appendChild(newInfoBox);

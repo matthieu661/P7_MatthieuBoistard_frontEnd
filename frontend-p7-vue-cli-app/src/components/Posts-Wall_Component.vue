@@ -5,7 +5,7 @@
 </template>
 <script>
 import logo from "../assets/reply-solid.svg";
-import logo2 from "../assets/user-solid.svg"
+import logo2 from "../assets/user-solid.svg";
 
 export default {
   name: "WallPage",
@@ -38,7 +38,7 @@ export default {
       const options = {
         method: "GET",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          
           Authorization: `Bearer ${this.token}`,
         },
       };
@@ -78,6 +78,12 @@ export default {
     returnAllPost() {
       this.getAllPosts().then((json) => {
         //const router = this.$router;
+        if (json.length === 0) {
+          let ZERO = document.createElement("p");
+          ZERO.textContent = "Soyez le premier !";
+          document.getElementById("getAll").appendChild(ZERO);
+        }
+
         for (let i = 0; i < json.length; i++) {
           let newLi = document.createElement("li");
           newLi.classList.add("superLi");
@@ -92,12 +98,22 @@ export default {
           newContentBox.classList.add("contentBox");
           newCarte.appendChild(newContentBox);
           // H3 titre post
+          
+              
+
           let NewTitle = document.createElement("h3");
           let titleContent = json[i].title;
 
           NewTitle.textContent = titleContent;
           newContentBox.appendChild(NewTitle);
           // post
+          if(json[i].attachement != null){
+          let Attachement = document.createElement("img");
+              Attachement.src = json[i].attachement;
+              Attachement.alt = json[i].attachement;
+              Attachement.classList.add("ImageduPost")
+              newContentBox.appendChild(Attachement);}
+
           let newMessage = document.createElement("p");
           newMessage.classList.add("messagePost");
           let messageContent = json[i].content;
@@ -109,32 +125,30 @@ export default {
           newInfoBox.classList.add("BoxData");
           newCarte.appendChild(newInfoBox);
 
-
-
           // commentaire counter :
           let divComment = document.createElement("div");
-          newCarte.appendChild(divComment)
-          divComment.classList.add("Comment")
+          newCarte.appendChild(divComment);
+          divComment.classList.add("Comment");
 
-          let counterInfo =  document.createElement("p");
+          let counterInfo = document.createElement("p");
           counterInfo.classList.add("counter");
-
 
           this.counterComment(json[i].id).then((json) => {
             this.dataComment = json.comment.length;
             let NbrComment = this.dataComment;
-            if(NbrComment <= 1){
-             counterInfo.textContent = NbrComment + " commentaire";
-            }else{counterInfo.textContent = NbrComment + " commentaires";}
+            if (NbrComment <= 1) {
+              counterInfo.textContent = NbrComment + " commentaire";
+            } else {
+              counterInfo.textContent = NbrComment + " commentaires";
+            }
             divComment.appendChild(counterInfo);
-            
+
             console.log(this.dataComment);
           });
-          
+
           let newiconReply = document.createElement("img");
           newiconReply.src = logo2;
           newInfoBox.appendChild(newiconReply);
-
 
           let newiconReply2 = document.createElement("img");
           newiconReply2.src = logo;
@@ -146,13 +160,13 @@ export default {
           // Username
           let newUsername = document.createElement("p");
           newUsername.classList.add("username");
-          let usernameContent = json[i].userName ;
+          let usernameContent = json[i].userName;
           newUsername.textContent = usernameContent;
           newInfoBox.appendChild(newUsername);
-          
+
           // date
           let newTime = document.createElement("p");
-          newTime.classList.add("time")
+          newTime.classList.add("time");
           let timeContent = json[i].createdAt;
           let convert = timeContent
             .replace("T", " ")
@@ -170,8 +184,7 @@ export default {
             .split(" ")
             .reverse()
             .join("-");
-          newTime.textContent =
-            " à " + convertTime + " le " + convertDate;
+          newTime.textContent = " à " + convertTime + " le " + convertDate;
           newInfoBox.appendChild(newTime);
         }
       });

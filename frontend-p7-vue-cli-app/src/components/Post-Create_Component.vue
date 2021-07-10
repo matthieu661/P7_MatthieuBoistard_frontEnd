@@ -20,6 +20,18 @@
         maxlength="1000"
       ></textarea>
       <input type="submit" id="newPost" value="createPost" disabled />
+      <label for="media" class="custom-file-upload"
+        ><i class="fa fa-upload" aria-hidden="true"></i> Télécharger 
+        image</label
+      >
+      <input
+        @input="checkForm"
+       
+        type="file"
+        id="media"
+        name="media"
+        accept="image/*"
+      />
     </form>
   </div>
 </template>
@@ -32,8 +44,8 @@ export default {
   name: "CreatePost",
   data() {
     return {
-        id:"",
-    token:"" 
+      id: "",
+      token: "",
     };
   },
   mounted() {
@@ -41,9 +53,10 @@ export default {
     if (user) {
       this.id = user.id;
       this.token = user.token;
-    }else {
-    // a changer juste pour test
-    return console.log("Probleme localstorage no data");}
+    } else {
+      // a changer juste pour test
+      return console.log("Probleme localstorage no data");
+    }
   },
   methods: {
     checkForm() {
@@ -62,43 +75,48 @@ export default {
 
       const title = document.getElementById("title").value;
       const message = document.getElementById("message").value;
+      const Attachement = event.target.media.files[0];
 
-      const Post = {
-        title: title,
-        content: message,
-      };
+      let data= new FormData();
 
-      let formData =[];
+      data.append('title', title);
+      data.append('content', message);
+
+      data.append('attachement', Attachement)
+
+      // pour mettre des images il faut apsser en app/JSON
+      /*let formData =[];
         for (var X in Post){
           let encodedKey = encodeURIComponent(X);
           let encodedValue = encodeURIComponent(Post[X]);
           formData.push(encodedKey + "=" + encodedValue);
         }
-        formData = formData.join("&");
+        formData = formData.join("&");*/
 
       const options = {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          'Accept': 'application/json, text/plain, */*',
+          
           Authorization: `Bearer ${this.token}`,
         },
-        body : formData,
+        body: data,
       };
-      fetch("http://localhost:3000/api/posts/createPost", options)
-          .then (res => {
-            if (res.status == 201) {res.json ()
-              .then (() => {
-                this.success=true;
-                this.waiting=false;
-                this.$router.push({ name: 'GetWallPage' }); //En cas de succès, on est renvoyé sur la page des posts
-              }
-            )}
-            else {res.json ()
-            .then (json => {
-                this.message = json.error; //Affichage du message d'erreur du serveur
-              }
-            )}
-          })
+      fetch("http://localhost:3000/api/posts/createPost", options).then(
+        (res) => {
+          if (res.status == 201) {
+            res.json().then(() => {
+              this.success = true;
+              this.waiting = false;
+              this.$router.push({ name: "GetWallPage" }); //En cas de succès, on est renvoyé sur la page des posts
+            });
+          } else {
+            res.json().then((json) => {
+              this.message = json.error; //Affichage du message d'erreur du serveur
+            });
+          }
+        }
+      );
     },
   },
 };

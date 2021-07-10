@@ -1,7 +1,7 @@
 <template>
-  <div class="hello">
+  <div class="hello2">
     <h1>{{ msg }}</h1>
-    <form @submit="Update">
+    <form @submit="Update" id="modifyBox" >
       <textarea
         @input="checkForm"
         type="text"

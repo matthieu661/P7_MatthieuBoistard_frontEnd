@@ -1,7 +1,7 @@
 <template>
-  <div class="hello">
+  <div class="hello2">
     <h1>{{ msg }}</h1>
-    <form @submit="UpdateUser">
+    <form @submit="UpdateUser" id="modifyBox">
       <label for="Title">Title</label>
       <input
         @input="checkForm"
@@ -21,6 +21,17 @@
         maxlength="1000"
         
       ></textarea>
+      <label for="media" class="custom-file-upload"
+        ><i class="fa fa-upload" aria-hidden="true"></i> modifier l'image</label
+      >
+      <input
+        @input="checkForm"
+       
+        type="file"
+        id="media"
+        name="media"
+        accept="image/*"
+      />
       <input type="submit" id="Update" value="mettre à jour" />
     </form>
   </div>
@@ -69,26 +80,24 @@ export default {
       event.preventDefault();
       let Title = document.getElementById("Title").value;
       let Content= document.getElementById("Content").value;
-      const User = {
-        title: Title,
-        content: Content,
-      };
+      let Attachement = event.target.media.files[0];
 
-      let formData = [];
-      for (var X in User) {
-        let encodedKey = encodeURIComponent(X);
-        let encodedValue = encodeURIComponent(User[X]);
-        formData.push(encodedKey + "=" + encodedValue);
-      }
-      formData = formData.join("&");
+      let data= new FormData();
+
+      data.append('title', Title);
+      data.append('content', Content);
+
+      data.append('attachement', Attachement)
+
 
       const options = {
         method: "PUT",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          'Accept': 'application/json, text/plain, */*',
+          
           Authorization: `Bearer ${this.token}`,
         },
-        body: formData,
+        body: data,
       };
       const paramsId = window.location.href.substr(
         window.location.href.lastIndexOf("/") + 1

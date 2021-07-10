@@ -74,16 +74,16 @@ export default {
   margin-bottom: 20px;
   margin-top: 20px;
 }
-#onePostBox{
+#onePostBox {
   margin-top: 20px;
   background-color: white;
   width: 95%;
   border-radius: 15px;
 }
-.cartesPost2{
-  
+.cartesPost2 {
   width: 100%;
 }
+
 .commentmess2 {
   height: auto;
   white-space: normal;
@@ -158,16 +158,21 @@ export default {
   flex-direction: column;
   width: 100%;
 }
-.contentBoxPost{
+.contentBoxPost {
   display: flex;
   flex-direction: column;
-  max-height: 400px;
+  align-items: center;
+  max-height: 600px;
   width: 100%;
-  .TitrePost2{
+  .TitrePost2 {
     background-color: green;
     width: 100%;
     color: white;
     border-radius: 15px;
+  }
+  .ImageOnePost {
+    width: 100%;
+    max-width: 300px;
   }
 }
 .licomment {
@@ -186,7 +191,7 @@ export default {
     text-overflow: none;
     font-style: oblique;
   }
-  .ownerDiv{
+  .ownerDiv {
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;

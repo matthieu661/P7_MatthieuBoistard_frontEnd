@@ -106,11 +106,15 @@ export default {
     font-weight: 700;
   }
   .contentBox {
-    max-height: 400px;
+    max-height: 600px;
     width: 100%;
     background-color: white;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
+  }
+  .ImageduPost {
+    width: 100%;
+    max-width: 200px;
   }
   .messagePost {
     background-color: white;
