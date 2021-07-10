@@ -2,9 +2,7 @@
   <div class="WallPage">
     <h1>Publications</h1>
     <div id="NewPost">
-      <router-link to="/newPost" id="link-mess"
-        >Nouveau message <i class="fas fa-paper-plane"></i
-      ></router-link>
+      <router-link to="/newPost" id="link-mess">Nouveau message <i class="fas fa-paper-plane"></i></router-link>
     </div>
     <WallPage />
   </div>
@@ -34,7 +32,10 @@ export default {
 }
 #link-mess {
   text-decoration: none;
-  :hover {
+  color: #42b983ec;
+  font-size: 1.3em;
+  font-weight: 700;
+  border &:hover {
     font-size: 2em;
   }
 }
@@ -45,11 +46,12 @@ export default {
   align-items: center;
   justify-content: center;
   position: relative;
-  width: 200px;
+  width: 240px;
   height: 25px;
   background: rgba(255, 255, 255, 0);
   border-radius: 75px;
   transition: 1s box-shadow;
+
   :hover {
     background: rgba(255, 255, 255, 0);
     box-shadow: 0 5px 35px 0px rgba(0, 0, 0, 0.1);
@@ -60,8 +62,8 @@ export default {
     display: block;
     content: "";
     position: absolute;
-    width: 200px;
-    height: 25px;
+    width: 240px;
+    height: 40px;
     background: #42b983;
     border-radius: 75px;
     z-index: -1;
@@ -83,14 +85,12 @@ export default {
   justify-content: center;
 }
 .superLi {
-  
   width: 100%;
   border: #42b983 2px solid;
   border-radius: 15px;
   margin-top: 15px;
   background-color: #beefd9;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.425);
-
 }
 
 .cartesPost {
@@ -99,7 +99,7 @@ export default {
   h3 {
     margin-top: 0px;
     margin-bottom: 5px;
-    background-color: #42b983;
+    background-image: linear-gradient(#42b9838c, 90%, white);
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     font-size: 1.2em;
@@ -121,15 +121,11 @@ export default {
     white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
-    
   }
   .BoxData {
     height: 20px;
     display: flex;
     background-color: white;
-    
-    
-    
 
     img {
       width: 15px;
@@ -170,12 +166,12 @@ export default {
     display: flex;
     width: 100%;
     height: 23px;
-
+    background-color: white;
     justify-content: center;
-    
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
     :hover {
-      
-      background-color: #42b983;
+      background-color: #42b98367;
       cursor: pointer;
     }
   }

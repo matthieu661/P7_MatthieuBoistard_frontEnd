@@ -6,8 +6,11 @@
       <router-link to="/about" class="Navi">About</router-link> 
       <router-link to="/connexion" v-show="this.SwitchConnexion" class="Navi" id="ConnexionBtn">Connexion</router-link> 
       
+      
       <router-link to="/wall" v-show="this.Switch" class="Navi" id="Wall">The Wall</router-link> 
+      <div id="Account">
       <router-link to="/account/id" v-show="this.Switch" class="Navi" id="AccountBtn" title="Account"><i class="fas fa-user-alt"></i></router-link> 
+      </div>
       </div>
       <div class="Deco">
        <button id="deconexion" v-show="this.Switch" type="button"  title="Deconnexion"> <i class="fas fa-sign-out-alt"></i> </button> 
@@ -93,7 +96,7 @@ mounted() {
   margin-left: 10px;
   &:hover {
     transition: 1.2s;
-    background-color: rgba(18, 87, 18, 0.219);
+    color : red;
     border-radius: 15px;
   }
 }
@@ -108,10 +111,24 @@ mounted() {
  flex-grow: 1;
  justify-content: flex-end;
 }
-#AccountBtn{
+#Account{
   display: flex;
   flex-grow: 1;
   justify-content: flex-end;
+}
+#AccountBtn{
+  display: flex;
+  //flex-grow: 1;
+  justify-content: flex-end;
+  .fa-user-alt{
+    margin-right: 4px;
+    color: #42b983ec;
+    &:hover {
+      transition: 1s;
+      color: black;
+    }
+    }
+  
 }
 .Deco{
   display: flex;
@@ -128,11 +145,14 @@ mounted() {
   border-radius : 15px;
   .fa-sign-out-alt{
     font-size: 1.8em;
-    color : green;
-    font-weight: 600;
+    color : #42b983ec;
+    font-weight: 700;
+    &:hover{
+      transition: 1s;
+    color : black;
+    }
   }
   &:hover {
-    background-color: rgba(255, 0, 0, 0.274);
     cursor: pointer;
   }
 }
