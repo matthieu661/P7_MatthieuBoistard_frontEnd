@@ -19,19 +19,20 @@
         name="message"
         maxlength="1000"
       ></textarea>
-      <input type="submit" id="newPost" value="createPost" disabled />
-      <label for="media" class="custom-file-upload"
-        ><i class="fa fa-upload" aria-hidden="true"></i> Télécharger 
-        image</label
-      >
+
+      
+      <label for="media" class="Btn-Input_file"><i class="fas fa-cloud-upload-alt"></i> Ajouter une image</label>
       <input
         @input="checkForm"
-       
         type="file"
         id="media"
         name="media"
         accept="image/*"
+        class="Input-file"
       />
+
+
+      <input type="submit" id="newPost" value="Envoyer" disabled />
     </form>
   </div>
 </template>
@@ -77,12 +78,11 @@ export default {
       const message = document.getElementById("message").value;
       const Attachement = event.target.media.files[0];
 
-      let data= new FormData();
+      let data = new FormData();
 
-      data.append('title', title);
-      data.append('content', message);
-
-      data.append('attachement', Attachement)
+      data.append("title", title);
+      data.append("content", message);
+      data.append("attachement", Attachement);
 
       // pour mettre des images il faut apsser en app/JSON
       /*let formData =[];
@@ -96,8 +96,8 @@ export default {
       const options = {
         method: "POST",
         headers: {
-          'Accept': 'application/json, text/plain, */*',
-          
+          Accept: "application/json, text/plain, */*",
+
           Authorization: `Bearer ${this.token}`,
         },
         body: data,
@@ -123,5 +123,3 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
-</style>

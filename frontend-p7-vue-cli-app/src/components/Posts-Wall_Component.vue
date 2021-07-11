@@ -150,13 +150,28 @@ export default {
           newiconReply.src = logo2;
           newInfoBox.appendChild(newiconReply);
 
+          let newDivReplyCom = document.createElement("div");
+          newDivReplyCom.classList.add("solution");
+          divComment.appendChild(newDivReplyCom)
+
           let newiconReply2 = document.createElement("img");
           newiconReply2.src = logo;
-          divComment.appendChild(newiconReply2);
+          newDivReplyCom.appendChild(newiconReply2);
+          newiconReply2.classList.add("Commenter")
 
-          divComment.addEventListener("click", () => {
+          let newToPost = document.createElement("p");
+          let test78 = " voir ";
+          newToPost.classList.add("miracle")
+          newToPost.textContent = test78 ;
+          newDivReplyCom.appendChild(newToPost)
+
+
+
+          newDivReplyCom.addEventListener("click", () => {
             this.$router.push("Post/" + json[i].id);
           });
+
+          
           // Username
           let newUsername = document.createElement("p");
           newUsername.classList.add("username");
@@ -192,6 +207,4 @@ export default {
   },
 };
 </script>
-<style scoped lang="scss" >
-</style>
 

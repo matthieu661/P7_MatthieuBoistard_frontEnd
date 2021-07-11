@@ -1,11 +1,12 @@
 <template>
   <div class="OnePost">
     <div id="onePostBox"></div>
-    <h4 id="Reply" >Reply this post <i class="far fa-comment-dots"></i></h4>
+    <h4 id="Reply">Reply this post <i class="far fa-comment-dots"></i></h4>
     <div id="like">
-      
-      <h5 id="liker" class="btn btn2">{{ this.dataLike }}<i class="far fa-thumbs-up"></i></h5>
-      <h5 id="disliker" class="btn btn2" >
+      <h5 id="liker" class="btn btn2">
+        {{ this.dataLike }}<i class="far fa-thumbs-up"></i>
+      </h5>
+      <h5 id="disliker" class="btn btn2">
         {{ this.dataDisLike }}<i class="far fa-thumbs-down"></i>
       </h5>
     </div>
@@ -110,14 +111,8 @@ export default {
 
     async PushLike() {
       await this.GetLike().then((json) => {
-        console.log(json.post.likes);
-        let value = json.post.likes;
-        console.log(value);
-        if (value === 0) {
-          this.dataLike += 1;
-        } else {
-          this.dataLike -= 1;
-        }
+        this.dataLike = json.post.likes;
+        this.dataDisLike = json.post.dislikes;
       });
     },
     // dislike
@@ -147,14 +142,8 @@ export default {
 
     async PushDisLike() {
       await this.GetDisLike().then((json) => {
-        console.log(json.post.dislikes);
-        let value = json.post.dislikes;
-        console.log(value);
-        if (value === 0) {
-          this.dataDisLike -= 1;
-        } else {
-          this.dataDisLike += 1;
-        }
+        this.dataLike = json.post.likes;
+        this.dataDisLike = json.post.dislikes;
       });
     },
     // /////////////////////////////////////////////////////
@@ -182,7 +171,6 @@ export default {
       ).then((res) => {
         if (res.status == 200) {
           this.$router.push({ name: "GetWallPage" });
-          //localStorage.clear();
         } else {
           res.status(8000);
         }
@@ -213,17 +201,18 @@ export default {
     async returnOnePost() {
       await this.getOnePost().then((json) => {
         console.log(this.username);
+        console.log(json);
         const paramsId = window.location.href.substr(
-        window.location.href.lastIndexOf("/") + 1
-      );
+          window.location.href.lastIndexOf("/") + 1
+        );
 
-        if (json.post.userName === this.username) {
-          console.log(json.post.userName);
+        if (json.post.userId === this.id) {
+          console.log(json.post.userId);
           this.PowerUser = true;
         }
 
         console.log(this.PowerUser);
-        console.log(this.PowerAdmin);
+        console.log(this.PowerAdmin, "lkfhsfslfhsfsndmlfnsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf");
         if (this.PowerAdmin === true || this.PowerUser === true) {
           let btnModify = document.getElementById("modifyPost");
           btnModify.addEventListener("click", () => {
@@ -241,7 +230,7 @@ export default {
         let Box = document.getElementById("onePostBox");
         let newCarte = document.createElement("div");
         newCarte.classList.add("cartesPost2");
-        
+
         Box.appendChild(newCarte);
         // content Post
         let newContentBox = document.createElement("div");
@@ -258,12 +247,13 @@ export default {
         let messageContent = json.post.content;
         newMessage.textContent = messageContent;
         newContentBox.appendChild(newMessage);
-
-        let Attachement = document.createElement("img");
-              Attachement.src = json.post.attachement;
-              Attachement.alt = json.post.attachement;
-              Attachement.classList.add("ImageOnePost")
-              newContentBox.appendChild(Attachement);
+        if (json.post.attachement != null) {
+          let Attachement = document.createElement("img");
+          Attachement.src = json.post.attachement;
+          Attachement.alt = json.post.attachement;
+          Attachement.classList.add("ImageOnePost");
+          newContentBox.appendChild(Attachement);
+        }
         // content Info
         let newInfoBox = document.createElement("div");
         newCarte.appendChild(newInfoBox);
@@ -301,6 +291,3 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-</style>

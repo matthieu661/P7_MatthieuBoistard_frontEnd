@@ -40,5 +40,60 @@ label {
   font-weight: 600;
   margin-top: 15px;
 }
+.Btn-Input_file {
+  background: white;
+  margin-bottom: 20px ;
+  width: 180px;
+  height: 23px;
+  align-self: center;
+  padding-top: 5px;
+  border-radius: 15px;
+  
+  &:hover {
+    cursor: grab ;
+    transition: 1s;
+    background-color: #043b2231 ;
+    &:active {
+      cursor: grabbing;
+    }
+
+  }
+}
+#newPost {
+  font-weight: 600;
+  border-radius: 7px;
+}
+/* .. .. revenir sur ce point dans le futur ! Important custom Upload button***
+.Input-file {
+  display: flex;
+  margin-top: 5px;
+  margin-bottom: 8px;
+  border: 1px black solid;
+  border-radius: 7px;
+  background-color: #42b98357;
+  text-align: center;
+  justify-content: center;
+  justify-items: center;
+  font-size: 1em;
+  
+}
+
+
+// Probleme de double btn difficilement modifiable btn upload
+input[type="file"]::file-selector-button {
+	background-color: white;
+  border : none;
+  font-weight: 600;
+  &:hover {
+    cursor: grab;
+
+  }
+}*/
+#media {
+  display: none;
+  width: 90%;
+  color : red;
+  align-self: center;
+}
 
 </style>

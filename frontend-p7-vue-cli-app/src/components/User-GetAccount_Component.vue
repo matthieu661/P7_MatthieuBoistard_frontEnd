@@ -1,27 +1,26 @@
 <template>
   <div class="UserPage">
-    <h1> Bienvenue </h1>
+    <h1 id="Use"> Bienvenue </h1>
     <p class="UserTitre" >{{ msg }}</p>
     <h2>Votre Espace Personel</h2>
     <div id="oneUserBox" class="Green"></div>
     <div id="action">
-      <button id="modifyUser" type="button" class="btn"><i class="fas fa-user-edit"></i> Mettre a jour votre Profile</button> |
+      <button id="modifyUser" type="button" class="btn"><i class="fas fa-user-edit"></i> Mettre a jour votre Profile</button> 
       <button id="deleteUser" type="button" class="btn"><i class="fas fa-trash"></i> supprimer votre Profile</button>
     </div>
-    <router-link to="/wall" id="return" class="btn"><i class="fas fa-chevron-circle-left"></i> <p class="back back2">The Wall</p></router-link>
+    <router-link to="/wall" id="return" class="btn bntWall"><i class="fas fa-chevron-circle-left"></i> <p class="back back2">The Wall</p></router-link>
   </div>
 </template>
 
 <script>
 export default {
   name: "GetUserAcccount",
-  props: {
-    msg: String,
-  },
+  
   data() {
     return {
       id : "",
       username : "",
+      msg : "",
     };
   },
   mounted() {
@@ -152,6 +151,3 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-
-</style>

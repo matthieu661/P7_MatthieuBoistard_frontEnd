@@ -31,6 +31,7 @@ export default {
       this.username = user.username;
       console.log(this.username)
       this.token = user.token;
+      this.id = user.id;
       //invoque la recup des posts et la creation des li
       this.returnAllComment();
     } else {
@@ -80,8 +81,8 @@ export default {
         for (let i = 0; i < data.length; i++) {
 
 
-          if (data[i].username === this.username) {
-          console.log(data.username);
+          if (data[i].userId === this.id) {
+          console.log(data.id);
           this.PowerUser = true;
         }
           // creation de la LI
@@ -121,7 +122,7 @@ export default {
           if((this.PowerAdmin === true || this.PowerUser === true)){
           let newBtnM = document.createElement("button");
           newBtnM.classList.add("btn");
-          newBtnM.classList.add("btn")
+          newBtnM.classList.add("btnModif")
           let NewtextBtnModify = document.createTextNode(
             "modfier votre commentaire"
           );
@@ -139,7 +140,7 @@ export default {
           });
           let newBtnD = document.createElement("button");
           newBtnD.classList.add("btn");
-          newBtnD.classList.add("btn")
+          newBtnD.classList.add("btnDel")
           let NewtextBtnDelete = document.createTextNode(
             "supprimer votre commentaire"
           );
@@ -182,22 +183,3 @@ export default {
   },
 };
 </script>
-<style scoped lang="scss" >
-.Parent {
-  width: 100%;
-  height: auto;
-  border: solid black 2px;
-}
-ul {
-  display: flex;
-  flex-direction: column;
-  width: auto;
-  height: auto;
-  margin-top: 20px;
-  padding: 30px;
-  &__li {
-    display: flex;
-    background-color: red;
-  }
-}
-</style>

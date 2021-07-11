@@ -2,7 +2,9 @@
   <div class="WallPage">
     <h1>Publications</h1>
     <div id="NewPost">
-      <router-link to="/newPost" id="link-mess">Nouveau message <i class="fas fa-paper-plane"></i></router-link>
+      <router-link to="/newPost" id="link-mess"
+        >Nouveau message <i class="fas fa-paper-plane"></i
+      ></router-link>
     </div>
     <WallPage />
   </div>
@@ -32,12 +34,38 @@ export default {
 }
 #link-mess {
   text-decoration: none;
-  color: #42b983ec;
+  color: rgb(24, 107, 99);
   font-size: 1.3em;
   font-weight: 700;
   border &:hover {
     font-size: 2em;
   }
+}
+.solution {
+  display: flex;
+  width: 80px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  &:hover {
+    transition: 1s;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+      rgba(83, 5, 5, 0.3) 0px 30px 60px -30px,
+      rgba(4, 90, 71, 0.466) 0px -2px 6px 0px inset;
+    cursor: pointer;
+   
+  }
+}
+.miracle {
+  margin-left: 5px;
+  font-weight: 600;
+  
+}
+
+.Commenter {
+  width: 16px;
+  margin-bottom: 2px;
 }
 
 #NewPost {
@@ -86,11 +114,12 @@ export default {
 }
 .superLi {
   width: 100%;
-  border: #42b983 2px solid;
+  //border: rgb(24,107,99) 2px solid;
+  border: none;
   border-radius: 15px;
   margin-top: 15px;
-  background-color: #beefd9;
-  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.425);
+  //background-color: rgba(24, 107, 99, 0.178);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgb(24, 107, 99) 0px 1px 2px;
 }
 
 .cartesPost {
@@ -99,11 +128,12 @@ export default {
   h3 {
     margin-top: 0px;
     margin-bottom: 5px;
-    background-image: linear-gradient(#42b9838c, 90%, white);
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
+    background: rgb(24, 107, 99);
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
     font-size: 1.2em;
     font-weight: 700;
+    color: white;
   }
   .contentBox {
     max-height: 600px;
@@ -115,6 +145,10 @@ export default {
   .ImageduPost {
     width: 100%;
     max-width: 200px;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   }
   .messagePost {
     background-color: white;
@@ -130,16 +164,13 @@ export default {
     height: 20px;
     display: flex;
     background-color: white;
-
+    margin-bottom: 5px;
     img {
       width: 15px;
       margin-left: 15px;
     }
   }
-  img {
-    width: 15px;
-    margin-left: 15px;
-  }
+
   .username {
     font-size: 1em;
     font-style: italic;
@@ -174,10 +205,7 @@ export default {
     justify-content: center;
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
-    :hover {
-      background-color: #42b98367;
-      cursor: pointer;
-    }
+    
   }
 }
 @keyframes clockwise {

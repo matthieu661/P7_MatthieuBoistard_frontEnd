@@ -17,12 +17,13 @@
         @input="checkForm"
         type="text"
         id="username"
+        class="UserModif"
         name="username"
         minlength="3"
         maxlength="15"
 
       />
-      <input type="submit" id="Update" value="mettre à jour" />
+      <input type="submit" id="Update" class="userUpd" value="mettre à jour" />
     </form>
   </div>
 </template>
@@ -115,21 +116,3 @@ export default {
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 30 10px;
-}
-a {
-  color: #42b983;
-}
-</style>

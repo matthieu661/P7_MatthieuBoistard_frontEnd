@@ -78,7 +78,8 @@ mounted() {
     text-decoration: none;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: rgb(24,107,99);
+      font-size: 1.1em;
     }
   }
   
@@ -94,11 +95,6 @@ mounted() {
 .Navi {
   width: 60px;
   margin-left: 10px;
-  &:hover {
-    transition: 1.2s;
-    color : red;
-    border-radius: 15px;
-  }
 }
 .navigation {
   display: flex;
@@ -109,7 +105,7 @@ mounted() {
 #ConnexionBtn {
   display: flex;
  flex-grow: 1;
- justify-content: flex-end;
+ justify-content: flex-start;
 }
 #Account{
   display: flex;
@@ -122,10 +118,10 @@ mounted() {
   justify-content: flex-end;
   .fa-user-alt{
     margin-right: 4px;
-    color: #42b983ec;
+    color: rgb(24,107,99);
     &:hover {
       transition: 1s;
-      color: black;
+      color: rgba(192, 115, 14, 0.712);
     }
     }
   
@@ -145,7 +141,7 @@ mounted() {
   border-radius : 15px;
   .fa-sign-out-alt{
     font-size: 1.8em;
-    color : #42b983ec;
+    color : rgba(112, 2, 2, 0.815);
     font-weight: 700;
     &:hover{
       transition: 1s;

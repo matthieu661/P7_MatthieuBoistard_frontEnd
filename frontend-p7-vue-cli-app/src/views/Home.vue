@@ -8,6 +8,7 @@
       />
     </div>
     <div class="Anima"><AcceuilText/></div>
+    <div id="imagePage"><img alt="image partage" id="imgBack" src="../../public/ressources/partager2.jpg"/></div>
   </div>
 </template>
 
@@ -49,5 +50,23 @@ export default {
   margin: 10px 50px; 
   letter-spacing: 6px; 
   font-weight: bold;
+}
+#imagePage {
+  position: absolute;
+  top: 400px;
+  margin-top : 60px;
+  opacity: 0.8;
+}
+h1,h2 {
+  font-weight: 200;
+  margin: 0.4em 0;
+}
+h1 { font-size: 3.5em; }
+h2 {
+  color: #888;
+  font-size: 2em;
+}
+span{
+    color : #42b983ec;
 }
 </style>

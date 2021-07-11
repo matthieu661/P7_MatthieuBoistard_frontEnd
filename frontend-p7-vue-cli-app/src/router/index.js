@@ -91,7 +91,7 @@ const routes = [
     component : ModifyPostView
   },
   {
-    path: '/post/&:id&/modifyComment/:id',
+    path: '/post/&:id&/modifyComment/:num',
     name :'modifyCommentComponent',
     component : ModifyCommentView
   },

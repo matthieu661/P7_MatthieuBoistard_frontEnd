@@ -4,7 +4,7 @@
     <h1> 
   <span
      class="txt-rotate"
-     data-period="2000"
+     data-period="2200"
      data-rotate='[ "Partager nos idées.", "Echanger nos Experiences.", "Créer des Liens.", "Découvrir Vos collégues Autrement.", " le fun vous attend!" ]'></span>
 </h1>
 <h2>A vos Claviers !  </h2>
@@ -89,18 +89,5 @@ window.onload = function() {
 
 
 
-<style lang="scss">
 
-h1,h2 {
-  font-weight: 200;
-  margin: 0.4em 0;
-}
-h1 { font-size: 3.5em; }
-h2 {
-  color: #888;
-  font-size: 2em;
-}
-span{
-    color : #42b983ec;
-}
-</style>
+
