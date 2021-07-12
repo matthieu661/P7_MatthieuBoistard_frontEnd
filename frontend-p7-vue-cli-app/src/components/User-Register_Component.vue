@@ -8,6 +8,7 @@
         id="Email2"
         name="email2"
         required
+        placeholder=" votre adresse e-mail"
       />
 
       <label for="Mdp2"><p class="visuel">Password :</p></label>
@@ -23,6 +24,7 @@
         name="password"
         minlength="8"
         required
+        placeholder=" votre mot de passe"
       />
 
       <label for="Username2"><p class="visuel">Username</p></label>
@@ -37,6 +39,7 @@
         minlength="3"
         maxlength="15"
         required
+        placeholder=" votre Alias"
       />
       <input type="submit" id="Register" value="S'enregistrer" disabled />
     </form>

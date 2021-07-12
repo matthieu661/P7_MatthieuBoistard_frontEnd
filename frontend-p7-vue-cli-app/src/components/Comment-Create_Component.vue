@@ -5,11 +5,13 @@
     </p>
     <form id="postBoxContent2" @submit="newPost">
       <label for="message">Message</label>
+      <p class="avertissement2">Entre 3 et 254 caractéres</p>
       <textarea
         @input="checkForm"
         type="text"
         id="message"
         name="message"
+        minlength="3"
         maxlength="254"
         required
       ></textarea>

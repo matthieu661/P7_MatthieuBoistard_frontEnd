@@ -11,7 +11,7 @@
       <button id="deleteUser" type="button" class="btn">
         <i class="fas fa-trash"></i> supprimer votre Profile
       </button>
-      <button id="testDeletePosts" type="button" class="btn btnTEST">
+      <button v-show="this.SwitchUser" id="testDeletePosts" type="button" class="btn btnTEST">
         <i class="fas fa-trash-alt"> TEST : supprimer toutes vos Publications</i>
       </button>
     </div>
@@ -32,6 +32,7 @@ export default {
       username: "",
       msg: "",
       posts: [],
+      SwitchUser: false
     };
   },
   mounted() {
@@ -54,10 +55,9 @@ export default {
         this.$confirm("Voulez-vous supprimer vos publications ?")
           .then(() => {
             for (let i = 0; i < this.posts.length; i++) {
-              
               let int = parseInt(this.posts[i]);
-              console.log(int)
               this.deleteOnePost(int);
+              window.location.reload();
             }
           })
           .catch(function () {
@@ -69,12 +69,7 @@ export default {
       btnDelete.addEventListener("click", () => {
         this.$confirm("Voulez-vous supprimer votre Profil ?")
           .then(() => {
-            for (let i = 0; i < this.posts.length; i++) {
-              let int = parseInt(this.posts[i]);
-              this.deleteOnePost(int);
-            }
-
-            // this.deleteOneUser()
+            this.deleteOneUser()
           })
           .catch(function () {
             return console.log("cancel delete");
@@ -156,6 +151,13 @@ export default {
 
     returnInfoUser() {
       this.getOneUser().then((json) => {
+
+        if (json.Posts != "") {
+      this.SwitchUser = true;
+    } else {
+      this.SwitchUser = false;}
+
+
         if (json.Posts != "" ) {
           for (let i = 0; i < json.Posts.length; i++) {
             this.posts += json.Posts[i].id + ".";

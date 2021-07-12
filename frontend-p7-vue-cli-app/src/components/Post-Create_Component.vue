@@ -2,6 +2,7 @@
   <div id="boxAPost">
     <form id="postBox" @submit="newPost">
       <label for="title">Titre</label>
+      <p class="avertissement2">Entre 3 et 20 caractéres</p>
       <input
         @input="checkForm"
         type="text"
@@ -12,12 +13,15 @@
         required
       />
       <label for="message">Message</label>
+      <p class="avertissement2">Entre 10 et 254 caractéres</p>
       <textarea
         @input="checkForm"
         type="text"
         id="message"
         name="message"
+        minlength="10"
         maxlength="254"
+        required
       ></textarea>
 
       <label for="media" class="Btn-Input_file"

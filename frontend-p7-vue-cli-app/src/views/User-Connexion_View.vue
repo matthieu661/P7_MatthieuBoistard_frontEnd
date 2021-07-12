@@ -34,6 +34,9 @@ export default {
   border-radius: 15px;
   align-items: center;
 }
+.avertissement2 {
+  font-style: italic;
+}
 .FlexConnexion {
   display: flex;
   width: 90%;
@@ -43,6 +46,7 @@ export default {
   border-radius: 15px;
   margin: 10px;
 }
+
 
 #Email {
   border-radius: 10px;

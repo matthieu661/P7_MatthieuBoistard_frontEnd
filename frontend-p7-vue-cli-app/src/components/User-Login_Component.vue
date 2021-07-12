@@ -2,7 +2,14 @@
   <div class="Parent">
     <form @submit="sendForm" id="FlexForm">
       <label for="Email"><p class="visuel">Adresse e-mail :</p></label>
-      <input @input="checkForm" type="email" id="Email" name="email" required />
+      <input
+        @input="checkForm"
+        type="email"
+        id="Email"
+        name="email"
+        required
+        placeholder=" votre adresse e-mail"
+      />
       <label for="Mdp"><p class="visuel">Password :</p></label>
       <input
         @input="checkForm"
@@ -11,6 +18,7 @@
         name="password"
         minlength="8"
         required
+        placeholder=" votre mot de passe"
       />
       <input type="submit" id="Login" value="Se connecter" disabled />
     </form>
