@@ -79,6 +79,9 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+.btnTEST {
+  background-color: red !important;
+}
 
 #nav {
   width: 100%;

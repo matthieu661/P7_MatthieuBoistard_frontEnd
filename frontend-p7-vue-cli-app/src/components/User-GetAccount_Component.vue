@@ -11,6 +11,9 @@
       <button id="deleteUser" type="button" class="btn">
         <i class="fas fa-trash"></i> supprimer votre Profile
       </button>
+      <button id="testDeletePosts" type="button" class="btn btnTEST">
+        <i class="fas fa-trash-alt"> TEST : supprimer toutes vos Publications</i>
+      </button>
     </div>
     <router-link to="/wall" id="return" class="btn bntWall"
       ><i class="fas fa-chevron-circle-left"></i>
@@ -28,6 +31,7 @@ export default {
       id: "",
       username: "",
       msg: "",
+      posts: [],
     };
   },
   mounted() {
@@ -44,15 +48,37 @@ export default {
         this.$router.push("/account/:id/modifyUser");
       });
       // init bnt2
+      if(this.posts.length != null){
+      let BtnTest = document.getElementById("testDeletePosts")
+     BtnTest.addEventListener("click", () => {
+        this.$confirm("Voulez-vous supprimer vos publications ?")
+          .then(() => {
+            for (let i = 0; i < this.posts.length; i++) {
+              
+              let int = parseInt(this.posts[i]);
+              console.log(int)
+              this.deleteOnePost(int);
+            }
+          })
+          .catch(function () {
+            return console.log("cancel delete");
+          });
+      });}
+
       let btnDelete = document.getElementById("deleteUser");
       btnDelete.addEventListener("click", () => {
-        this.$confirm("Voulez-vous supprimer votre commentaire ?")
-                .then(() => {
-                  this.deleteOneUser()
-                })
-                .catch(function () {
-                  return console.log("cancel delete");
-                });
+        this.$confirm("Voulez-vous supprimer votre Profil ?")
+          .then(() => {
+            for (let i = 0; i < this.posts.length; i++) {
+              let int = parseInt(this.posts[i]);
+              this.deleteOnePost(int);
+            }
+
+            // this.deleteOneUser()
+          })
+          .catch(function () {
+            return console.log("cancel delete");
+          });
       });
       //invoque la recup des posts et la creation des li
       this.returnInfoUser();
@@ -82,6 +108,30 @@ export default {
         }
       );
     },
+
+    deleteOnePost(x) {
+      console.log(x);
+      const options = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          Authorization: `Bearer ${this.token}`,
+        },
+      };
+      const paramsId = x;
+
+      fetch(
+        `http://localhost:3000/api/posts/deletePost/${paramsId}`,
+        options
+      ).then((res) => {
+        if (res.status == 200) {
+          return console.log( `post n° ${paramsId} supprimé`)
+        } else {
+          res.status(8000);
+        }
+      });
+    },
+
     getOneUser() {
       const options = {
         method: "GET",
@@ -103,8 +153,18 @@ export default {
         }
       });
     },
+
     returnInfoUser() {
       this.getOneUser().then((json) => {
+        if (json.Posts != "" ) {
+          for (let i = 0; i < json.Posts.length; i++) {
+            this.posts += json.Posts[i].id + ".";
+          }
+          this.posts = this.posts.split(".");
+          this.posts.pop();
+
+        }
+        
         // la requete passe
         this.msg = json.username;
 
