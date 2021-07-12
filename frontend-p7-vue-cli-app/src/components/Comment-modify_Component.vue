@@ -7,8 +7,9 @@
         type="text"
         id="Commentaire"
         name="Commentaire"
-        minlength="30"
+         minlength="3"
         maxlength="254"
+        placeholder=" de 3 à 254 carractéres :) répondez-lui ! "
       ></textarea>
       <input type="submit" id="Update" value="mettre à jour" />
     </form>
