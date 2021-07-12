@@ -157,6 +157,6 @@ textarea {
   border-radius :7px;
   min-width: 300px;
   min-height: 150px;
-  background-color: #42b98357;
+  background-color: rgba(24, 107, 99, 0.397);
 }
 </style>

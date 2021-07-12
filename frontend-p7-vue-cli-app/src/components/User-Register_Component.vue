@@ -1,15 +1,16 @@
 <template>
   <div class="Parent">
     
-    <form @submit="sendform2" id="FlexForm">
+    <form @submit="sendform2" id="FlexForm2">
       <label for="Email2"><p class="visuel">Adresse e-mail :</p> </label>
       <input @input="checkForm2" type="email2" id="Email2" name="email2" required />
-       <p class="avertissement margetop">
+       
+      <label for="Mdp2"><p class="visuel">Password :</p></label>
+      <p class="avertissement margetop">
       Votre password doit contenir au minimum  : 
       </p>
       <p class="avertissement" > 8 caractéres, 1 miniscule, 1 majuscule, </p>
-      <p class="avertissement margebot"> 1 chiffre, et  1 caractére spécial </p>
-      <label for="Mdp2"><p class="visuel">Password :</p></label>
+      <p class="avertissement margebot"> 1 chiffre, et  1 caractére spécial. </p>
       <input
         @input="checkForm2"
         type="password"
@@ -20,6 +21,11 @@
       />
      
       <label for="Username2"><p class="visuel">Username</p></label>
+      <p class="avertissement margetop">
+      Votre username doit contenir entre  
+      </p>
+      <p class="avertissement " > 3 lettres et 15 lettres maximum.</p>
+      
       <input
         @input="checkForm2"
         type="text"
