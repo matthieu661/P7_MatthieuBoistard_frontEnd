@@ -1,11 +1,11 @@
 <template>
   <div class="Commentbox">
-    <h4>{{this.H4}}</h4>
+    <h4>{{ this.H4 }}</h4>
     <ul id="getAll" class="listeComment"></ul>
   </div>
 </template>
 <script>
-import logo3 from "../assets/user-regular.svg"
+import logo3 from "../assets/user-regular.svg";
 export default {
   name: "GetAllComment",
   props: {},
@@ -17,9 +17,9 @@ export default {
       post: [],
       PowerAdmin: false,
       PowerUser: false,
-      POWER : false,
-      H4 : "",
-      
+      POWER: false,
+      H4: "",
+      confirmation: false,
     };
   },
   // mounted pour auto load
@@ -68,24 +68,21 @@ export default {
     async returnAllComment() {
       await this.getAllComment().then((json) => {
         let data = json.comment;
-        
+
         // commentaire avec ou sans "S"
-        if(data.length <= 1){
-          this.H4 = "Commentaire"
-        }else {
-          this.H4 = "Commentaires"
+        if (data.length <= 1) {
+          this.H4 = "Commentaire";
+        } else {
+          this.H4 = "Commentaires";
         }
-        
 
         for (let i = 0; i < data.length; i++) {
-
-
           if (data[i].userId === this.id) {
-          this.PowerUser = true;
-        }
+            this.PowerUser = true;
+          }
           // creation de la LI
           let newLi = document.createElement("li");
-          newLi.classList.add("licomment")
+          newLi.classList.add("licomment");
           document.getElementById("getAll").appendChild(newLi);
 
           //cartes
@@ -99,12 +96,12 @@ export default {
           // comment
           let newMessage = document.createElement("p");
           let messageContent = data[i].postReply;
-          newMessage.classList.add("commentmess2")
+          newMessage.classList.add("commentmess2");
           newMessage.textContent = messageContent;
           newContentBox.appendChild(newMessage);
           // content Info
           let newInfoBox = document.createElement("div");
-          newInfoBox.classList.add("ownerDiv")
+          newInfoBox.classList.add("ownerDiv");
           newCarte.appendChild(newInfoBox);
           // Username
           let newUsername = document.createElement("p");
@@ -112,49 +109,54 @@ export default {
           newUsername.textContent = usernameContent;
           newUsername.classList.add("Owner");
           newInfoBox.appendChild(newUsername);
-          let logoUser =document.createElement("img")
-          logoUser.src = logo3
-          newInfoBox.appendChild(logoUser)
+          let logoUser = document.createElement("img");
+          logoUser.src = logo3;
+          newInfoBox.appendChild(logoUser);
 
-          // btn 
-          if((this.PowerAdmin === true || this.PowerUser === true)){
-          let newBtnM = document.createElement("button");
-          newBtnM.classList.add("btn");
-          newBtnM.classList.add("btnModif")
-          let NewtextBtnModify = document.createTextNode(
-            "modfier votre commentaire"
-          );
-          newBtnM.appendChild(NewtextBtnModify);
-          newLi.appendChild(newBtnM);
-          //event sur btn
-          newBtnM.addEventListener("click", () => {
-            const paramsIdPost = window.location.href.substr(
-              window.location.href.lastIndexOf("/") + 1
+          // btn
+          if (this.PowerAdmin === true || this.PowerUser === true) {
+            let newBtnM = document.createElement("button");
+            newBtnM.classList.add("btn");
+            newBtnM.classList.add("btnModif");
+            let NewtextBtnModify = document.createTextNode(
+              "modfier votre commentaire"
             );
-            const paramsId = data[i].id;
-            this.$router.push(
-              `/post/&${paramsIdPost}&/modifyComment/${paramsId}`
-            );
-          });
-          let newBtnD = document.createElement("button");
-          newBtnD.classList.add("btn");
-          newBtnD.classList.add("btnDel")
-          let NewtextBtnDelete = document.createTextNode(
-            "supprimer votre commentaire"
-          );
-          newBtnD.addEventListener("click", () => {
-            this.$confirm("Voulez-vous supprimer votre Poste?").then(() => {
-              this.deleteOneComment(data[i].id); // une const ne passe pas ?? mais le json oui!
+            newBtnM.appendChild(NewtextBtnModify);
+            newLi.appendChild(newBtnM);
+            //event sur btn
+            newBtnM.addEventListener("click", () => {
+              const paramsIdPost = window.location.href.substr(
+                window.location.href.lastIndexOf("/") + 1
+              );
+              const paramsId = data[i].id;
+              this.$router.push(
+                `/post/&${paramsIdPost}&/modifyComment/${paramsId}`
+              );
             });
-          });
+            let newBtnD = document.createElement("button");
+            newBtnD.classList.add("btn");
+            newBtnD.classList.add("btnDel");
+            let NewtextBtnDelete = document.createTextNode(
+              "supprimer votre commentaire"
+            );
+            newBtnD.addEventListener("click", () => {
+              this.$confirm("Voulez-vous supprimer votre commentaire ?")
+                .then(() => {
+                  this.deleteOneComment(data[i].id);
+                })
+                .catch(function () {
+                  return console.log("cancel delete");
+                });
+            });
 
-          newBtnD.appendChild(NewtextBtnDelete);
-          newLi.appendChild(newBtnD);}
+            newBtnD.appendChild(NewtextBtnDelete);
+            newLi.appendChild(newBtnD);
+          }
         }
       });
     },
-    deleteOneComment(x){
-       const options = {
+    deleteOneComment(x) {
+      const options = {
         method: "DELETE",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
@@ -167,16 +169,14 @@ export default {
         `http://localhost:3000/api/comment/deleteComment/${paramsId}`,
         options
       ).then((res) => {
-        if ((res.status == 200)) {
-          
+        if (res.status == 200) {
           this.$alert("Commentaire supprimé");
-          this.$router.go()
+          this.$router.go();
         } else {
-           res.status(8000);
+          res.status(8000);
         }
       });
-    }
-
+    },
   },
 };
 </script>

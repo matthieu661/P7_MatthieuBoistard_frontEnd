@@ -139,12 +139,6 @@ export default {
         this.dataDisLike = json.post.dislikes;
       });
     },
-    // /////////////////////////////////////////////////////
-    ConfirmDelete() {
-      this.$confirm("Voulez-vous supprimer votre Poste?").then(() => {
-        this.deleteOnePost();
-      });
-    },
 
     deleteOnePost() {
       const options = {
@@ -209,7 +203,13 @@ export default {
           // init bnt2
           let btnDelete = document.getElementById("deletePost");
           btnDelete.addEventListener("click", () => {
-            this.ConfirmDelete();
+            this.$confirm("Voulez-vous supprimer votre Post ?")
+                .then(() => {
+                  this.deleteOnePost();
+                })
+                .catch(function () {
+                  return console.log("cancel delete");
+                });
           });
           this.POWER = true;
         }

@@ -83,6 +83,34 @@ export default {
   font-size: 1.2em;
   font-weight: 600;
 }
+.MiniTitleUser{
+  text-align: center;
+  font-weight: 600;
+  color : rgb(24, 107, 99);
+  &:before {
+  content: "";
+  display:inline-block;
+  margin-right: 5px;
+  width: 15px;
+  height: 15px;
+  background: url(../assets/user-solid.svg);
+  background-size: 100%;
+}
+}
+.MiniTitleEmail{
+  text-align: center;
+  font-weight: 600;
+  color : rgb(24, 107, 99);
+  &:before {
+  content: "";
+  display:inline-block;
+  margin-right: 5px;
+  width: 15px;
+  height: 15px;
+  background: url(../assets/at-solid.svg);
+  background-size: 100%;
+}
+}
 .pSmart {
  height: auto;
   white-space: normal;

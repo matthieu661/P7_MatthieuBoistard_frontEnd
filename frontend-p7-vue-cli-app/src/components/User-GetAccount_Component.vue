@@ -46,7 +46,13 @@ export default {
       // init bnt2
       let btnDelete = document.getElementById("deleteUser");
       btnDelete.addEventListener("click", () => {
-        this.deleteOneUser();
+        this.$confirm("Voulez-vous supprimer votre commentaire ?")
+                .then(() => {
+                  this.deleteOneUser()
+                })
+                .catch(function () {
+                  return console.log("cancel delete");
+                });
       });
       //invoque la recup des posts et la creation des li
       this.returnInfoUser();
@@ -67,7 +73,6 @@ export default {
       return fetch("http://localhost:3000/api/users/deleteUser/", options).then(
         (res) => {
           if (res.status == 200) {
-            alert("Adios amigos");
             this.$router.push({ name: "Home" });
             localStorage.clear();
             window.location.reload();
@@ -121,6 +126,7 @@ export default {
         let titleContent = json.username;
         NewTitle.textContent = titleContent;
         newContentBox.appendChild(NewTitle);
+        NewTitle.classList.add("MiniTitleUser");
         // post
         let newMessageDesc = document.createElement("p");
         newMessageDesc.textContent = "Votre Adresse E-mail";
@@ -131,6 +137,7 @@ export default {
         let messageContent = json.email;
         newMessage.textContent = messageContent;
         newContentBox.appendChild(newMessage);
+        newMessage.classList.add("MiniTitleEmail");
         // content Info
         let newInfoBox = document.createElement("div");
         newInfoBox.classList.add("boxBio");

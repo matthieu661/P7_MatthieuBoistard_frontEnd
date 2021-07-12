@@ -9,7 +9,7 @@
         id="Bio"
         name="Bio"
         minlength="30"
-        maxlength="1000"
+        maxlength="254"
       ></textarea>
       <label for="username">Username</label>
       <input

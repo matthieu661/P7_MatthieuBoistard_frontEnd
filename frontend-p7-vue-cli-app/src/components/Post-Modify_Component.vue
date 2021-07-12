@@ -17,8 +17,8 @@
         type="text"
         id="Content"
         name="Content"
-        minlength="30"
-        maxlength="1000"
+        minlength="5"
+        maxlength="254"
       ></textarea>
       <label for="media" class="custom-file-upload"
         ><i class="fa fa-upload" aria-hidden="true"></i> modifier l'image</label
@@ -75,12 +75,9 @@ export default {
       let Title = document.getElementById("Title").value;
       let Content = document.getElementById("Content").value;
       let Attachement = event.target.media.files[0];
-
       let data = new FormData();
-
       data.append("title", Title);
       data.append("content", Content);
-
       data.append("attachement", Attachement);
 
       const options = {
