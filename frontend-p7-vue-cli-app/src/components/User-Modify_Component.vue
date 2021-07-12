@@ -10,7 +10,6 @@
         name="Bio"
         minlength="30"
         maxlength="1000"
-        
       ></textarea>
       <label for="username">Username</label>
       <input
@@ -21,7 +20,6 @@
         name="username"
         minlength="3"
         maxlength="15"
-
       />
       <input type="submit" id="Update" class="userUpd" value="mettre à jour" />
     </form>
@@ -43,20 +41,15 @@ export default {
   mounted() {
     const user = JSON.parse(localStorage.getItem("userData"));
     if (user) {
-      // la recup les username+token dans le localstorage
       this.id = user.id;
       this.username = user.username;
       this.token = user.token;
-      //invoque la recup des posts et la creation des li
-
-      console.log(this.id);
     } else {
       // a changer juste pour test
       return console.log("Probleme localstorage no data");
     }
   },
   methods: {
-
     checkForm() {
       if (
         document.getElementById("Bio").checkValidity() &&
@@ -98,10 +91,7 @@ export default {
           if (res.status == 201) {
             res.json().then(() => {
               this.$router.push({ name: "GetUserAcccount" });
-              
-              
-              
-              
+
               //En cas de succès, on est renvoyé sur la page des posts
             });
           } else {
@@ -111,7 +101,6 @@ export default {
           }
         }
       );
-
     },
   },
 };

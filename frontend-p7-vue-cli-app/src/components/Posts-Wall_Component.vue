@@ -142,8 +142,6 @@ export default {
               counterInfo.textContent = NbrComment + " commentaires";
             }
             divComment.appendChild(counterInfo);
-
-            console.log(this.dataComment);
           });
 
           let newiconReply = document.createElement("img");

@@ -51,9 +51,7 @@ export default {
       this.PowerAdmin = user.isAdmin; // Power admin pour l'affichage seulement
       this.id = user.id;
       this.username = user.username;
-      console.log(this.username + "la");
       this.token = user.token;
-
       //invoque la recup des posts et la creation des li
       this.returnOnePost();
       let Active = document.getElementById("Reply");
@@ -64,14 +62,11 @@ export default {
       // a changer juste pour test
       return console.log("Probleme localstorage no data");
     }
-
     // réutilise la function pour le compteur des likes/dislikes
     this.getOnePost().then((json) => {
       this.dataLike = json.post.likes;
       this.dataDisLike = json.post.dislikes;
     });
-
-    console.log(this.dataLike);
     // btn like
     let userLike = document.getElementById("liker");
     userLike.addEventListener("click", () => {
@@ -82,8 +77,6 @@ export default {
     userDisLike.addEventListener("click", () => {
       this.PushDisLike();
     });
-
-    // init le btn1
   },
   methods: {
     GetLike() {
@@ -200,19 +193,14 @@ export default {
     },
     async returnOnePost() {
       await this.getOnePost().then((json) => {
-        console.log(this.username);
-        console.log(json);
         const paramsId = window.location.href.substr(
           window.location.href.lastIndexOf("/") + 1
         );
 
         if (json.post.userId === this.id) {
-          console.log(json.post.userId);
           this.PowerUser = true;
         }
 
-        console.log(this.PowerUser);
-        console.log(this.PowerAdmin, "lkfhsfslfhsfsndmlfnsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf");
         if (this.PowerAdmin === true || this.PowerUser === true) {
           let btnModify = document.getElementById("modifyPost");
           btnModify.addEventListener("click", () => {
@@ -262,29 +250,6 @@ export default {
         let usernameContent = json.post.userName;
         newUsername.textContent = usernameContent;
         newInfoBox.appendChild(newUsername);
-        // date
-        let newTime = document.createElement("p");
-        let timeContent = json.post.createdAt;
-        let convert = timeContent
-          .replace("T", " ")
-          .replace(".000Z", "")
-          .split("-")
-          .join(" ")
-          .split(" ")
-          .reverse()
-          .join(" ");
-        let convertTime = convert.split(" ", 1);
-        let convertDate = timeContent
-          .substr(0, 10)
-          .replace("-", " ")
-          .replace("-", " ")
-          .split(" ")
-          .reverse()
-          .join("-");
-        newTime.textContent =
-          "Posté le : " + convertTime + " le " + convertDate;
-        newInfoBox.appendChild(newTime);
-        // Partie comment
       });
     },
   },

@@ -1,7 +1,7 @@
 <template>
   <div class="hello2">
     <h1>{{ msg }}</h1>
-    <form @submit="Update" id="modifyBox" >
+    <form @submit="Update" id="modifyBox">
       <textarea
         @input="checkForm"
         type="text"
@@ -33,9 +33,6 @@ export default {
       this.id = user.id;
       this.username = user.username;
       this.token = user.token;
-      //invoque la recup des posts et la creation des li
-
-      console.log(this.id);
     } else {
       // a changer juste pour test
       return console.log("Probleme localstorage no data");
@@ -80,8 +77,7 @@ export default {
       const url = window.location.href;
       const urlCut = url.split("&");
       const paramsIdPost = urlCut[1];
-      console.log(paramsIdPost);
-        // avec methode pussh __> PATH de vue.router
+      // avec methode pussh __> PATH de vue.router
 
       fetch(
         `http://localhost:3000/api/comment/modifyComment/${paramsId}`,
@@ -89,11 +85,11 @@ export default {
       ).then((res) => {
         if (res.status == 201) {
           res.json().then(() => {
-            this.$router.push({ path : `/post/${paramsIdPost}` }); //En cas de succès, on est renvoyé sur la page des posts
+            this.$router.push({ path: `/post/${paramsIdPost}` }); 
           });
         } else {
           res.json().then((json) => {
-            this.message = json.error; //Affichage du message d'erreur du serveur
+            this.message = json.error; 
           });
         }
       });

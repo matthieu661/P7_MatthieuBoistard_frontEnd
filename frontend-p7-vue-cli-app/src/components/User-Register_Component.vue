@@ -1,16 +1,21 @@
 <template>
   <div class="Parent">
-    
     <form @submit="sendform2" id="FlexForm2">
       <label for="Email2"><p class="visuel">Adresse e-mail :</p> </label>
-      <input @input="checkForm2" type="email2" id="Email2" name="email2" required />
-       
+      <input
+        @input="checkForm2"
+        type="email2"
+        id="Email2"
+        name="email2"
+        required
+      />
+
       <label for="Mdp2"><p class="visuel">Password :</p></label>
       <p class="avertissement margetop">
-      Votre password doit contenir au minimum  : 
+        Votre password doit contenir au minimum :
       </p>
-      <p class="avertissement" > 8 caractéres, 1 miniscule, 1 majuscule, </p>
-      <p class="avertissement margebot"> 1 chiffre, et  1 caractére spécial. </p>
+      <p class="avertissement">8 caractéres, 1 miniscule, 1 majuscule,</p>
+      <p class="avertissement margebot">1 chiffre, et 1 caractére spécial.</p>
       <input
         @input="checkForm2"
         type="password"
@@ -19,13 +24,11 @@
         minlength="8"
         required
       />
-     
+
       <label for="Username2"><p class="visuel">Username</p></label>
-      <p class="avertissement margetop">
-      Votre username doit contenir entre  
-      </p>
-      <p class="avertissement " > 3 lettres et 15 lettres maximum.</p>
-      
+      <p class="avertissement margetop">Votre username doit contenir entre</p>
+      <p class="avertissement">3 lettres et 15 lettres maximum.</p>
+
       <input
         @input="checkForm2"
         type="text"
@@ -48,8 +51,6 @@
 
 
 <script>
-
-
 export default {
   name: "Register",
   props: {
@@ -59,8 +60,8 @@ export default {
   data: function () {
     return {
       message: "",
-      EmailL:"",
-      MdpL:"",
+      EmailL: "",
+      MdpL: "",
     };
   },
 
@@ -71,19 +72,18 @@ export default {
         document.getElementById("Email2").checkValidity() &&
         document.getElementById("Mdp2").checkValidity() &&
         document.getElementById("Username2").checkValidity()
-      ){
+      ) {
         document.getElementById("Register").disabled = false;
-      }else {
+      } else {
         document.getElementById("Register").disabled = true;
-    }
-    },
-    
-    Login() {
-
-      const User = {
-        email : this.EmailL,
-        mdp : this.MdpL,
       }
+    },
+
+    Login() {
+      const User = {
+        email: this.EmailL,
+        mdp: this.MdpL,
+      };
       let formData = [];
       for (var X in User) {
         let encodedKey = encodeURIComponent(X);
@@ -91,7 +91,6 @@ export default {
         formData.push(encodedKey + "=" + encodedValue);
       }
       formData = formData.join("&");
-
 
       const options = {
         method: "POST",
@@ -105,18 +104,14 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             res.json().then((json) => {
-              console.log(json)
-
-
               const userData = {
-                isAdmin : json.isAdmin,
+                isAdmin: json.isAdmin,
                 id: json.userId,
                 username: json.userName,
                 token: json.token,
               };
-              console.log(userData.isAdmin)
               localStorage.setItem("userData", JSON.stringify(userData));
-              this.$router.push({ name: "GetWallPage" }); 
+              this.$router.push({ name: "GetWallPage" });
               window.location.reload();
             });
           } else {
@@ -134,7 +129,6 @@ export default {
       event.preventDefault();
       localStorage.clear();
       const Email = document.getElementById("Email2").value;
-      console.log(Email)
       this.EmailL = Email;
       const Mdp = document.getElementById("Mdp2").value;
       this.MdpL = Mdp;
@@ -142,36 +136,28 @@ export default {
       const isAdmin = false;
       const Bio = "";
       const User = {
-        'email': Email,
-        'username': Username,
-        'mdp': Mdp,
-        'isAdmin': isAdmin,
-        'BIO': Bio,
+        email: Email,
+        username: Username,
+        mdp: Mdp,
+        isAdmin: isAdmin,
+        BIO: Bio,
       };
 
       //test filtre pseudo ----> a ameliorer
-      const Polite = /\b(?!(?:WHOLE|GARDENER)\b)\w*(?:TROLL|WIFEHUNTER|HOLE|MORTAUXPATRONS)\w*\b/
-      
+      const Polite =
+        /\b(?!(?:WHOLE|GARDENER)\b)\w*(?:TROLL|WIFEHUNTER|HOLE|MORTAUXPATRONS)\w*\b/;
+
       const UserNameFilter = JSON.stringify(User.username);
-      console.log(UserNameFilter);
-      console.log(Polite.test(UserNameFilter));
       if (Polite.test(UserNameFilter)) {
         this.message = "ce pseudo n'est pas autorisé";
-        return console.log(this.message);
-      }
-
-     
-      else {
-        
-        let formData =[];
-        for (var X in User){
+      } else {
+        let formData = [];
+        for (var X in User) {
           let encodedKey = encodeURIComponent(X);
           let encodedValue = encodeURIComponent(User[X]);
           formData.push(encodedKey + "=" + encodedValue);
         }
         formData = formData.join("&");
-
-
         const options = {
           method: "POST",
           headers: {
@@ -179,7 +165,7 @@ export default {
           },
           body: formData,
         };
-        
+
         fetch("http://localhost:3000/api/users/register", options)
           .then((res) => {
             if (res.status == 201) {

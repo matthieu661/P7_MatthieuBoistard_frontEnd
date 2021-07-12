@@ -20,8 +20,9 @@
         maxlength="1000"
       ></textarea>
 
-      
-      <label for="media" class="Btn-Input_file"><i class="fas fa-cloud-upload-alt"></i> Ajouter une image</label>
+      <label for="media" class="Btn-Input_file"
+        ><i class="fas fa-cloud-upload-alt"></i> Ajouter une image</label
+      >
       <input
         @input="checkForm"
         type="file"
@@ -30,7 +31,6 @@
         accept="image/*"
         class="Input-file"
       />
-
 
       <input type="submit" id="newPost" value="Envoyer" disabled />
     </form>

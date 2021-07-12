@@ -29,7 +29,6 @@ export default {
       // la recup les username+token dans le localstorage
       this.PowerAdmin = user.isAdmin;
       this.username = user.username;
-      console.log(this.username)
       this.token = user.token;
       this.id = user.id;
       //invoque la recup des posts et la creation des li
@@ -82,7 +81,6 @@ export default {
 
 
           if (data[i].userId === this.id) {
-          console.log(data.id);
           this.PowerUser = true;
         }
           // creation de la LI
@@ -152,7 +150,6 @@ export default {
 
           newBtnD.appendChild(NewtextBtnDelete);
           newLi.appendChild(newBtnD);}
-          console.log(data);
         }
       });
     },

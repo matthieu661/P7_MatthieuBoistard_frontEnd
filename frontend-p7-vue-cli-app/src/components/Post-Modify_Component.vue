@@ -19,14 +19,12 @@
         name="Content"
         minlength="30"
         maxlength="1000"
-        
       ></textarea>
       <label for="media" class="custom-file-upload"
         ><i class="fa fa-upload" aria-hidden="true"></i> modifier l'image</label
       >
       <input
         @input="checkForm"
-       
         type="file"
         id="media"
         name="media"
@@ -55,16 +53,12 @@ export default {
       this.id = user.id;
       this.username = user.username;
       this.token = user.token;
-      //invoque la recup des posts et la creation des li
-
-      console.log(this.id);
     } else {
       // a changer juste pour test
       return console.log("Probleme localstorage no data");
     }
   },
   methods: {
-
     checkForm() {
       if (
         document.getElementById("Content").checkValidity() &&
@@ -79,22 +73,21 @@ export default {
     UpdateUser(event) {
       event.preventDefault();
       let Title = document.getElementById("Title").value;
-      let Content= document.getElementById("Content").value;
+      let Content = document.getElementById("Content").value;
       let Attachement = event.target.media.files[0];
 
-      let data= new FormData();
+      let data = new FormData();
 
-      data.append('title', Title);
-      data.append('content', Content);
+      data.append("title", Title);
+      data.append("content", Content);
 
-      data.append('attachement', Attachement)
-
+      data.append("attachement", Attachement);
 
       const options = {
         method: "PUT",
         headers: {
-          'Accept': 'application/json, text/plain, */*',
-          
+          Accept: "application/json, text/plain, */*",
+
           Authorization: `Bearer ${this.token}`,
         },
         body: data,
@@ -102,19 +95,20 @@ export default {
       const paramsId = window.location.href.substr(
         window.location.href.lastIndexOf("/") + 1
       );
-      fetch(`http://localhost:3000/api/posts/modifyPost/${paramsId}`, options).then(
-        (res) => {
-          if (res.status == 201) {
-            res.json().then(() => {
-              this.$router.push({ name: "OnePost" }); //En cas de succès, on est renvoyé sur la page des posts
-            });
-          } else {
-            res.json().then((json) => {
-              this.message = json.error; //Affichage du message d'erreur du serveur
-            });
-          }
+      fetch(
+        `http://localhost:3000/api/posts/modifyPost/${paramsId}`,
+        options
+      ).then((res) => {
+        if (res.status == 201) {
+          res.json().then(() => {
+            this.$router.push({ name: "OnePost" }); //En cas de succès, on est renvoyé sur la page des posts
+          });
+        } else {
+          res.json().then((json) => {
+            this.message = json.error; //Affichage du message d'erreur du serveur
+          });
         }
-      );
+      });
     },
   },
 };

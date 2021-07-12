@@ -1,28 +1,19 @@
 <template>
   <div class="Parent">
-    
-    
-      <form @submit="sendForm" id="FlexForm">
-        <label for="Email"><p class="visuel">Adresse e-mail : </p></label>
-        <input
-          @input="checkForm"
-          type="email"
-          id="Email"
-          name="email"
-          required
-        />
-        <label for="Mdp"><p class="visuel">Password :</p></label>
-        <input
-          @input="checkForm"
-          type="password"
-          id="Mdp"
-          name="password"
-          minlength="8"
-          required
-        />
-        <input type="submit" id="Login" value="Se connecter" disabled />
-      </form>
-    
+    <form @submit="sendForm" id="FlexForm">
+      <label for="Email"><p class="visuel">Adresse e-mail :</p></label>
+      <input @input="checkForm" type="email" id="Email" name="email" required />
+      <label for="Mdp"><p class="visuel">Password :</p></label>
+      <input
+        @input="checkForm"
+        type="password"
+        id="Mdp"
+        name="password"
+        minlength="8"
+        required
+      />
+      <input type="submit" id="Login" value="Se connecter" disabled />
+    </form>
   </div>
 </template>
 
@@ -54,7 +45,6 @@ export default {
         email: Email,
         mdp: Mdp,
       };
-
       let formData = [];
       for (var X in User) {
         let encodedKey = encodeURIComponent(X);
@@ -62,7 +52,6 @@ export default {
         formData.push(encodedKey + "=" + encodedValue);
       }
       formData = formData.join("&");
-
       const options = {
         method: "POST",
         headers: {
@@ -75,14 +64,12 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             res.json().then((json) => {
-              console.log(json);
               const userData = {
                 isAdmin: json.isAdmin,
                 id: json.userId,
                 username: json.userName,
                 token: json.token,
               };
-              console.log(userData.isAdmin);
               localStorage.setItem("userData", JSON.stringify(userData));
               this.$router.push({ name: "GetWallPage" });
               window.location.reload();

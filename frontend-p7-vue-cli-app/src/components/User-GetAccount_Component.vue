@@ -1,26 +1,33 @@
 <template>
   <div class="UserPage">
-    <h1 id="Use"> Bienvenue </h1>
-    <p class="UserTitre" >{{ msg }}</p>
+    <h1 id="Use">Bienvenue</h1>
+    <p class="UserTitre">{{ msg }}</p>
     <h2>Votre Espace Personel</h2>
     <div id="oneUserBox" class="Green"></div>
     <div id="action">
-      <button id="modifyUser" type="button" class="btn"><i class="fas fa-user-edit"></i> Mettre a jour votre Profile</button> 
-      <button id="deleteUser" type="button" class="btn"><i class="fas fa-trash"></i> supprimer votre Profile</button>
+      <button id="modifyUser" type="button" class="btn">
+        <i class="fas fa-user-edit"></i> Mettre a jour votre Profile
+      </button>
+      <button id="deleteUser" type="button" class="btn">
+        <i class="fas fa-trash"></i> supprimer votre Profile
+      </button>
     </div>
-    <router-link to="/wall" id="return" class="btn bntWall"><i class="fas fa-chevron-circle-left"></i> <p class="back back2">The Wall</p></router-link>
+    <router-link to="/wall" id="return" class="btn bntWall"
+      ><i class="fas fa-chevron-circle-left"></i>
+      <p class="back back2">The Wall</p></router-link
+    >
   </div>
 </template>
 
 <script>
 export default {
   name: "GetUserAcccount",
-  
+
   data() {
     return {
-      id : "",
-      username : "",
-      msg : "",
+      id: "",
+      username: "",
+      msg: "",
     };
   },
   mounted() {
@@ -30,17 +37,17 @@ export default {
       this.id = user.id;
       this.username = user.username;
       this.token = user.token;
-      
+
       // init le btn1
       let btnModify = document.getElementById("modifyUser");
       btnModify.addEventListener("click", () => {
-            this.$router.push("/account/:id/modifyUser");
-          });
+        this.$router.push("/account/:id/modifyUser");
+      });
       // init bnt2
       let btnDelete = document.getElementById("deleteUser");
       btnDelete.addEventListener("click", () => {
-            this.deleteOneUser();
-          });
+        this.deleteOneUser();
+      });
       //invoque la recup des posts et la creation des li
       this.returnInfoUser();
     } else {
@@ -49,7 +56,7 @@ export default {
     }
   },
   methods: {
-    deleteOneUser(){
+    deleteOneUser() {
       const options = {
         method: "DELETE",
         headers: {
@@ -57,20 +64,18 @@ export default {
           Authorization: `Bearer ${this.token}`,
         },
       };
-      return fetch(
-        "http://localhost:3000/api/users/deleteUser/",
-        options
-      ).then((res) => {
-        if ((res.status == 200)) {
-          alert("Adios amigos");
-          this.$router.push({ name: 'Home' });
-          localStorage.clear();
-          window.location.reload();
-        } else {
-          return res.status(8000);
+      return fetch("http://localhost:3000/api/users/deleteUser/", options).then(
+        (res) => {
+          if (res.status == 200) {
+            alert("Adios amigos");
+            this.$router.push({ name: "Home" });
+            localStorage.clear();
+            window.location.reload();
+          } else {
+            return res.status(8000);
+          }
         }
-      });
-
+      );
     },
     getOneUser() {
       const options = {
@@ -81,7 +86,6 @@ export default {
         },
       };
       const myId = this.id;
-      console.log(myId);
 
       return fetch(
         `http://localhost:3000/api/users/getOneUser/${myId}`,
@@ -96,10 +100,8 @@ export default {
     },
     returnInfoUser() {
       this.getOneUser().then((json) => {
-        console.log(json);
         // la requete passe
-        this.msg =  json.username 
-
+        this.msg = json.username;
 
         let Box = document.getElementById("oneUserBox");
         let newCarte = document.createElement("div");
@@ -112,7 +114,7 @@ export default {
         // H3 titre post
         let NewTitleDesc = document.createElement("p");
         NewTitleDesc.textContent = "Votre nom d'utilisateur";
-        NewTitleDesc.classList.add("MiniTitle")
+        NewTitleDesc.classList.add("MiniTitle");
         newContentBox.appendChild(NewTitleDesc);
 
         let NewTitle = document.createElement("p");
@@ -122,7 +124,7 @@ export default {
         // post
         let newMessageDesc = document.createElement("p");
         newMessageDesc.textContent = "Votre Adresse E-mail";
-        newMessageDesc.classList.add("MiniTitle")
+        newMessageDesc.classList.add("MiniTitle");
         newContentBox.appendChild(newMessageDesc);
 
         let newMessage = document.createElement("p");
@@ -131,18 +133,18 @@ export default {
         newContentBox.appendChild(newMessage);
         // content Info
         let newInfoBox = document.createElement("div");
-        newInfoBox.classList.add("boxBio")
+        newInfoBox.classList.add("boxBio");
         newCarte.appendChild(newInfoBox);
         // Username
         let newBioDesc = document.createElement("p");
         newBioDesc.textContent = "Votre Bio";
-        newBioDesc.classList.add("MiniTitle")
+        newBioDesc.classList.add("MiniTitle");
         newInfoBox.appendChild(newBioDesc);
 
         let newBio = document.createElement("p");
         let userBioContent = json.BIO;
         newBio.textContent = userBioContent;
-        newBio.classList.add("pSmart")
+        newBio.classList.add("pSmart");
         newInfoBox.appendChild(newBio);
       });
     },
