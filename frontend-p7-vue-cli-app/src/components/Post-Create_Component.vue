@@ -17,7 +17,7 @@
         type="text"
         id="message"
         name="message"
-        maxlength="1000"
+        maxlength="254"
       ></textarea>
 
       <label for="media" class="Btn-Input_file"

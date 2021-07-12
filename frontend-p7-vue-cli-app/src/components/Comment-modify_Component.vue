@@ -8,7 +8,7 @@
         id="Commentaire"
         name="Commentaire"
         minlength="30"
-        maxlength="1000"
+        maxlength="254"
       ></textarea>
       <input type="submit" id="Update" value="mettre à jour" />
     </form>

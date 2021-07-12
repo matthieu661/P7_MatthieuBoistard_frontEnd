@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <div class="navigation">
-        <router-link to="/" class="Navi">Home</router-link>
+        <router-link to="/" class="Navi" id="reloadNav">Home</router-link>
         <router-link to="/about" class="Navi">About</router-link>
         <router-link
           to="/connexion"
@@ -62,6 +62,10 @@ export default {
       });
       this.SwitchConnexion = false;
     }
+    let reloadNav = document.getElementById("reloadNav");
+      reloadNav.addEventListener("click", () => {
+        window.location.reload();
+      });
   },
 };
 </script>

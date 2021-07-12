@@ -8,7 +8,7 @@
       />
     </div>
     <div class="Anima"><AcceuilText/></div>
-    <div id="imagePage"><img alt="image partage" id="imgBack" src="../../public/ressources/partager2.jpg"/></div>
+    <div id="imagePage"><img alt="image partage" id="imgBack" src="../../src/assets/HomeImg.jpg"/></div>
   </div>
 </template>
 

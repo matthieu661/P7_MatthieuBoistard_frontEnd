@@ -38,7 +38,6 @@ export default {
       const options = {
         method: "GET",
         headers: {
-          
           Authorization: `Bearer ${this.token}`,
         },
       };
@@ -87,7 +86,6 @@ export default {
         for (let i = 0; i < json.length; i++) {
           let newLi = document.createElement("li");
           newLi.classList.add("superLi");
-
           document.getElementById("getAll").appendChild(newLi);
           //cartes
           let newCarte = document.createElement("div");
@@ -98,12 +96,8 @@ export default {
           newContentBox.classList.add("contentBox");
           newCarte.appendChild(newContentBox);
           // H3 titre post
-          
-              
-
           let NewTitle = document.createElement("h3");
           let titleContent = json[i].title;
-
           NewTitle.textContent = titleContent;
           newContentBox.appendChild(NewTitle);
           // post
@@ -117,7 +111,6 @@ export default {
           let newMessage = document.createElement("p");
           newMessage.classList.add("messagePost");
           let messageContent = json[i].content;
-
           newMessage.textContent = messageContent;
           newContentBox.appendChild(newMessage);
           // content Info
@@ -129,7 +122,6 @@ export default {
           let divComment = document.createElement("div");
           newCarte.appendChild(divComment);
           divComment.classList.add("Comment");
-
           let counterInfo = document.createElement("p");
           counterInfo.classList.add("counter");
 
@@ -162,9 +154,6 @@ export default {
           newToPost.classList.add("miracle")
           newToPost.textContent = test78 ;
           newDivReplyCom.appendChild(newToPost)
-
-
-
           newDivReplyCom.addEventListener("click", () => {
             this.$router.push("Post/" + json[i].id);
           });
@@ -176,7 +165,6 @@ export default {
           let usernameContent = json[i].userName;
           newUsername.textContent = usernameContent;
           newInfoBox.appendChild(newUsername);
-
           // date
           let newTime = document.createElement("p");
           newTime.classList.add("time");

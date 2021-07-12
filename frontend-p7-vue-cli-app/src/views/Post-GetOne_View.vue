@@ -46,13 +46,15 @@ export default {
   display: flex;
   justify-content: center;
   background-color: white;
-  border : none;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(11, 71, 8, 0.35) 0px -2px 6px 0px inset;
+  border: none;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(11, 71, 8, 0.35) 0px -2px 6px 0px inset;
   &:hover {
     transition: 1s;
-    box-shadow: rgba(122, 118, 118, 0.315) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(4, 2, 102, 0.836) 0px -2px 6px 0px inset;
-    
-    
+    box-shadow: rgba(122, 118, 118, 0.315) 0px 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+      rgba(4, 2, 102, 0.836) 0px -2px 6px 0px inset;
   }
 }
 #disliker {
@@ -60,12 +62,14 @@ export default {
   justify-content: center;
   background-color: white;
   border: none;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(11, 71, 8, 0.35) 0px -2px 6px 0px inset;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(11, 71, 8, 0.35) 0px -2px 6px 0px inset;
   &:hover {
     transition: 1s;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(112, 0, 0, 0.884) 0px -2px 6px 0px inset;
-    
-    
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+      rgba(112, 0, 0, 0.884) 0px -2px 6px 0px inset;
   }
 }
 .OnePost {
@@ -90,7 +94,6 @@ export default {
   width: 100%;
 }
 
-
 .btn {
   align-items: center;
   justify-content: center;
@@ -103,18 +106,24 @@ export default {
   cursor: pointer;
   margin: 10px;
   text-decoration: none; // tick sur tout les a
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(11, 71, 8, 0.35) 0px -2px 6px 0px inset;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(11, 71, 8, 0.35) 0px -2px 6px 0px inset;
   &:hover {
     transition: 2s;
-    border : none;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgb(177, 160, 11) 0px -2px 6px 0px inset;
+    border: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+      rgb(177, 160, 11) 0px -2px 6px 0px inset;
   }
 }
 #deletePost {
   &:hover {
     transition: 2s;
-    border : none;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgb(129, 2, 2) 0px -2px 6px 0px inset;
+    border: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+      rgb(129, 2, 2) 0px -2px 6px 0px inset;
   }
 }
 
@@ -163,10 +172,9 @@ export default {
 }
 .Commentbox {
   display: flex;
-  
+
   flex-direction: column;
   width: 100%;
-  
 }
 .contentBoxPost {
   display: flex;
@@ -174,20 +182,40 @@ export default {
   align-items: center;
   max-height: 600px;
   width: 100%;
-  
+
   .TitrePost2 {
-    background-color: rgb(24,107,99);
+    background-color: rgb(24, 107, 99);
     width: 80%;
     color: white;
     border-radius: 15px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }
   .ImageOnePost {
     width: 100%;
-    max-width: 300px;
+    max-width: 290px;
     border-radius: 10px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   }
+}
+.pUser {
+  margin-top: 50px !important;
+  font-weight: 700;
+  &:before {
+  content: "";
+  display:inline-block;
+  margin-right: 15px;
+  width: 15px;
+  height: 15px;
+  background: url(../assets/user-regular.svg);
+  background-size: 100%;
+}
+}
+.mon_div {
+  background-color: #eaeaea;
+  background-size: 15px;
 }
 .licomment {
   width: 100%;
@@ -206,13 +234,13 @@ export default {
     font-style: oblique;
     text-overflow: ellipsis;
     justify-content: center;
-    
-     margin-left: 10px;
-     height: auto;
+
+    margin-left: 10px;
+    height: auto;
   }
+
   .contentBox {
     background-color: transparent;
-    
   }
   .ownerDiv {
     display: flex;
@@ -230,10 +258,12 @@ export default {
 
   .btnDel {
     &:hover {
-    transition: 2s;
-    border : none;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgb(129, 2, 2) 0px -2px 6px 0px inset;
-  }
+      transition: 2s;
+      border: none;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+        rgb(129, 2, 2) 0px -2px 6px 0px inset;
+    }
   }
 }
 

@@ -248,6 +248,7 @@ export default {
         // Username
         let newUsername = document.createElement("p");
         let usernameContent = json.post.userName;
+        newUsername.classList.add("pUser")
         newUsername.textContent = usernameContent;
         newInfoBox.appendChild(newUsername);
       });
