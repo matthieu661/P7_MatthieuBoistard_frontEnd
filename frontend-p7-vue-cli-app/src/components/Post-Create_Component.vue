@@ -106,8 +106,8 @@ export default {
         },
         body: data,
       };
-      fetch("http://localhost:3000/api/posts/createPost", options).then(
-        (res) => {
+      fetch("http://localhost:3000/api/posts/createPost", options)
+        .then((res) => {
           if (res.status == 201) {
             res.json().then(() => {
               this.success = true;
@@ -119,8 +119,10 @@ export default {
               this.message = json.error; //Affichage du message d'erreur du serveur
             });
           }
-        }
-      );
+        })
+        .catch(function (error) {
+          console.log("createPost" + error.message);
+        });
     },
   },
 };

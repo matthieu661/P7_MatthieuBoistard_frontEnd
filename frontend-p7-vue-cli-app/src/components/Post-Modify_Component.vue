@@ -92,20 +92,23 @@ export default {
       const paramsId = window.location.href.substr(
         window.location.href.lastIndexOf("/") + 1
       );
-      fetch(
-        `http://localhost:3000/api/posts/modifyPost/${paramsId}`,
-        options
-      ).then((res) => {
-        if (res.status == 201) {
-          res.json().then(() => {
-            this.$router.push({ name: "OnePost" }); //En cas de succès, on est renvoyé sur la page des posts
-          });
-        } else {
-          res.json().then((json) => {
-            this.message = json.error; //Affichage du message d'erreur du serveur
-          });
-        }
-      });
+      fetch(`http://localhost:3000/api/posts/modifyPost/${paramsId}`, options)
+        .then((res) => {
+          if (res.status == 201) {
+            res.json().then(() => {
+              this.$router.push({ name: "OnePost" }); //En cas de succès, on est renvoyé sur la page des posts
+            });
+          } else {
+            res.json().then((json) => {
+              this.message = json.error; //Affichage du message d'erreur du serveur
+            });
+          }
+        })
+        .catch(function (error) {
+          console.log(
+            "modifyPost" + error.message
+          );
+        });
     },
   },
 };

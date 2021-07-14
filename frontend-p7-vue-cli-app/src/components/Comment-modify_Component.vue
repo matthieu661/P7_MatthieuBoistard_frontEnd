@@ -7,7 +7,7 @@
         type="text"
         id="Commentaire"
         name="Commentaire"
-         minlength="3"
+        minlength="3"
         maxlength="254"
         placeholder=" de 3 à 254 carractéres :) répondez-lui ! "
       ></textarea>
@@ -83,17 +83,23 @@ export default {
       fetch(
         `http://localhost:3000/api/comment/modifyComment/${paramsId}`,
         options
-      ).then((res) => {
-        if (res.status == 201) {
-          res.json().then(() => {
-            this.$router.push({ path: `/post/${paramsIdPost}` }); 
-          });
-        } else {
-          res.json().then((json) => {
-            this.message = json.error; 
-          });
-        }
-      });
+      )
+        .then((res) => {
+          if (res.status == 201) {
+            res.json().then(() => {
+              this.$router.push({ path: `/post/${paramsIdPost}` });
+            });
+          } else {
+            res.json().then((json) => {
+              this.message = json.error;
+            });
+          }
+        })
+        .catch(function (error) {
+          console.log(
+            "modifycomment " + error.message
+          );
+        });
     },
   },
 };

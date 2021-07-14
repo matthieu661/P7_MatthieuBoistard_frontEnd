@@ -46,7 +46,10 @@ export default {
           if (res.status == 200) {
             return res.json();
           } else {
-            return res.status(8000);
+            // correction avant soutenance
+            return res
+              .status(404)
+              .json({ error: "token invalide expireTime 12h" });
           }
         }
       );
@@ -65,13 +68,20 @@ export default {
       return fetch(
         `http://localhost:3000/api/posts/getOnePost/${paramsId}`,
         options
-      ).then((res) => {
-        if (res.status == 200) {
-          return res.json();
-        } else {
-          return res.status(8000);
-        }
-      });
+      )
+        .then((res) => {
+          if (res.status == 200) {
+            return res.json();
+          } else {
+            // correction avant soutenance
+            return res
+              .status(404)
+              .json({ error: "token invalide expireTime 12h" });
+          }
+        })
+        .catch(function (error) {
+          console.log("GetOne post" + error.message);
+        });
     },
 
     returnAllPost() {
@@ -101,12 +111,13 @@ export default {
           NewTitle.textContent = titleContent;
           newContentBox.appendChild(NewTitle);
           // post
-          if(json[i].attachement != null){
-          let Attachement = document.createElement("img");
-              Attachement.src = json[i].attachement;
-              Attachement.alt = json[i].attachement;
-              Attachement.classList.add("ImageduPost")
-              newContentBox.appendChild(Attachement);}
+          if (json[i].attachement != null) {
+            let Attachement = document.createElement("img");
+            Attachement.src = json[i].attachement;
+            Attachement.alt = json[i].attachement;
+            Attachement.classList.add("ImageduPost");
+            newContentBox.appendChild(Attachement);
+          }
 
           let newMessage = document.createElement("p");
           newMessage.classList.add("messagePost");
@@ -142,23 +153,22 @@ export default {
 
           let newDivReplyCom = document.createElement("div");
           newDivReplyCom.classList.add("solution");
-          divComment.appendChild(newDivReplyCom)
+          divComment.appendChild(newDivReplyCom);
 
           let newiconReply2 = document.createElement("img");
           newiconReply2.src = logo;
           newDivReplyCom.appendChild(newiconReply2);
-          newiconReply2.classList.add("Commenter")
+          newiconReply2.classList.add("Commenter");
 
           let newToPost = document.createElement("p");
           let test78 = " voir ";
-          newToPost.classList.add("miracle")
-          newToPost.textContent = test78 ;
-          newDivReplyCom.appendChild(newToPost)
+          newToPost.classList.add("miracle");
+          newToPost.textContent = test78;
+          newDivReplyCom.appendChild(newToPost);
           newDivReplyCom.addEventListener("click", () => {
             this.$router.push("Post/" + json[i].id);
           });
 
-          
           // Username
           let newUsername = document.createElement("p");
           newUsername.classList.add("username");

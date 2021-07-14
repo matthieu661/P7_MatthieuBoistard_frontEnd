@@ -90,16 +90,18 @@ export default {
           Authorization: `Bearer ${this.token}`,
         },
       };
-      return fetch(
-        `http://localhost:3000/api/rate/${paramsId}/like`,
-        options
-      ).then((res) => {
-        if (res.status == 200) {
-          return res.json();
-        } else {
-          return res.status(8000);
-        }
-      });
+      return fetch(`http://localhost:3000/api/rate/${paramsId}/like`, options)
+        .then((res) => {
+          if (res.status == 200) {
+            return res.json();
+          } else {
+             res.status(401).json({ error: 'Unauthorized' });
+             return
+          }
+        })
+        .catch(function (error) {
+          console.log("Like connection" + error.message);
+        });
     },
 
     async PushLike() {
@@ -204,12 +206,12 @@ export default {
           let btnDelete = document.getElementById("deletePost");
           btnDelete.addEventListener("click", () => {
             this.$confirm("Voulez-vous supprimer votre Post ?")
-                .then(() => {
-                  this.deleteOnePost();
-                })
-                .catch(function () {
-                  return console.log("cancel delete");
-                });
+              .then(() => {
+                this.deleteOnePost();
+              })
+              .catch(function () {
+                return console.log("cancel delete");
+              });
           });
           this.POWER = true;
         }
@@ -248,7 +250,7 @@ export default {
         // Username
         let newUsername = document.createElement("p");
         let usernameContent = json.post.userName;
-        newUsername.classList.add("pUser")
+        newUsername.classList.add("pUser");
         newUsername.textContent = usernameContent;
         newInfoBox.appendChild(newUsername);
       });

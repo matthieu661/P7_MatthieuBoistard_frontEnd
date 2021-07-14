@@ -11,10 +11,11 @@
         <a href="#Database">DataBase</a>
         <a href="#Backend">Backend</a>
         <a href="#Frontend">FrontEnd</a>
+        <a href="#Correction">Correction avant soutenance</a>
       </div>
       <div id="contentDemo">
         <div id="Prérequis">
-          <h3>Prérequis du projet</h3>
+          <h3 class="dem">Prérequis du projet</h3>
           <h4>
             1 : utiliser une base de données relationnelles qui se manipule avec
             le langage SQL pour le stockage de données <i class="fas fa-check-square"></i>
@@ -56,7 +57,7 @@
 
 
         <div id="Database">
-          <h3> La base de donnée </h3>
+          <h3 class="dem"> La base de donnée </h3>
           <p>Pour ce projet, nous gerons la base de donnée avec le language SQL pour transmettre les requêtes, et Mysql pour la gerer</p>
           <h4> structure de la DB </h4>
           
@@ -75,7 +76,7 @@
         </div> 
 
         <div id="Backend">
-          <h3>Backend</h3> 
+          <h3 class="dem">Backend</h3> 
           <p class="repsonses">Nous utilisons Node avec Expresse, Multer, accompagné des packages de jwt, bcrypt, cors, ratelimite, helmet pour assurer le minimum de securité dans ce prototype et Sequelize comme ORM (bdd) </p>
           <p>Express modul nous donne des méthodes fiable pour les requétes Http, pour le routing, il est performant et leger.</p>
           <p>jwt va nous fournir une securité pour l'identification sur nos routes, en generant et signant un Token qui sera verifié à chaque requetes.</p>
@@ -152,7 +153,7 @@
         </div>
 
         <div id="Frontend">
-          <h3>Frontend</h3>
+          <h3 class="dem">Frontend</h3>
           <p>
             Nous utilisons Vue.js dans ces fonctions les plus basiques, avec les modules "vue-router", "vue-simple-alert",  Javascript pour la logique de code et création des élements dans le DOM, html5 pour la structure, avec les cdn de fontAwesome pour les icones et google.font pour les polices.  
           </p>
@@ -202,21 +203,29 @@
             <img class="imgDemo" title=" affiche les informations relatives à l'utilisateur,  permet leurs modifications, la suppression du profil, et un exemple de fonction qui peuvent etre implantées, la suppressions de toutes les publications de l'utilisateur. 1 composant. " src="../../public/Presentation/Capture18.jpg"/>
             <img class="imgDemo" title="" src="../../public/Presentation/Capture19.jpg"/>
            </div>
-
-
-
-
-
         </div>
 
-        <h3> <a href="#Retour"> <span class="color">Démonstration ----></span></a> </h3>
+        <div id="Correction">
+        <h3 class="dem">Corrections apporté entre le dépot du projet et la soutenance</h3>
+        <h4>FRONTEND</h4>
+        <p> Ajout de d'une page de présentation " guide " sur la vue About </p>
+        <p> Modification de la vue "modierCommentaire" le mot : "POST" en changer en "COMMENTAIRE" 
+        <p> Ajout des .catch sur certain .then ( travaillant avec postman j'oublie souvent de les mettres)</p>
+        <p> Modification de la fonction modifyUser ( facultative ); maintenant lorsque que le username est modifié, le username sur le post correspond. </p>
+
+        <h4>BACKEND</h4>
+        <p> ctrl maj f </p>
+        <p> ajout pour d'une ligne dans la fonction ModifyPost, permettant l'update de "username" </p>
+
+        </div>
+        <h3 class="dem"> <a href="#Retour"> <span class="color">Démonstration ----></span></a> </h3>
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss">
-H3{
+H3.dem{
   margin: 70px;
   background-color: rgb(24,107,99);
   color : white;

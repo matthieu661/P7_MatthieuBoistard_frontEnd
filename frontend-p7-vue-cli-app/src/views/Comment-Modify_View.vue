@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>vous pouvez modifier votre Post</h1>
+    <h1>vous pouvez modifier votre Commentaire</h1>
     <modifyCommentComponent/>
   </div>
 </template>

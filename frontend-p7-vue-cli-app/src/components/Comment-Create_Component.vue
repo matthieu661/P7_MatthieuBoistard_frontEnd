@@ -81,17 +81,21 @@ export default {
       fetch(
         `http://localhost:3000/api/comment/createComment/${paramsId}`,
         options
-      ).then((res) => {
-        if (res.status == 201) {
-          res.json().then(() => {
-            this.$router.push({ name: "OnePost" }); //En cas de succès, on est renvoyé sur la page des posts
-          });
-        } else {
-          res.json().then((json) => {
-            this.message = json.error; //Affichage du message d'erreur du serveur
-          });
-        }
-      });
+      )
+        .then((res) => {
+          if (res.status == 201) {
+            res.json().then(() => {
+              this.$router.push({ name: "OnePost" }); //En cas de succès, on est renvoyé sur la page des posts
+            });
+          } else {
+            res.json().then((json) => {
+              this.message = json.error; //Affichage du message d'erreur du serveur
+            });
+          }
+        }) // correction avant soutenance
+        .catch(function (error) {
+          console.log("create comment" + error.message);
+        });
     },
   },
 };

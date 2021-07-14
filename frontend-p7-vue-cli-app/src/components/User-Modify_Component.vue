@@ -36,6 +36,7 @@ export default {
     return {
       id: "",
       usernaMe: "",
+      posts: [],
     };
   },
   mounted() {
@@ -61,10 +62,94 @@ export default {
       }
     },
 
+    UpdateUserPost(x) {
+      console.log("DANS LE UP POST");
+      console.log(x);
+      let userName = document.getElementById("username").value;
+      console.log(userName);
+      let data = new FormData();
+
+      data.append("userName", userName);
+      console.log(data);
+      const options = {
+        method: "PUT",
+        headers: {
+          Accept: "application/json, text/plain, */*",
+
+          Authorization: `Bearer ${this.token}`,
+        },
+        body: data,
+      };
+
+      const paramsIdPost = x;
+      fetch(
+        `http://localhost:3000/api/posts/modifyPost/${paramsIdPost}`,
+        options
+      )
+        .then((res) => {
+          if (res.status == 201) {
+            res.json().then(() => {
+              console.log("Username modifié"); //En cas de succès, on est renvoyé sur la page des posts
+            });
+          } else {
+            res.json().then((json) => {
+              this.message = json.error; //Affichage du message d'erreur du serveur
+            });
+          }
+        })
+        .catch(function (error) {
+          console.log("modifyPost" + error.message);
+        });
+    },
+
+    getOneUser() {
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          Authorization: `Bearer ${this.token}`,
+        },
+      };
+      const myId = this.id;
+
+      return fetch(
+        `http://localhost:3000/api/users/getOneUser/${myId}`,
+        options
+      )
+        .then((res) => {
+          if (res.status == 200) {
+            return res.json();
+          } else {
+            res.status(401).json({ error: "Unauthorized" });
+          }
+        })
+        .catch(function (error) {
+          console.log("getOne User " + error.message);
+        });
+    },
+
     UpdateUser(event) {
       event.preventDefault();
       let userName = document.getElementById("username").value;
       let BiO = document.getElementById("Bio").value;
+
+      if (userName != "") {
+        this.getOneUser().then((json) => {
+          console.log(json);
+          if (json.Posts != "") {
+            for (let i = 0; i < json.Posts.length; i++) {
+              this.posts += json.Posts[i].id + ".";
+            }
+            this.posts = this.posts.split(".");
+            this.posts.pop();
+            for (let i = 0; i < this.posts.length; i++) {
+              let int = parseInt(this.posts[i]);
+              this.UpdateUserPost(int);
+            }
+          }
+        });
+      }
+
       const User = {
         username: userName,
         BIO: BiO,
@@ -86,8 +171,8 @@ export default {
         },
         body: formData,
       };
-      fetch(`http://localhost:3000/api/users/modifyUser/`, options).then(
-        (res) => {
+      fetch(`http://localhost:3000/api/users/modifyUser/`, options)
+        .then((res) => {
           if (res.status == 201) {
             res.json().then(() => {
               this.$router.push({ name: "GetUserAcccount" });
@@ -99,8 +184,10 @@ export default {
               this.message = json.error; //Affichage du message d'erreur du serveur
             });
           }
-        }
-      );
+        })
+        .catch(function (error) {
+          console.log(" modifyUser " + error.message);
+        });
     },
   },
 };

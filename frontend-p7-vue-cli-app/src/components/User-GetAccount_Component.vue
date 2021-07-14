@@ -11,8 +11,15 @@
       <button id="deleteUser" type="button" class="btn">
         <i class="fas fa-trash"></i> supprimer votre Profile
       </button>
-      <button v-show="this.SwitchUser" id="testDeletePosts" type="button" class="btn btnTEST">
-        <i class="fas fa-trash-alt"> TEST : supprimer toutes vos Publications</i>
+      <button
+        v-show="this.SwitchUser"
+        id="testDeletePosts"
+        type="button"
+        class="btn btnTEST"
+      >
+        <i class="fas fa-trash-alt">
+          TEST : supprimer toutes vos Publications</i
+        >
       </button>
     </div>
     <router-link to="/wall" id="return" class="btn bntWall"
@@ -32,7 +39,7 @@ export default {
       username: "",
       msg: "",
       posts: [],
-      SwitchUser: false
+      SwitchUser: false,
     };
   },
   mounted() {
@@ -49,27 +56,28 @@ export default {
         this.$router.push("/account/:id/modifyUser");
       });
       // init bnt2
-      if(this.posts.length != null){
-      let BtnTest = document.getElementById("testDeletePosts")
-     BtnTest.addEventListener("click", () => {
-        this.$confirm("Voulez-vous supprimer vos publications ?")
-          .then(() => {
-            for (let i = 0; i < this.posts.length; i++) {
-              let int = parseInt(this.posts[i]);
-              this.deleteOnePost(int);
-              window.location.reload();
-            }
-          })
-          .catch(function () {
-            return console.log("cancel delete");
-          });
-      });}
+      if (this.posts.length != null) {
+        let BtnTest = document.getElementById("testDeletePosts");
+        BtnTest.addEventListener("click", () => {
+          this.$confirm("Voulez-vous supprimer vos publications ?")
+            .then(() => {
+              for (let i = 0; i < this.posts.length; i++) {
+                let int = parseInt(this.posts[i]);
+                this.deleteOnePost(int);
+                window.location.reload();
+              }
+            })
+            .catch(function () {
+              return console.log("cancel delete");
+            });
+        });
+      }
 
       let btnDelete = document.getElementById("deleteUser");
       btnDelete.addEventListener("click", () => {
         this.$confirm("Voulez-vous supprimer votre Profil ?")
           .then(() => {
-            this.deleteOneUser()
+            this.deleteOneUser();
           })
           .catch(function () {
             return console.log("cancel delete");
@@ -91,8 +99,8 @@ export default {
           Authorization: `Bearer ${this.token}`,
         },
       };
-      return fetch("http://localhost:3000/api/users/deleteUser/", options).then(
-        (res) => {
+      return fetch("http://localhost:3000/api/users/deleteUser/", options)
+        .then((res) => {
           if (res.status == 200) {
             this.$router.push({ name: "Home" });
             localStorage.clear();
@@ -100,8 +108,10 @@ export default {
           } else {
             return res.status(8000);
           }
-        }
-      );
+        })
+        .catch(function (error) {
+          console.log("deleteUser" + error.message);
+        });
     },
 
     deleteOnePost(x) {
@@ -115,16 +125,18 @@ export default {
       };
       const paramsId = x;
 
-      fetch(
-        `http://localhost:3000/api/posts/deletePost/${paramsId}`,
-        options
-      ).then((res) => {
-        if (res.status == 200) {
-          return console.log( `post n° ${paramsId} supprimé`)
-        } else {
-          res.status(8000);
-        }
-      });
+      fetch(`http://localhost:3000/api/posts/deletePost/${paramsId}`, options)
+        .then((res) => {
+          if (res.status == 200) {
+            return console.log(`post n° ${paramsId} supprimé`);
+          } else {
+             res.status(401).json({ error: 'Unauthorized' });
+             return
+          }
+        })
+        .catch(function (error) {
+          console.log("deleteAllpost " + error.message);
+        });
     },
 
     getOneUser() {
@@ -140,33 +152,35 @@ export default {
       return fetch(
         `http://localhost:3000/api/users/getOneUser/${myId}`,
         options
-      ).then((res) => {
-        if (res.status == 200) {
-          return res.json();
-        } else {
-          return res.status(8000);
-        }
-      });
+      )
+        .then((res) => {
+          if (res.status == 200) {
+            return res.json();
+          } else {
+             res.status(401).json({ error: 'Unauthorized' });
+          }
+        })
+        .catch(function (error) {
+          console.log("getOne User " + error.message);
+        });
     },
 
     returnInfoUser() {
       this.getOneUser().then((json) => {
+        if (json.Posts != "") {
+          this.SwitchUser = true;
+        } else {
+          this.SwitchUser = false;
+        }
 
         if (json.Posts != "") {
-      this.SwitchUser = true;
-    } else {
-      this.SwitchUser = false;}
-
-
-        if (json.Posts != "" ) {
           for (let i = 0; i < json.Posts.length; i++) {
             this.posts += json.Posts[i].id + ".";
           }
           this.posts = this.posts.split(".");
           this.posts.pop();
-
         }
-        
+
         // la requete passe
         this.msg = json.username;
 

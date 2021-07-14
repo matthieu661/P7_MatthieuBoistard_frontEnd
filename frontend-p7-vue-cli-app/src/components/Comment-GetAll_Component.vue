@@ -56,13 +56,18 @@ export default {
       return fetch(
         `http://localhost:3000/api/posts/getOnePost/${paramsId}`,
         options
-      ).then((res) => {
-        if (res.status == 200) {
-          return res.json();
-        } else {
-          return res.status(8000);
-        }
-      });
+      )
+        .then((res) => {
+          if (res.status == 200) {
+            return res.json();
+          } else {
+            res.status(401).json({ error: "Unauthorized" });
+            return;
+          }
+        })
+        .catch(function (error) {
+          console.log("getAll comment" + error.message);
+        });
     },
 
     async returnAllComment() {
@@ -168,14 +173,21 @@ export default {
       return fetch(
         `http://localhost:3000/api/comment/deleteComment/${paramsId}`,
         options
-      ).then((res) => {
-        if (res.status == 200) {
-          this.$alert("Commentaire supprimé");
-          this.$router.go();
-        } else {
-          res.status(8000);
-        }
-      });
+      )
+        .then((res) => {
+          if (res.status == 200) {
+            this.$alert("Commentaire supprimé");
+            this.$router.go();
+          } else {
+            res.status(401).json({ error: "Unauthorized" });
+            return;
+          }
+        })
+        .catch(function (error) {
+          console.log(
+            "Il y a eu un problème avec l'opération fetch: " + error.message
+          );
+        });
     },
   },
 };
